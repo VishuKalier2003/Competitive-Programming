@@ -1,0 +1,696 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "ComputerGame",
+      "request": "launch",
+      "mainClass": "ComputerGame",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "PalinColoring",
+      "request": "launch",
+      "mainClass": "PalinColoring",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "MeximumArray",
+      "request": "launch",
+      "mainClass": "MeximumArray",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "ConstructByLayers",
+      "request": "launch",
+      "mainClass": "ConstructByLayers",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "MedianSplit",
+      "request": "launch",
+      "mainClass": "MedianSplit",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Typewriter",
+      "request": "launch",
+      "mainClass": "Typewriter",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Three",
+      "request": "launch",
+      "mainClass": "Three",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Unstable",
+      "request": "launch",
+      "mainClass": "Unstable",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Constanze",
+      "request": "launch",
+      "mainClass": "Constanze",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "PoloPenguin",
+      "request": "launch",
+      "mainClass": "PoloPenguin",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "GroupIncrease",
+      "request": "launch",
+      "mainClass": "GroupIncrease",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Mashmokh",
+      "request": "launch",
+      "mainClass": "Mashmokh",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Basketball",
+      "request": "launch",
+      "mainClass": "Basketball",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Vacation",
+      "request": "launch",
+      "mainClass": "Vacation",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "LengthDigits",
+      "request": "launch",
+      "mainClass": "LengthDigits",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "DifferentOnes",
+      "request": "launch",
+      "mainClass": "DifferentOnes",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "AccurateLee",
+      "request": "launch",
+      "mainClass": "AccurateLee",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "WeirdSum",
+      "request": "launch",
+      "mainClass": "WeirdSum",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "JourneyPlan",
+      "request": "launch",
+      "mainClass": "JourneyPlan",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Berland",
+      "request": "launch",
+      "mainClass": "Berland",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "RookDefense",
+      "request": "launch",
+      "mainClass": "RookDefense",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Presents",
+      "request": "launch",
+      "mainClass": "Presents",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Tshirt",
+      "request": "launch",
+      "mainClass": "Tshirt",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Berpizza",
+      "request": "launch",
+      "mainClass": "Berpizza",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "KDominant",
+      "request": "launch",
+      "mainClass": "KDominant",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Freebies",
+      "request": "launch",
+      "mainClass": "Freebies",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "MaxMedian",
+      "request": "launch",
+      "mainClass": "MaxMedian",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "TwoColors",
+      "request": "launch",
+      "mainClass": "TwoColors",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "StrongVertices",
+      "request": "launch",
+      "mainClass": "StrongVertices",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "TreeJumps",
+      "request": "launch",
+      "mainClass": "TreeJumps",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "kTree",
+      "request": "launch",
+      "mainClass": "kTree",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Spiders",
+      "request": "launch",
+      "mainClass": "Spiders",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "ColorTree",
+      "request": "launch",
+      "mainClass": "ColorTree",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Matryoska",
+      "request": "launch",
+      "mainClass": "Matryoska",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "StoneAge",
+      "request": "launch",
+      "mainClass": "StoneAge",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "MegaCity",
+      "request": "launch",
+      "mainClass": "MegaCity",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Eugeny",
+      "request": "launch",
+      "mainClass": "Eugeny",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Scuza",
+      "request": "launch",
+      "mainClass": "Scuza",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "BattleCows",
+      "request": "launch",
+      "mainClass": "BattleCows",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Incinerate",
+      "request": "launch",
+      "mainClass": "Incinerate",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Brightness",
+      "request": "launch",
+      "mainClass": "Brightness",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "CountingPairs",
+      "request": "launch",
+      "mainClass": "CountingPairs",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "StorageKeys",
+      "request": "launch",
+      "mainClass": "StorageKeys",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "ServalMEX",
+      "request": "launch",
+      "mainClass": "ServalMEX",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "RudolfCompetition",
+      "request": "launch",
+      "mainClass": "RudolfCompetition",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "MoveTurn",
+      "request": "launch",
+      "mainClass": "MoveTurn",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Shaslisk",
+      "request": "launch",
+      "mainClass": "Shaslisk",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "MaxSplitting",
+      "request": "launch",
+      "mainClass": "MaxSplitting",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Card",
+      "request": "launch",
+      "mainClass": "Card",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "BinaryPath",
+      "request": "launch",
+      "mainClass": "BinaryPath",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "BoringDayRecursive",
+      "request": "launch",
+      "mainClass": "BoringDayRecursive",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "BoringDay",
+      "request": "launch",
+      "mainClass": "BoringDay",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Jellyfish",
+      "request": "launch",
+      "mainClass": "Jellyfish",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "AbsoluteZero",
+      "request": "launch",
+      "mainClass": "AbsoluteZero",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "BasilGarden",
+      "request": "launch",
+      "mainClass": "BasilGarden",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "SwapAndPair",
+      "request": "launch",
+      "mainClass": "SwapAndPair",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "KevinStrings",
+      "request": "launch",
+      "mainClass": "KevinStrings",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "VadimFillingTable",
+      "request": "launch",
+      "mainClass": "VadimFillingTable",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "PashaAndPrimeNumbers",
+      "request": "launch",
+      "mainClass": "PashaAndPrimeNumbers",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "MinimumCostRemoval",
+      "request": "launch",
+      "mainClass": "MinimumCostRemoval",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "LAS",
+      "request": "launch",
+      "mainClass": "DP.Topics.LAS",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "MakeItGood",
+      "request": "launch",
+      "mainClass": "MakeItGood",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "ASS",
+      "request": "launch",
+      "mainClass": "DP.Topics.ASS",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "LCS",
+      "request": "launch",
+      "mainClass": "DP.Topics.LCS",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "LIS",
+      "request": "launch",
+      "mainClass": "DP.Topics.LIS",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Pokemon",
+      "request": "launch",
+      "mainClass": "Pokemon",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "BlockAdventure",
+      "request": "launch",
+      "mainClass": "BlockAdventure",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Contest",
+      "request": "launch",
+      "mainClass": "Contest",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Cutting",
+      "request": "launch",
+      "mainClass": "Cutting",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "BroingDay",
+      "request": "launch",
+      "mainClass": "BroingDay",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Uninteresting",
+      "request": "launch",
+      "mainClass": "Uninteresting",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "GCDsum",
+      "request": "launch",
+      "mainClass": "GCDsum",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "CounterExample",
+      "request": "launch",
+      "mainClass": "CounterExample",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Divisor",
+      "request": "launch",
+      "mainClass": "Divisor",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "MEXRepitition",
+      "request": "launch",
+      "mainClass": "MEXRepitition",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "CoprimeSplit",
+      "request": "launch",
+      "mainClass": "CoprimeSplit",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "JulyaCalendar",
+      "request": "launch",
+      "mainClass": "JulyaCalendar",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Subsequence",
+      "request": "launch",
+      "mainClass": "Subsequence",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "LiHuaPattern",
+      "request": "launch",
+      "mainClass": "LiHuaPattern",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "PoweringHero",
+      "request": "launch",
+      "mainClass": "PoweringHero",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Inversions",
+      "request": "launch",
+      "mainClass": "Inversions",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Summation",
+      "request": "launch",
+      "mainClass": "Summation",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "ChipRibbon",
+      "request": "launch",
+      "mainClass": "ChipRibbon",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "TMT",
+      "request": "launch",
+      "mainClass": "TMT",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "ZebraValue",
+      "request": "launch",
+      "mainClass": "ZebraValue",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "SuitableStrings",
+      "request": "launch",
+      "mainClass": "SuitableStrings",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "SuitablePositions",
+      "request": "launch",
+      "mainClass": "SuitablePositions",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "FixPermutation",
+      "request": "launch",
+      "mainClass": "FixPermutation",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "LargeArray",
+      "request": "launch",
+      "mainClass": "LargeArray",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Lamps",
+      "request": "launch",
+      "mainClass": "Lamps",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "Repainting",
+      "request": "launch",
+      "mainClass": "Repainting",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "TwoTeams",
+      "request": "launch",
+      "mainClass": "TwoTeams",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "StorageRoom",
+      "request": "launch",
+      "mainClass": "StorageRoom",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "CreatingKeys",
+      "request": "launch",
+      "mainClass": "CreatingKeys",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "type": "java",
+      "name": "XORTriangle",
+      "request": "launch",
+      "mainClass": "XORTriangle",
+      "projectName": "codeforces_58479e4e"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "d:/codeforces/Constructive/Practice",
+      "program": "d:/codeforces/Constructive/Practice/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}

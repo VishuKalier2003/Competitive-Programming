@@ -1,0 +1,675 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "P9SubtreeQueries",
+      "request": "launch",
+      "mainClass": "P9SubtreeQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1521B",
+      "request": "launch",
+      "mainClass": "Problem1521B",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1401C",
+      "request": "launch",
+      "mainClass": "Problem1401C",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1352D",
+      "request": "launch",
+      "mainClass": "Problem1352D",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem478B",
+      "request": "launch",
+      "mainClass": "Problem478B",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "FlippingGame",
+      "request": "launch",
+      "mainClass": "FlippingGame",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "PeculiarTree",
+      "request": "launch",
+      "mainClass": "PeculiarTree",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "NotAssigning",
+      "request": "launch",
+      "mainClass": "NotAssigning",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CopilCopac",
+      "request": "launch",
+      "mainClass": "CopilCopac",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "KuroWalk",
+      "request": "launch",
+      "mainClass": "KuroWalk",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Cowntagion",
+      "request": "launch",
+      "mainClass": "Cowntagion",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "QuesE",
+      "request": "launch",
+      "mainClass": "QuesE",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "QuesD",
+      "request": "launch",
+      "mainClass": "QuesD",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "QuesC",
+      "request": "launch",
+      "mainClass": "QuesC",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "QuesB",
+      "request": "launch",
+      "mainClass": "QuesB",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "QuesA",
+      "request": "launch",
+      "mainClass": "QuesA",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "MilkVisits",
+      "request": "launch",
+      "mainClass": "MilkVisits",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Useful",
+      "request": "launch",
+      "mainClass": "Useful",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Queen",
+      "request": "launch",
+      "mainClass": "Queen",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "DistanceInTree",
+      "request": "launch",
+      "mainClass": "DistanceInTree",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "BarnPaint",
+      "request": "launch",
+      "mainClass": "USACO.Trees.BarnPaint",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Independent",
+      "request": "launch",
+      "mainClass": "USACO.Trees.Independent",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem5TreeDistanceII",
+      "request": "launch",
+      "mainClass": "Problem5TreeDistanceII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem4TreeDistanceI",
+      "request": "launch",
+      "mainClass": "Problem4TreeDistanceI",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem2TreeMatching",
+      "request": "launch",
+      "mainClass": "Problem2TreeMatching",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem3TreeDiameter",
+      "request": "launch",
+      "mainClass": "Problem3TreeDiameter",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1Subordinates",
+      "request": "launch",
+      "mainClass": "Problem1Subordinates",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1_Subordinates",
+      "request": "launch",
+      "mainClass": "Problem1_Subordinates",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "PrefixSumQueries",
+      "request": "launch",
+      "mainClass": "PrefixSumQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "SalaryQueries",
+      "request": "launch",
+      "mainClass": "SalaryQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "HotelQueries",
+      "request": "launch",
+      "mainClass": "HotelQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ForestQueries",
+      "request": "launch",
+      "mainClass": "ForestQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "RangeUpdates",
+      "request": "launch",
+      "mainClass": "RangeUpdates",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "RangUpdates",
+      "request": "launch",
+      "mainClass": "RangUpdates",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "StaticXor",
+      "request": "launch",
+      "mainClass": "StaticXor",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "DynamicMin",
+      "request": "launch",
+      "mainClass": "DynamicMin",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "DynamicRangeSum",
+      "request": "launch",
+      "mainClass": "DynamicRangeSum",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "SparseTable",
+      "request": "launch",
+      "mainClass": "SegmentTree.SparseTable",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "StaticMin",
+      "request": "launch",
+      "mainClass": "StaticMin",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "StaticSum",
+      "request": "launch",
+      "mainClass": "StaticSum",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "FenwickTree",
+      "request": "launch",
+      "mainClass": "SegmentTree.FenwickTree",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "HerdingCows",
+      "request": "launch",
+      "mainClass": "HerdingCows",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "HerdingCows",
+      "request": "launch",
+      "mainClass": "USACO.AdHoc.HerdingCows",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1363A",
+      "request": "launch",
+      "mainClass": "Problem1363A",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1520D",
+      "request": "launch",
+      "mainClass": "Problem1520D",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1352C",
+      "request": "launch",
+      "mainClass": "Problem1352C",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1355A",
+      "request": "launch",
+      "mainClass": "Problem1355A",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1352B",
+      "request": "launch",
+      "mainClass": "Problem1352B",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem514A",
+      "request": "launch",
+      "mainClass": "Problem514A",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem466A",
+      "request": "launch",
+      "mainClass": "Problem466A",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem893C",
+      "request": "launch",
+      "mainClass": "Problem893C",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1364B",
+      "request": "launch",
+      "mainClass": "Problem1364B",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1669H",
+      "request": "launch",
+      "mainClass": "Problem1669H",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1367C",
+      "request": "launch",
+      "mainClass": "Problem1367C",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Problem1372B",
+      "request": "launch",
+      "mainClass": "Problem1372B",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProblemE",
+      "request": "launch",
+      "mainClass": "ProblemE",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProblemC",
+      "request": "launch",
+      "mainClass": "ProblemC",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProblemB",
+      "request": "launch",
+      "mainClass": "ProblemB",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "test",
+      "request": "launch",
+      "mainClass": "test",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "MoneySums",
+      "request": "launch",
+      "mainClass": "MoneySums",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "RectangleCutting",
+      "request": "launch",
+      "mainClass": "RectangleCutting",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "EditDistance",
+      "request": "launch",
+      "mainClass": "EditDistance",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "MortalCombat",
+      "request": "launch",
+      "mainClass": "MortalCombat",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Frog",
+      "request": "launch",
+      "mainClass": "Atcoder.DP.Frog",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "HoofPaperScissor",
+      "request": "launch",
+      "mainClass": "HoofPaperScissor",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "TimeIsMoney",
+      "request": "launch",
+      "mainClass": "USACO.DP.TimeIsMoney",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Concert",
+      "request": "launch",
+      "mainClass": "Concert",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "FerrisWheel",
+      "request": "launch",
+      "mainClass": "FerrisWheel",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Apartments",
+      "request": "launch",
+      "mainClass": "Apartments",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Binomial",
+      "request": "launch",
+      "mainClass": "Binomial",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CoprimePairs",
+      "request": "launch",
+      "mainClass": "CoprimePairs",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "PrimeMultiples",
+      "request": "launch",
+      "mainClass": "PrimeMultiples",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "SumOfDivisor",
+      "request": "launch",
+      "mainClass": "SumOfDivisor",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CommonDivisors",
+      "request": "launch",
+      "mainClass": "CommonDivisors",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CountingDivisors",
+      "request": "launch",
+      "mainClass": "CountingDivisors",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ExponentiationII",
+      "request": "launch",
+      "mainClass": "ExponentiationII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ExponentiationI",
+      "request": "launch",
+      "mainClass": "ExponentiationI",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Josephus",
+      "request": "launch",
+      "mainClass": "Josephus",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Dulic",
+      "request": "launch",
+      "mainClass": "USACO.NumberTheory.Dulic",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "PowerProduct",
+      "request": "launch",
+      "mainClass": "PowerProduct",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ArrayGCD",
+      "request": "launch",
+      "mainClass": "ArrayGCD",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CardGame",
+      "request": "launch",
+      "mainClass": "CardGame",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "MoveToEnd",
+      "request": "launch",
+      "mainClass": "MoveToEnd",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ThreeDecks",
+      "request": "launch",
+      "mainClass": "codeforces.Contests.DivII.Educational178.ThreeDecks",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "DivGame",
+      "request": "launch",
+      "mainClass": "DivGame",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CountingTower",
+      "request": "launch",
+      "mainClass": "CountingTower",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "BookShop",
+      "request": "launch",
+      "mainClass": "BookShop",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "GridPaths",
+      "request": "launch",
+      "mainClass": "GridPaths",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "RemoveDigits",
+      "request": "launch",
+      "mainClass": "RemoveDigits",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CoinCombinationII",
+      "request": "launch",
+      "mainClass": "CoinCombinationII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CoinCombination",
+      "request": "launch",
+      "mainClass": "CoinCombination",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "MinimizeCoins",
+      "request": "launch",
+      "mainClass": "MinimizeCoins",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Dice",
+      "request": "launch",
+      "mainClass": "Dice",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "d:/CompetitveProgramming/CSES/DP",
+      "program": "d:/CompetitveProgramming/CSES/DP/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
