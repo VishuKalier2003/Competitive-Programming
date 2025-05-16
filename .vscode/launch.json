@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "p8DistanceQueries",
+      "request": "launch",
+      "mainClass": "p8DistanceQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P7CompanyQueriesII",
       "request": "launch",
       "mainClass": "P7CompanyQueriesII",
