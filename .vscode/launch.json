@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P7CompanyQueriesII",
+      "request": "launch",
+      "mainClass": "P7CompanyQueriesII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P6CompanyQueriesI",
+      "request": "launch",
+      "mainClass": "P6CompanyQueriesI",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P9SubtreeQueries",
       "request": "launch",
       "mainClass": "P9SubtreeQueries",
