@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P9CountingPaths",
+      "request": "launch",
+      "mainClass": "P9CountingPaths",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "p8DistanceQueries",
       "request": "launch",
       "mainClass": "p8DistanceQueries",
