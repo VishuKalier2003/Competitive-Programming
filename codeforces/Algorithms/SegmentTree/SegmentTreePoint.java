@@ -38,83 +38,102 @@ public class SegmentTreePoint {
     }
 
     public static StringBuilder solve(final int n, final int nums[], List<int[]> queries) {
-        SegmentTree segmentTree = new SegmentTree(0, n);
+        SegmentTree segmentTree = new SegmentTree(nums);
         final StringBuilder result = new StringBuilder();
-        segmentTree.root = segmentTree.buildTree(0, n-1, nums);
         for(int[] query : queries) {
             if(query[0] == 1)
-                segmentTree.updateQuery(segmentTree.root, query[1]-1, query[2]);
+                segmentTree.pointUpdateQuery(query[1]-1, query[2]);
             else
-                result.append(segmentTree.rangeMinQuery(segmentTree.root, query[1]-1, query[2]-1)).append("\n");
+                result.append(segmentTree.rangeSumQuery(query[1]-1, query[2]-1)).append("\n");
         }
         return result;
     }
 
-    public static class SegmentTree {
+    public static final class SegmentTree {
+        public int tree[], lazy[];
+        public int N;
 
-        public static class Node {
-            public Node left, right;
-            public int rangeLeft, rangeRight;
-            public int min;
+        public SegmentTree(int nums[]) {
+            final int n = nums.length;
+            this.N = 1;
+            while(N < n)
+                N <<= 1;
+            this.tree = new int[2 * N];
+            this.lazy = new int[2 * N];
+            buildTree(nums);
+        }
 
-            public Node(int rangeLeft, int rangeRight) {
-                this.rangeLeft = rangeLeft; this.rangeRight = rangeRight;
-                this.min = Integer.MAX_VALUE;
+        public void buildTree(int nums[]) {
+            System.arraycopy(nums, 0, this.tree, this.N, nums.length);      // Note: Start position of copying in tree is N
+            for(int i = this.N - 1; i >= 1; i--)
+                this.tree[i] = this.tree[i << 1]        // Info: Left child is always a power of 2
+                + this.tree[i << 1 | 1];                // Info: Right child is always a power of 2 + 1 (added at 0 index)
+        }
+
+        private void push(int index, int left, int right) {
+            if(this.lazy[index] != 0) {
+                // We need to push the entire segment value to tree node, and since segment size is [l,r) and contains the same lazy values
+                this.tree[index] += (right - left + 1) * this.lazy[index];
+                if(left != right) {
+                    this.lazy[index << 1] += this.lazy[index];
+                    this.lazy[index << 1 | 1] += this.lazy[index];
+                }
+                this.lazy[index] = 0;
             }
-
-            public Node(int rangeLeft, int rangeRight, int value) {
-                this.rangeLeft = rangeLeft; this.rangeRight = rangeRight;
-                this.min = value;
-            }
         }
 
-        public Node root;
-        public int start, end;
-
-        public SegmentTree(int start, int end) {
-            this.start = start; this.end = end;
-            this.root = new Node(start, end);
+        public void pointUpdateQuery(int point, int value) {        // Note: Point updates in O(log n)
+            pointUpdate(1, 0, this.N-1, point, value);
         }
 
-        public Node buildTree(int rangeLeft, int rangeRight, int nums[]) {  // Imp- build tree from array using only ranges
-            if(rangeLeft == rangeRight)
-                return new Node(rangeLeft, rangeRight, nums[rangeLeft]);
-            int mid = rangeLeft + ((rangeRight - rangeLeft) >> 1);
-            Node leftChild = buildTree(rangeLeft, mid, nums);
-            Node rightChild = buildTree(mid+1, rangeRight, nums);
-            Node node = new Node(rangeLeft, rangeRight);
-            node.left = leftChild;
-            node.right = rightChild;
-            node.min = Math.min(leftChild.min, rightChild.min);
-            return node;
-        }
-
-        public void updateQuery(Node node, int index, int value) {      // Only for point update
-            if (node.rangeRight == node.rangeLeft) {
-                node.min = value;
+        public void pointUpdate(int index, int left, int right, int point, int value) {
+            push(index, left, right);       // Hack: Always lazy propagate first
+            if(left == right) {
+                this.tree[index] += value;
                 return;
             }
-            int mid = node.rangeLeft + ((node.rangeRight - node.rangeLeft) >> 1);
-            if(index <= mid)
-                updateQuery(node.left, index, value);
+            int mid = (left + right) >>> 1;
+            if(point <= mid)
+                pointUpdate(index << 1, left, mid, point, value);
             else
-                updateQuery(node.right, index, value);
-            node.min = Math.min(getMin(node.left), getMin(node.right));
-            return;
+                pointUpdate(index << 1 | 1, mid+1, right, point, value);
+            this.tree[index] = this.tree[index << 1] + this.tree[index << 1 | 1];
         }
 
-        public int rangeMinQuery(Node node, int queryLeft, int queryRight) {
-            if(node == null || queryLeft > node.rangeRight || queryRight < node.rangeLeft)
-                return Integer.MAX_VALUE;
-            if(queryLeft <= node.rangeLeft && queryRight >= node.rangeRight)
-                return node.min;
-            int leftMin = rangeMinQuery(node.left, queryLeft, queryRight);
-            int rightMin = rangeMinQuery(node.right, queryLeft, queryRight);
-            return Math.min(leftMin, rightMin);
+        public void rangeUpdateQuery(int queryLeft, int queryRight, int value) {
+            updateQuery(1, 0, this.N-1, queryLeft, queryRight, value);
         }
 
-        public int getMin(Node node) {
-            return node == null ? Integer.MAX_VALUE : node.min;
+        public void updateQuery(int index, int left, int right, int ql, int qr, int value) {
+            push(index, left, right);           // Hack: Always lazy propagate first
+            if(ql > right || qr < left)
+                return;
+            if(ql <= left && qr >= right) {
+                this.lazy[index] += value;      // Hack: Always push into lazy, when complete overlap found in range update query
+                push(index, left, right);
+                return;
+            }
+            int mid = (left + right) >>> 1;
+            updateQuery(index << 1, left, mid, ql, qr, value);
+            updateQuery(index << 1 | 1, mid+1, right, ql, qr, value);
+            this.tree[index] = this.tree[index << 1] + this.tree[index << 1 | 1];
+        }
+
+        public int rangeSumQuery(int ql, int qr) {
+            return sumQuery(1, 0, this.N-1, ql, qr);
+        }
+
+        public int sumQuery(int index, int left, int right, int ql, int qr) {
+            push(index, left, right);       // Hack: Always lazy propagate first
+            if(ql > right || qr < left)     // Info: No overlap
+                return 0;
+            if(ql <= left && qr >= right)   // Info: Complete Overlap
+                return this.tree[index];
+            int mid = (left + right) >>> 1;
+            // Info: Partial Overlap
+            int leftSum = sumQuery(index << 1, left, mid, ql, qr);
+            int rightSum = sumQuery(index << 1 | 1, mid+1, right, ql, qr);
+            return leftSum + rightSum;
         }
     }
 }
