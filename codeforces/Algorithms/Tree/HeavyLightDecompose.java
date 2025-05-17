@@ -1,5 +1,7 @@
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,24 +47,78 @@ public class HeavyLightDecompose {
                 c = read();
             do {
                 x = x * 10 + (c-'0');
-            } while((c = read()) <= '9' && c <= '0');
+            } while((c = read()) <= '9' && c >= '0');
             return x;
         }
     }
 
     public static List<List<Integer>> tree;
+    public static List<int[]> queries;
 
-    public static void main(String[] args) {
+    public static void main(String args[]) {
+        Thread overflowThread = new Thread(null, () -> {
+            try {
+                callMain(args);
+            } catch(IOException e) {
+                e.getLocalizedMessage(); 
+            }
+        },
+        "HLD-Threading",
+        1 << 26);
+        overflowThread.start();
+        try {
+            overflowThread.join();
+        } catch(InterruptedException iE) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public static void callMain(String[] args) throws IOException {
         FastReader fast = new FastReader();
         tree = new ArrayList<>();
+        queries = new ArrayList<>();
+        final int n = fast.nextInt(), q = fast.nextInt();
+        long initial[] = new long[n+1];
+        for(int i = 1; i <= n; i++)
+            initial[i] = fast.nextInt();
+        for(int i = 0; i <= n; i++)
+            tree.add(new ArrayList<>());
+        for(int i = 1; i <= n-1; i++) {
+            int n1 = fast.nextInt(), n2 = fast.nextInt();
+            tree.get(n1).add(n2);
+            tree.get(n2).add(n1);
+        }
+        for(int i = 0; i < q; i++) {
+            int query = fast.nextInt();
+            if(query == 1)
+                queries.add(new int[]{query, fast.nextInt(), fast.nextInt()});
+            else
+                queries.add(new int[]{query, fast.nextInt()});
+        }
+        solve(n, initial);
+    }
+
+    public static void solve(final int n, final long initial[]) {
+        final StringBuilder output = new StringBuilder();
+        final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
+        HighLevelDecomposition hldTechnique = new HighLevelDecomposition(n, initial);
+        for(int query[] : queries) {
+            if(query[0] == 1)
+                hldTechnique.updateDecomposition(query[1], query[2]);
+            else
+                output.append(hldTechnique.sumDecomposition(1, query[1])).append("\n");
+        }
+        writer.write(output.toString());
+        writer.flush();
     }
 
     public static final class HighLevelDecomposition {
         public int parent[], subtree[], heavyChild[], depth[], pos[], chainHead[];
-        public long baseArray[];
+        public long baseArray[];        // Hack: We always access base array from pos array and not directly, since it is flattened tree
         public int currentPos;
+        public Fenwick fenwick;         // Hack: All fenwick operations also will be applied by accessing the pos index
 
-        public HighLevelDecomposition(final int n) {
+        public HighLevelDecomposition(final int n, final long initial[]) {
             this.parent = new int[n+1];
             this.subtree = new int[n+1];
             this.heavyChild = new int[n+1];
@@ -71,8 +127,13 @@ public class HeavyLightDecompose {
             this.chainHead = new int[n+1];
             this.baseArray = new long[n+1];
             Arrays.fill(this.heavyChild, -1);
-            currentPos = 0;
             dfs(1, 0);
+            // Note: 1 based indexing change reflected in currentPos and decompose
+            currentPos = 1;
+            decompose(1, 1);
+            for(int i = 1; i <= n; i++)
+                this.baseArray[this.pos[i]] = initial[i];
+            fenwick = new Fenwick(this.baseArray);
         }
 
         public int dfs(int root, int parent) {
@@ -82,11 +143,11 @@ public class HeavyLightDecompose {
             for(int child : tree.get(root)) {
                 if(child != parent) {
                     this.depth[child] = this.depth[root] + 1;
-                    int cSize = dfs(child, root);
-                    this.subtree[child] += cSize;
-                    if(cSize > maxSize) {
+                    int childSize = dfs(child, root);
+                    this.subtree[root] += childSize;
+                    if(childSize > maxSize) {
                         this.heavyChild[root] = child;
-                        maxSize = cSize;
+                        maxSize = childSize;
                     }
                 }
             }
@@ -103,94 +164,64 @@ public class HeavyLightDecompose {
                     decompose(child, child);    // We start decompose with head value as child because the chains are disjoint
         }
 
-        public void update(int index, int value) {}
+        public void updateDecomposition(int index, long newValue) {
+            long x = newValue - this.baseArray[this.pos[index]];
+            this.fenwick.pointUpdate(this.pos[index], x);       // Note: Add the updated value (delta)
+            // Info: Update the value in the base array as well
+            this.baseArray[this.pos[index]] = newValue;
+        }
+
+        public long sumDecomposition(int u, int v) {
+            long sum = 0l;
+            while(this.chainHead[u] != this.chainHead[v]) {
+                if(this.depth[this.chainHead[u]] > this.depth[this.chainHead[v]]) {
+                    int temp = u;
+                    u = v;
+                    v = temp;
+                }
+                int headOfChain = this.chainHead[v];
+                sum += this.fenwick.rangeSumQuery(this.pos[headOfChain], this.pos[v]);
+                v = this.parent[headOfChain];
+            }
+            if(depth[u] > depth[v]) {
+                int temp = u;
+                u = v;
+                v = temp;
+            }
+            sum += this.fenwick.rangeSumQuery(this.pos[u], this.pos[v]);
+            return sum;
+        }
     }
 
-    public static final class SegmentTree {
-        public int tree[], lazy[];
-        public int N;
+    public static final class Fenwick {
+        public long tree[];
+        public int size;
 
-        public SegmentTree(int nums[]) {
-            final int n = nums.length;
-            this.N = 1;
-            while(N < n)
-                N <<= 1;
-            this.tree = new int[2 * N];
-            this.lazy = new int[2 * N];
-            buildTree(nums);
+        public Fenwick(long nums[]) {
+            this.size = nums.length-1;
+            this.tree = new long[this.size+1];
+            for(int i = 1; i <= this.size; i++)
+                pointUpdate(i, nums[i]);
         }
 
-        public void buildTree(int nums[]) {
-            System.arraycopy(nums, 0, this.tree, this.N, nums.length);      // Note: Start position of copying in tree is N
-            for(int i = this.N - 1; i >= 1; i--)
-                this.tree[i] = this.tree[i << 1]        // Info: Left child is always a power of 2
-                + this.tree[i << 1 | 1];                // Info: Right child is always a power of 2 + 1 (added at 0 index)
-        }
-
-        private void push(int index, int left, int right) {
-            if(this.lazy[index] != 0) {
-                // We need to push the entire segment value to tree node, and since segment size is [l,r) and contains the same lazy values
-                this.tree[index] += (right - left + 1) * this.lazy[index];
-                if(left != right) {
-                    this.lazy[index << 1] += this.lazy[index];
-                    this.lazy[index << 1 | 1] += this.lazy[index];
-                }
-                this.lazy[index] = 0;
+        public void pointUpdate(int index, long delta) {
+            while(index <= this.size) {
+                this.tree[index] += delta;
+                index += index & -index;
             }
         }
 
-        public void pointUpdateQuery(int point, int value) {        // Note: Point updates in O(log n)
-            pointUpdate(1, 0, this.N-1, point, value);
-        }
-
-        public void pointUpdate(int index, int left, int right, int point, int value) {
-            push(index, left, right);       // Hack: Always lazy propagate first
-            if(left == right) {
-                this.tree[index] += value;
-                return;
+        public long sumQuery(int index) {
+            long sum = 0l;
+            while(index > 0) {
+                sum += this.tree[index];
+                index -= index & -index;
             }
-            int mid = (left + right) >>> 1;
-            if(point <= mid)
-                pointUpdate(index << 1, left, mid, point, value);
-            else
-                pointUpdate(index << 1 | 1, mid+1, right, point, value);
-            this.tree[index] = this.tree[index << 1] + this.tree[index << 1 | 1];
+            return sum;
         }
 
-        public void rangeUpdateQuery(int queryLeft, int queryRight, int value) {
-            updateQuery(1, 0, this.N-1, queryLeft, queryRight, value);
-        }
-
-        public void updateQuery(int index, int left, int right, int ql, int qr, int value) {
-            push(index, left, right);           // Hack: Always lazy propagate first
-            if(ql > right || qr < left)
-                return;
-            if(ql <= left && qr >= right) {
-                this.lazy[index] += value;      // Hack: Always push into lazy, when complete overlap found in range update query
-                push(index, left, right);
-                return;
-            }
-            int mid = (left + right) >>> 1;
-            updateQuery(index << 1, left, mid, ql, qr, value);
-            updateQuery(index << 1 | 1, mid+1, right, ql, qr, value);
-            this.tree[index] = this.tree[index << 1] + this.tree[index << 1 | 1];
-        }
-
-        public int rangeSumQuery(int ql, int qr) {
-            return sumQuery(1, 0, this.N-1, ql, qr);
-        }
-
-        public int sumQuery(int index, int left, int right, int ql, int qr) {
-            push(index, left, right);       // Hack: Always lazy propagate first
-            if(ql > right || qr < left)     // Info: No overlap
-                return 0;
-            if(ql <= left && qr >= right)   // Info: Complete Overlap
-                return this.tree[index];
-            int mid = (left + right) >>> 1;
-            // Info: Partial Overlap
-            int leftSum = sumQuery(index << 1, left, mid, ql, qr);
-            int rightSum = sumQuery(index << 1 | 1, mid+1, right, ql, qr);
-            return leftSum + rightSum;
+        public long rangeSumQuery(int left, int right) {
+            return sumQuery(right) - sumQuery(left - 1);
         }
     }
 }

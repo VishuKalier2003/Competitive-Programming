@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P11PathQueriesI",
+      "request": "launch",
+      "mainClass": "P11PathQueriesI",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "HeavyLightDecompose",
+      "request": "launch",
+      "mainClass": "HeavyLightDecompose",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P9CountingPaths",
       "request": "launch",
       "mainClass": "P9CountingPaths",
