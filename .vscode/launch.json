@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Con1025QuesC",
+      "request": "launch",
+      "mainClass": "Con1025QuesC",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "QuesBDiv1024",
+      "request": "launch",
+      "mainClass": "QuesBDiv1024",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P11PathQueriesI",
       "request": "launch",
       "mainClass": "P11PathQueriesI",
