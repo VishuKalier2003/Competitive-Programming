@@ -58,13 +58,13 @@ public class DynamicRangeSum {
 
         public FenwickTree(int n) {
             this.size = n;
-            this.tree = new long[n+1];       // Imp- Create fenwick tree of size n+1 for 1 based indexing and accomodate size n
+            this.tree = new long[n+1];       // Note: Create fenwick tree of size n+1 for 1 based indexing and accomodate size n
         }
 
         public void updateQuery(int index, long value) {
             while(index <= size) {
                 tree[index] += value;
-                index += lowBit(index);     // shift higher
+                index += lowBit(index);     // Info: shift higher
             }
         }
 
@@ -72,7 +72,7 @@ public class DynamicRangeSum {
             long sum = 0;
             while(index > 0) {
                 sum += tree[index];
-                index -= lowBit(index);     // shift lower
+                index -= lowBit(index);     // Info: shift lower
             }
             return sum;
         }
