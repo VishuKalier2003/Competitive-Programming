@@ -1,7 +1,6 @@
-package Tree;
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 // Imp - T.C. : O(n), S.C. : O(n)
 

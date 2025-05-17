@@ -1,3 +1,4 @@
+// Todo: CSES Problem - Path Queries I (https://cses.fi/problemset/task/1138)
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -106,6 +107,8 @@ public class P11PathQueriesI {
         final StringBuilder output = new StringBuilder();
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
         HighLevelDecomposition hldTechnique = new HighLevelDecomposition(n, initial);
+        System.out.println("HLD base : "+Arrays.toString(hldTechnique.baseArray));
+        System.out.println("HLD Pos array : "+Arrays.toString(hldTechnique.pos));
         for(int query[] : queries) {
             if(query[0] == 1)
                 hldTechnique.updateDecomposition(query[1], query[2]);
