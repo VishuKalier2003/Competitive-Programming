@@ -93,6 +93,7 @@ public class P10SubtreeQueries {
         writer.flush();
     }
 
+    // Hack: Compressing Tree into Array of closed hierarchial subarrays
     public static class EulerTour {
         public long nodeIn[], nodeOut[];
         public long time;

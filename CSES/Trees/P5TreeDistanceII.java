@@ -50,7 +50,7 @@ public class P5TreeDistanceII {
         }
     }
 
-    // reroot: propagate the full‑tree sum from u → v
+    // Hack: Tree Dp: propagate the full‑tree sum from u → v
     static void dfs2(int u, int parent) {
         for (int v : tree.get(u)) {
             if (v == parent) continue;

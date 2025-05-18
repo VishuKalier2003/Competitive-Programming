@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P16FixedLengthII",
+      "request": "launch",
+      "mainClass": "P16FixedLengthII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P15FixedLenghtI",
       "request": "launch",
       "mainClass": "P15FixedLenghtI",
