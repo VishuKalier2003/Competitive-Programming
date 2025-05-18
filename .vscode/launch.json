@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P15FixedLenghtI",
+      "request": "launch",
+      "mainClass": "P15FixedLenghtI",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P14Centroid",
       "request": "launch",
       "mainClass": "P14Centroid",
