@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class P5TreeDistanceII {
+public class Reroute {
     static List<List<Integer>> tree;
     static int[] subtree, dpSum, result;
     static int n;

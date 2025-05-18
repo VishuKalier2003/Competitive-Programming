@@ -35,6 +35,7 @@ public class P12PathQueriesII {
     public static List<int[]> queries;
 
     public static void main(String[] args) {
+        @SuppressWarnings("CallToPrintStackTrace")
         Thread t = new Thread(null, () -> {
             try { callMain(args); }
             catch (IOException e) { e.printStackTrace(); }
@@ -79,7 +80,6 @@ public class P12PathQueriesII {
     }
 
     public static final class HeavyLightDecompose {
-        private final int n;
         private final int LOG = 18;
         private final int[] parent, depth, subtree, heavyChild, pos, chainHead;
         private final int[][] up;
@@ -87,7 +87,6 @@ public class P12PathQueriesII {
         private final SegmentTree segmentTree;
 
         public HeavyLightDecompose(int n, int[] init) {
-            this.n = n;
             parent     = new int[n+1];
             depth      = new int[n+1];
             subtree    = new int[n+1];

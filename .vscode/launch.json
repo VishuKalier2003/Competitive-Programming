@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P14Centroid",
+      "request": "launch",
+      "mainClass": "P14Centroid",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P13Centroid",
+      "request": "launch",
+      "mainClass": "P13Centroid",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P13DistinctColors",
+      "request": "launch",
+      "mainClass": "P13DistinctColors",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P12PathQueriesII",
       "request": "launch",
       "mainClass": "P12PathQueriesII",
