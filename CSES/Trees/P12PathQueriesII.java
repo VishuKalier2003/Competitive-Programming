@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,45 +10,24 @@ public class P12PathQueriesII {
     public static class FastReader {
         private static final byte[] buffer = new byte[1 << 20];
         private int ptr = 0, len = 0;
-
         public int read() throws IOException {
-            if(ptr >= len) {
+            if (ptr >= len) {
                 ptr = 0;
                 len = System.in.read(buffer);
-                if(len <= 0)
-                    return -1;
+                if (len <= 0) return -1;
             }
-            return buffer[ptr++] & 0xff;        // Reading data between 0 to 255 characters
+            return buffer[ptr++] & 0xff;
         }
-
         public int nextInt() throws IOException {
-            int c;
-            int x = 0;
-            while((c = read()) <= ' ')
-                if(c < 0)
-                    return -1;
+            int c, x = 0;
+            while ((c = read()) <= ' ')
+                if (c < 0) return -1;
             boolean neg = c == '-';
-            if(neg)
-                c = read();
+            if (neg) c = read();
             do {
-                x = x * 10 + (c-'0');
-            } while((c = read()) <= '9' && c >= '0');
-            return x;
-        }
-
-        public long nextLong() throws IOException {
-            int c;
-            long x = 0l;
-            while((c = read()) <= ' ')
-                if(c < 0)
-                    return -1;
-            boolean neg = c == '-';
-            if(neg)
-                c = read();
-            do {
-                x = x * 10 + (c-'0');
-            } while((c = read()) <= '9' && c >= '0');
-            return x;
+                x = x * 10 + (c - '0');
+            } while ((c = read()) >= '0' && c <= '9');
+            return neg ? -x : x;
         }
     }
 
@@ -53,164 +35,207 @@ public class P12PathQueriesII {
     public static List<int[]> queries;
 
     public static void main(String[] args) {
-        Thread extendThread = new Thread(null, 
-        ()-> {
-            try {
-                callMain(args);
-            } catch(Exception e) {
-                e.getLocalizedMessage();
-            }
-        },
-        "path-queries-ii",
-        1 << 26);
-        extendThread.start();
-        try {
-            extendThread.join();
-        } catch(InterruptedException iE) {
-            iE.getLocalizedMessage();
-        }
+        Thread t = new Thread(null, () -> {
+            try { callMain(args); }
+            catch (IOException e) { e.printStackTrace(); }
+        }, "path-queries-ii", 1<<26);
+        t.start();
+        try { t.join(); }
+        catch (InterruptedException ie) { Thread.currentThread().interrupt(); }
     }
 
-    public static void callMain(String args[]) {}
+    public static void callMain(String[] args) throws IOException {
+        FastReader fast = new FastReader();
+        int n = fast.nextInt(), q = fast.nextInt();
+        int[] vals = new int[n];
+        for (int i = 0; i < n; i++) vals[i] = fast.nextInt();
+        tree = new ArrayList<>(n+1);
+        for (int i = 0; i <= n; i++) tree.add(new ArrayList<>());
+        for (int i = 1; i < n; i++) {
+            int u = fast.nextInt(), v = fast.nextInt();
+            tree.get(u).add(v);
+            tree.get(v).add(u);
+        }
+        queries = new ArrayList<>(q);
+        for (int i = 0; i < q; i++) {
+            queries.add(new int[]{fast.nextInt(), fast.nextInt(), fast.nextInt()});
+        }
+        solve(n, vals);
+    }
+
+    public static void solve(int n, int[] vals) {
+        HeavyLightDecompose hld = new HeavyLightDecompose(n, vals);
+        StringBuilder out = new StringBuilder();
+        PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
+        for (int[] qu : queries) {
+            if (qu[0] == 1) {
+                hld.updateDecomposition(qu[1], qu[2]);
+            } else {
+                out.append(hld.maxDecomposition(qu[1], qu[2])).append(' ');
+            }
+        }
+        writer.print(out.append('\n').toString());
+        writer.flush();
+    }
 
     public static final class HeavyLightDecompose {
         private final int n;
-        private final int parent[], depth[], subtree[], heavyChild[], pos[], chainHead[];
+        private final int LOG = 18;
+        private final int[] parent, depth, subtree, heavyChild, pos, chainHead;
+        private final int[][] up;
         private int currentPos;
-        private final int baseArray[];
         private final SegmentTree segmentTree;
 
-        public HeavyLightDecompose(final int n, final int initial[]) {
+        public HeavyLightDecompose(int n, int[] init) {
             this.n = n;
-            this.parent = new int[n+1];
-            this.depth = new int[n+1];
-            this.heavyChild = new int[n+1];
-            this.chainHead = new int[n+1];
-            this.subtree = new int[n+1];
-            this.pos = new int[n+1];
-            this.baseArray = new int[n+1];
-            Arrays.fill(this.heavyChild, -1);
+            parent     = new int[n+1];
+            depth      = new int[n+1];
+            subtree    = new int[n+1];
+            heavyChild = new int[n+1];
+            chainHead  = new int[n+1];
+            pos        = new int[n+1];
+            up         = new int[n+1][LOG];
+            Arrays.fill(heavyChild, -1);
+
+            // 1) DFS to compute parent[], depth[], subtree[] and heavyChild[]
             dfs(1, 0);
-            decompose(1, 1);
-            for(int i = 1; i <= n; i++)
-                this.baseArray[this.pos[i]] = initial[i];
-            segmentTree = new SegmentTree(this.baseArray);
-        }
 
-        public int dfs(int root, int parentNode) {
-            this.parent[root] = parentNode;
-            this.subtree[root] = 1;
-            int maxSize = 0;
-            for(int child : tree.get(root))
-                if(child != parentNode) {
-                    this.depth[child] = this.depth[root] + 1;
-                    int childSize = dfs(child, root);
-                    this.subtree[root] += childSize;
-                    if(childSize > maxSize) {
-                        this.heavyChild[root] = child;
-                        maxSize = childSize;
-                    }
+            // 2) Build binary-lifting table up[v][j]
+            for (int v = 1; v <= n; v++) {
+                up[v][0] = parent[v];
+            }
+            for (int j = 1; j < LOG; j++) {
+                for (int v = 1; v <= n; v++) {
+                    up[v][j] = up[ up[v][j-1] ][j-1];
                 }
-            return this.subtree[root];
+            }
+
+            // 3) Decompose into heavy paths
+            currentPos = 1;
+            decompose(1, 1);
+
+            // 4) Build array in HLD order and build segment tree
+            int[] arr = new int[n];
+            for (int v = 1; v <= n; v++) {
+                arr[pos[v]-1] = init[v-1];
+            }
+            segmentTree = new SegmentTree(arr);
         }
 
-        public void decompose(int root, int head) {
-            this.chainHead[root] = head;
-            this.pos[root] = this.currentPos++;
-            if(this.heavyChild[root] != -1)
-                decompose(this.heavyChild[root], head);
-            for(int child : tree.get(root))
-                if(child != this.parent[root] && child != this.heavyChild[root])
-                    decompose(child, child);        // Want it to be disjoint
+        // recursive DFS to compute sizes and heavy child
+        private int dfs(int u, int p) {
+            parent[u] = p;
+            subtree[u] = 1;
+            int maxSz = 0;
+            for (int w : tree.get(u)) {
+                if (w == p) continue;
+                depth[w] = depth[u] + 1;
+                int sub = dfs(w, u);
+                if (sub > maxSz) {
+                    maxSz = sub;
+                    heavyChild[u] = w;
+                }
+                subtree[u] += sub;
+            }
+            return subtree[u];
         }
 
-        public void update(int index, int value) {
-            this.baseArray[this.pos[index]] = value;
-            segmentTree.pointUpdateCall(this.pos[index], value);
+        // recursive decompose
+        private void decompose(int u, int head) {
+            chainHead[u] = head;
+            pos[u] = currentPos++;
+            if (heavyChild[u] != -1) {
+                decompose(heavyChild[u], head);
+            }
+            for (int w : tree.get(u)) {
+                if (w != parent[u] && w != heavyChild[u]) {
+                    decompose(w, w);
+                }
+            }
+        }
+
+        public void updateDecomposition(int u, int val) {
+            // 0-based index for segment tree
+            segmentTree.update(pos[u] - 1, val);
         }
 
         public int maxDecomposition(int u, int v) {
-            int max = Integer.MIN_VALUE;
-            while(this.chainHead[u] != this.chainHead[v]) {
-                if(this.depth[u] > this.depth[v]) {
-                    int temp = u;
-                    u = v;
-                    v = temp;
+            int c = lca(u, v);
+            int res = Math.max(maxUp(u, c), maxUp(v, c));
+            // include the LCA itself
+            res = Math.max(res, segmentTree.query(pos[c] - 1, pos[c] - 1));
+            return res;
+        }
+
+        // iterative binary-lifting LCA
+        private int lca(int u, int v) {
+            if (depth[u] < depth[v]) {
+                int t = u; u = v; v = t;
+            }
+            int diff = depth[u] - depth[v];
+            for (int j = 0; j < LOG; j++) {
+                if ((diff & (1 << j)) != 0) {
+                    u = up[u][j];
                 }
-                int headOfChain = this.chainHead[v];
-                max = Math.max(max, segmentTree.maxRangeCall(this.pos[headOfChain], this.pos[v]));
-                v = this.parent[headOfChain];
             }
-            if(this.depth[u] > this.depth[v]) {
-                int temp = u;
-                u = v;
-                v = temp;
+            if (u == v) return u;
+            for (int j = LOG - 1; j >= 0; j--) {
+                if (up[u][j] != up[v][j]) {
+                    u = up[u][j];
+                    v = up[v][j];
+                }
             }
-            max = Math.max(max, segmentTree.maxRangeCall(this.pos[u], this.pos[v]));
-            return max;
+            return parent[u];
+        }
+
+        // climb from x up to anc (exclusive), taking max over segments
+        private int maxUp(int x, int anc) {
+            int res = Integer.MIN_VALUE;
+            while (chainHead[x] != chainHead[anc]) {
+                res = Math.max(res,
+                    segmentTree.query(pos[ chainHead[x] ] - 1, pos[x] - 1));
+                x = parent[ chainHead[x] ];
+            }
+            if (x != anc) {
+                // same chain, skip anc itself
+                res = Math.max(res,
+                    segmentTree.query(pos[anc], pos[x] - 1));
+            }
+            return res;
         }
     }
 
+    // iterative bottom-up segment tree (range-max, point-update)
     public static final class SegmentTree {
-        private final int tree[], lazy[];
-        private int n;
+        private final int N;
+        private final int[] t;
 
-        public SegmentTree(final int nums[]) {
-            this.n = 1;
-            int size = nums.length;
-            while(this.n <= size)
-                n <<= 1;
-            this.tree = new int[this.n << 1]; 
-            this.lazy = new int[this.n << 1];
-        }
-
-        public void buildTree(final int nums[]) {
-            System.arraycopy(nums, 0, this.tree, this.n, nums.length);
-            for(int i = this.n-1; i >= 1; i--)
-                this.tree[i] = Math.max(this.tree[i << 1], this.tree[i << 1 | 1]);
-        }
-
-        private void push(int index, int left, int right) {
-            if(this.lazy[index] != 0) {
-                this.tree[index] += (right - left + 1) * this.lazy[index];
-                if(left != right) {
-                    this.lazy[index << 1] += this.lazy[index];
-                    this.lazy[index << 1 | 1] += this.lazy[index];
-                    this.lazy[index] = 0;
-                }
+        public SegmentTree(int[] a) {
+            int n = a.length, p = 1;
+            while (p < n) p <<= 1;
+            N = p;
+            t = new int[2 * N];
+            System.arraycopy(a, 0, t, N, n);
+            for (int i = N - 1; i > 0; i--) {
+                t[i] = Math.max(t[i << 1], t[i << 1 | 1]);
             }
         }
 
-        public void pointUpdateCall(int point, int value) {
-            pointUpdate(1, 0, this.n-1, point, value);
-        }
-
-        public void pointUpdate(int index, int left, int right, int point, int value) {
-            push(index, left, right);
-            if(left == right) {
-                this.tree[index] = value;
-                return;
+        public void update(int i, int v) {
+            i += N;
+            t[i] = v;
+            for (i >>= 1; i > 0; i >>= 1) {
+                t[i] = Math.max(t[i << 1], t[i << 1 | 1]);
             }
-            int mid = (left + right) >>> 1;
-            if(point <= mid)
-                pointUpdate(index << 1, left, mid, point, value);
-            else
-                pointUpdate(index << 1 | 1, mid + 1, right, point, value);
-            this.tree[index] = Math.max(this.tree[index << 1], this.tree[index << 1 | 1]);
         }
 
-        public int maxRangeCall(int ql, int qr) {
-            return maxRangeQuery(1, 0, this.n-1, ql, qr);
-        }
-
-        private int maxRangeQuery(int index, int left, int right, int ql, int qr) {
-            push(index, left, right);
-            if(ql > right || qr < left)
-                return Integer.MAX_VALUE;
-            if(ql <= left && qr >= right)
-                return this.tree[index];
-            int mid = (left + right) >>> 1;
-            return Math.max(maxRangeQuery(index << 1, left, mid, ql, qr), maxRangeQuery(index << 1 | 1, mid + 1, right, ql, qr));
+        public int query(int l, int r) {
+            int res = Integer.MIN_VALUE;
+            for (l += N, r += N; l <= r; l >>= 1, r >>= 1) {
+                if ((l & 1) == 1) res = Math.max(res, t[l++]);
+                if ((r & 1) == 0) res = Math.max(res, t[r--]);
+            }
+            return res;
         }
     }
 }
