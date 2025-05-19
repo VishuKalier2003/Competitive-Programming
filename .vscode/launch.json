@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CSESPlanetQueriesII",
+      "request": "launch",
+      "mainClass": "CSESPlanetQueriesII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "CSPlanetQueries",
       "request": "launch",
       "mainClass": "CSPlanetQueries",

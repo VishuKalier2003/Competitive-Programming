@@ -1,11 +1,7 @@
-
 import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class CSESPlanetQueriesII {
     public static class FastReader {
@@ -13,180 +9,125 @@ public class CSESPlanetQueriesII {
         private int ptr = 0, len = 0;
 
         public int read() throws IOException {
-            if(ptr >= len) {
+            if (ptr >= len) {
                 ptr = 0;
-                len = System.in.read();
-                if(len <= 0)
-                    return -1;
+                len = System.in.read(buffer);
+                if (len <= 0) return -1;
             }
             return buffer[ptr++] & 0xff;
         }
 
         public int nextInt() throws IOException {
             int c, x = 0;
-            while((c = read()) <= ' ')
-                if(c < 0)
-                    return -1;
+            while ((c = read()) <= ' ') if (c < 0) return -1;
             boolean neg = c == '-';
-            if(neg)
-                c = read();
-            do {
-                x = 10 * x + (c-'0');
-            } while((c = read()) <= '9' && c >= '0');
-            return x;
-        }
-
-        public long nextLong() throws IOException {
-            int c;
-            long x = 0l;
-            while((c = read()) <= ' ')
-                if(c < 0)
-                    return -1;
-            boolean neg = c =='-';
-            if(neg)
-                c = read();
-            do {
-                x = 10 * x + (c-'0');
-            } while((c = read()) <= '9' && c >= '0');
-            return x;
+            if (neg) c = read();
+            do { x = x * 10 + (c - '0'); } while ((c = read()) >= '0' && c <= '9');
+            return neg ? -x : x;
         }
     }
 
-    public static void main(String args[]) {
-        Thread t1 = new Thread(null,
-        () -> {
-            try {
-                callMain(args);
-            } catch(IOException e) {
-                e.getLocalizedMessage();
-            }
-        },
-        "planet-queries-II",
-        1 << 26);
-        t1.start();
-        try {
-            t1.join();
-        } catch (InterruptedException e) {
-            e.getLocalizedMessage();
-        }
-    }
-
-    public static Map<Integer, Integer> directedTree;
-    public static Map<Integer, List<Integer>> reverseTree;
+    public static int[] to;
+    public static List<Integer>[] rev;
     public static List<int[]> queries;
     public static int maxJump;
 
-    public static void callMain(String args[]) throws IOException {
+    public static void main(String[] args) throws IOException {
         FastReader fast = new FastReader();
-        final int n = fast.nextInt(), q = fast.nextInt();
-        directedTree = new HashMap<>();
-        reverseTree = new HashMap<>();
-        int teleporters[] = new int[n+1];
-        for(int i = 1; i <= n; i++)
-            teleporters[i] = fast.nextInt();
+        int n = fast.nextInt(), q = fast.nextInt();
+        to = new int[n+1];
+        for (int i = 1; i <= n; i++) to[i] = fast.nextInt();
         queries = new ArrayList<>();
-        for(int i = 0; i < q; i++) {
-            int x = fast.nextInt(), k = fast.nextInt();
-            maxJump = Math.max(maxJump, k);
-            queries.add(new int[]{x, k});
+        for (int i = 0; i < q; i++) {
+            int a = fast.nextInt(), b = fast.nextInt();
+            queries.add(new int[]{a, b});
+            maxJump = Math.max(maxJump, b);
         }
-        solve(n, teleporters);
+        solve(n);
     }
 
-    public static void solve(final int n, final int teleporters[]) {
-        for(int i = 1; i <= n; i++)
-            reverseTree.put(i, new ArrayList<>());
-        for(int i = 1; i <= n; i++) {
-            directedTree.put(i, teleporters[i]);
-            reverseTree.get(teleporters[i]).add(i);
+    public static void solve(int n) {
+        // build reverse graph
+        rev = new ArrayList[n+1];
+        for (int i = 1; i <= n; i++) rev[i] = new ArrayList<>();
+        for (int i = 1; i <= n; i++) rev[to[i]].add(i);
+
+        // peel non-cycle nodes
+        Deque<Integer> dq = new ArrayDeque<>();
+        int[] indeg = new int[n+1];
+        for (int i = 1; i <= n; i++) indeg[to[i]]++;
+        for (int i = 1; i <= n; i++) if (indeg[i] == 0) dq.add(i);
+        while (!dq.isEmpty()) {
+            int u = dq.poll();
+            int v = to[u];
+            if (--indeg[v] == 0) dq.add(v);
         }
-        BinaryLifting bl = new BinaryLifting(n, teleporters);
-        bl.computeDepths(topoSort(n));
-    }
+        List<Integer> cycle = new ArrayList<>();
+        for (int i = 1; i <= n; i++) if (indeg[i] > 0) cycle.add(i);
 
-    public static ArrayDeque<Integer> topoSort(final int n) {
-        ArrayDeque<Integer> queue = new ArrayDeque<>();
-        int indegree[] = new int[n+1];
-        for(int i = 1; i <= n; i++)
-            indegree[directedTree.get(i)]++;
-        for(int i = 1; i <= n; i++)
-            if(indegree[i] == 0)
-                queue.add(i);
-        while(!queue.isEmpty()) {
-            int node = queue.poll();
-            int nextNode = directedTree.get(node);
-            indegree[nextNode]--;
-            if(indegree[nextNode] == 0)
-                queue.add(nextNode);
-        }
-        ArrayDeque<Integer> cycleNodes = new ArrayDeque<>();
-        for(int i = 1; i <= n; i++)
-            if(indegree[i] > 0)
-                cycleNodes.add(i);
-        return cycleNodes;
-    }
-
-    public static final class BinaryLifting {
-        private final int lift[][];
-        private final int depth[];
-        private final int n, maxLog;
-
-        public BinaryLifting(final int n, final int teleporters[]) {
-            this.n = n;
-            this.maxLog = 32 - Integer.numberOfLeadingZeros(maxJump);
-            this.lift = new int[this.maxLog+1][this.n+1];
-            this.depth = new int[this.n+1];
-            for(int row[] : lift)
-                Arrays.fill(row, -1);
-            binaryLiftIterative(n, teleporters);
-        }
-
-        public void binaryLiftIterative(final int n, final int teleporters[]) {
-            for(int i = 1; i <= n; i++)
-                this.lift[0][i] = teleporters[i];
-            for(int j = 1; j <= this.maxLog; j++)
-                for(int i = 1; i <= n; i++)
-                    this.lift[j][i] = this.lift[j-1][this.lift[j-1][i]];
-        }
-
-        public void computeDepths(ArrayDeque<Integer> queue) {
-            boolean visited[] = new boolean[this.n+1];
-            for(int node : queue) {
-                visited[node] = true;       // Mark the cycle nodes before the queueing
-                this.depth[node] = 0;       // Will be automatically handled
-            }
-            while(!queue.isEmpty()) {
-                int node = queue.poll();
-                for(int child : reverseTree.get(node)) {
-                    if(!visited[child]) {
-                        visited[child] = true;
-                        this.depth[child] = this.depth[node] + 1;
-                        queue.add(child);
-                    }
+        // depth to cycle
+        int[] depth = new int[n+1];
+        boolean[] seen = new boolean[n+1];
+        dq = new ArrayDeque<>(cycle);
+        for (int u: cycle) seen[u] = true;
+        while (!dq.isEmpty()) {
+            int v = dq.poll();
+            for (int u: rev[v]) {
+                if (!seen[u]) {
+                    seen[u] = true;
+                    depth[u] = depth[v] + 1;
+                    dq.add(u);
                 }
             }
         }
 
-        public int lifting(int root, int k) {
-            int ancestor = root;
-            for(int i = 0; i <= this.maxLog; i++)
-                if((k & 1 << i) != 0) {
-                    ancestor = this.lift[i][ancestor];
-                }
-            return ancestor;
+        // cycle components
+        int[] comp = new int[n+1], pos = new int[n+1];
+        List<Integer> clenList = new ArrayList<>();
+        Arrays.fill(seen, false);
+        for (int u: cycle) if (!seen[u]) {
+            int cur=u, idx=0;
+            while (!seen[cur]) {
+                seen[cur]=true;
+                comp[cur]=clenList.size();
+                pos[cur]=idx++;
+                cur=to[cur];
+            }
+            clenList.add(idx);
+        }
+        int[] cycleLen = clenList.stream().mapToInt(x->x).toArray();
+
+        // binary lifting
+        int LOG = 32 - Integer.numberOfLeadingZeros(maxJump);
+        int[][] up = new int[LOG+1][n+1];
+        for (int i = 1; i <= n; i++) up[0][i] = to[i];
+        for (int j = 1; j <= LOG; j++) {
+            for (int i = 1; i <= n; i++) up[j][i] = up[j-1][ up[j-1][i] ];
         }
 
-        public int lca(int x, int y) {
-            if(this.depth[x] == 0 || this.depth[y] == 0)
-                return -1;
-            if(this.depth[x] > this.depth[y])
-                x = lifting(x, this.depth[x] - this.depth[y]);
-            else if(this.depth[y] > this.depth[x])
-                y = lifting(y, this.depth[y] - this.depth[x]);
-            if(x == y && this.depth[x] != 0)
-                return x;
-            for(int k = this.maxLog; k >= 0; k--) {}
-            return 0;
+        // answer
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+        for (int[] qu: queries) {
+            int a=qu[0], b=qu[1], ans;
+            if (depth[b]>0) {
+                if (depth[a]<depth[b]) ans=-1;
+                else {
+                    int d = depth[a]-depth[b], u=a;
+                    for (int j=0; j<=LOG; j++) if ((d&(1<<j))!=0) u=up[j][u];
+                    ans = (u==b?d:-1);
+                }
+            } else {
+                int da=depth[a], u=a;
+                for (int j=0; j<=LOG; j++) if ((da&(1<<j))!=0) u=up[j][u];
+                if (comp[u]!=comp[b]) ans=-1;
+                else {
+                    int clen=cycleLen[comp[b]];
+                    int dp=(pos[b]-pos[u]+clen)%clen;
+                    ans=da+dp;
+                }
+            }
+            out.println(ans);
         }
+        out.flush();
     }
 }
