@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-public class WordCombinations {
+public class P2PatternMatching {
     public static class FastReader {
         private static final byte[] buffer = new byte[1 << 20];
         private int ptr = 0, len = 0;
@@ -54,7 +54,7 @@ public class WordCombinations {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }, "word-combinations", 1 << 26);
+        }, "pattern-matching", 1 << 26);
         t1.start();
         try {
             t1.join();
@@ -65,70 +65,52 @@ public class WordCombinations {
 
     public static void callMain(String[] args) throws IOException {
         FastReader fast = new FastReader();
-        String s = fast.next();
-        final int n = fast.nextInt();
-        String[] words = new String[n];
-        for (int i = 0; i < n; i++)
-            words[i] = fast.next();
-        solve(s.length(), s, words);
+        solve(fast.next(), fast.next());
     }
 
+    public static final int BASE = 26;
     public static final int MOD = 1_000_000_007;
-    public static int[] dp;
 
-    public static void solve(final int n, final String s, final String[] words) {
+    public static void solve(final String text, final String pattern) {
+        int t = text.length(), p = pattern.length();
+        if (p > t) {
+            System.out.println(0);
+            return;
+        }
+        long highestPower = 1L;
+        for(int i = 0; i < p-1; i++)
+            highestPower = (highestPower * BASE) % MOD;
+        int count = 0;
+        long hashP = 0, hashT = 0;
+        // Compute initial hashes for pattern and first window of text
+        for (int i = 0; i < p; i++) {
+            hashP = (hashP * BASE + pattern.charAt(i) - 'a') % MOD;
+            hashT = (hashT * BASE + text.charAt(i) - 'a') % MOD;
+        }
+        // Check first window
+        if (hashP == hashT && check(text, pattern, 0) == 1)
+            count++;
+        // Slide window and update hash
+        for (int i = 1; i <= t - p; i++) {
+            // Remove leading character
+            hashT = (hashT - (text.charAt(i - 1) - 'a') * highestPower % MOD + MOD) % MOD;
+            // Shift left and add trailing character
+            hashT = (hashT * BASE + (text.charAt(i + p - 1) - 'a')) % MOD;
+            if (hashP == hashT && check(text, pattern, i) == 1)
+                count++;
+        }
         final StringBuilder output = new StringBuilder();
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
-        dp = new int[n + 1];
-        Trie trie = new Trie();
-        dp[0] = 1; // Base case: empty string has 1 way
-        for (String word : words)
-            trie.insert(new StringBuilder().append(word).reverse().toString());
-        for (int i = 1; i <= n; i++) {
-            TrieNode node = trie.root;
-            for (int j = i; j >= 1 && node != null; j--) { // Check suffixes ending at i
-                int index = s.charAt(j - 1) - 'a';
-                node = node.children[index];
-                if (node != null && node.end == 1) {
-                    dp[i] = (dp[i] + dp[j - 1]) % MOD;
-                }
-            }
-        }
-        output.append(dp[n]);
+        output.append(count);
         writer.write(output.toString());
         writer.flush();
     }
 
-    public static class TrieNode {
-        private final TrieNode[] children;
-        private int end;
-
-        public TrieNode() {
-            this.children = new TrieNode[26];
-            this.end = 0;
+    public static int check(String text, String pattern, int tIdx) {
+        for (int i = 0; i < pattern.length(); i++) {
+            if (text.charAt(tIdx + i) != pattern.charAt(i))
+                return 0;
         }
-
-        public void setEnd() {
-            this.end = 1;
-        }
-    }
-
-    public static final class Trie {
-        private final TrieNode root;
-
-        public Trie() {
-            root = new TrieNode();
-        }
-
-        public void insert(String word) {
-            TrieNode node = root;
-            for (int i = 0; i < word.length(); i++) {
-                int index = word.charAt(i) - 'a';
-                if (node.children[index] == null)
-                    node.children[index] = new TrieNode();
-                node = node.children[index];
-            }
-            node.setEnd();
-        }
+        return 1;
     }
 }

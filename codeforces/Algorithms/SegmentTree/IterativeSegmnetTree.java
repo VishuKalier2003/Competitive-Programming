@@ -113,7 +113,6 @@ public class IterativeSegmnetTree {
             if (lazy[index] != 0) {
                 // Apply the lazy update to the current node (max value)
                 tree[index] = Math.max(tree[index], lazy[index]);
-
                 if (l != r) {
                     // Propagate the lazy value down to the children if not a leaf node
                     lazy[2 * index] = Math.max(lazy[2 * index], lazy[index]);

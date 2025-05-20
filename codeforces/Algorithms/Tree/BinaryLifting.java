@@ -74,7 +74,6 @@ public class BinaryLifting {
     public void dfs(int root, int parent) {
         // Base case: 2^0-th ancestor of 'root' is its immediate parent
         this.lift[0][root] = parent;
-
         // Fill in the 2^k-th ancestors using dynamic programming
         for (int k = 1; k <= this.LOG; k++) {
             if (this.lift[k - 1][root] != -1) {
@@ -119,10 +118,8 @@ public class BinaryLifting {
         } else if (this.depth[node1] > this.depth[node2]) {
             node1 = liftNode(node1, this.depth[node1] - this.depth[node2]);
         }
-
         // Step 2: If one is ancestor of the other
         if (node1 == node2) return node1;
-
         // Step 3: Lift both nodes together until their ancestors diverge
         for (int k = this.LOG; k >= 0; k--) {
             // Until ancestor is possible, and until they do not get a common ancestor
@@ -131,7 +128,6 @@ public class BinaryLifting {
                 node2 = this.lift[k][node2];
             }
         }
-
         // Step 4: Return the parent of the diverging point which is the LCA
         return this.lift[0][node1];     // return immediate parent hence 2^0 of any of the node
     }

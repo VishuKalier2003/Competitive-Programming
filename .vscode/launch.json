@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P2PatternMatching",
+      "request": "launch",
+      "mainClass": "P2PatternMatching",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "WordCombinations",
       "request": "launch",
       "mainClass": "WordCombinations",
