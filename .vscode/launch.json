@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P1CountingBits",
+      "request": "launch",
+      "mainClass": "P1CountingBits",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CSESPlanetQueries",
+      "request": "launch",
+      "mainClass": "CSESPlanetQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CfSlothNaptime",
+      "request": "launch",
+      "mainClass": "CfSlothNaptime",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "CSESPlanetQueriesII",
       "request": "launch",
       "mainClass": "CSESPlanetQueriesII",

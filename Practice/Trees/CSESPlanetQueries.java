@@ -82,6 +82,7 @@ public class CSESPlanetQueries {
         final StringBuilder output = new StringBuilder();
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
         BinaryLifting binaryLifting = new BinaryLifting(n, teleporter);
+        binaryLifting.table();
         for(int query[] : queries)
             output.append(binaryLifting.lifting(query[0], query[1])).append("\n");
         writer.write(output.toString());
@@ -118,6 +119,11 @@ public class CSESPlanetQueries {
                         break;
                 }
             return ancestor;
+        }
+
+        public void table() {
+            for(int row[] : this.lift)
+                System.out.println(Arrays.toString(row));
         }
     }
 }
