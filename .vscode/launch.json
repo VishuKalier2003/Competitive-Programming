@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P3MaxXorSubset",
+      "request": "launch",
+      "mainClass": "P3MaxXorSubset",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P2MaxXORsubarray",
+      "request": "launch",
+      "mainClass": "P2MaxXORsubarray",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P1CountingBits",
       "request": "launch",
       "mainClass": "P1CountingBits",

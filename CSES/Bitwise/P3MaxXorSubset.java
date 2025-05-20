@@ -1,9 +1,8 @@
-
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-public class P1CountingBits {
+public class P3MaxXorSubset {
     public static class FastReader {        // Note: FastReader for taking inputs
         private static final byte buffer[] = new byte[1 << 20];
         private int ptr = 0, len = 0;
@@ -59,7 +58,7 @@ public class P1CountingBits {
                 e.getLocalizedMessage();
             }
         }, 
-        "counting-set-bits",
+        "max-xor-subset",
         1 << 26);
         t1.start();
         try {
@@ -71,29 +70,28 @@ public class P1CountingBits {
 
     public static void callMain(String args[]) throws IOException {
         FastReader fast = new FastReader();
-        solve(fast.nextLong());
+        final int n = fast.nextInt();
+        int nums[] = new int[n];
+        for(int i = 0; i < n; i++)
+            nums[i] = fast.nextInt();
+        solve(n, nums);
     }
 
-    public static void solve(final long n)  {
-        final StringBuilder output = new StringBuilder();
+    public static void solve(final int n, final int nums[])  {
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
-        output.append(f(n));        // Note: Recursive call
+        int gauss[] = new int[32];
+        for(int i = 0; i < n; i++) {
+            for(int k = 31; k >= 0; k--)
+                if((nums[i] >> k & 1) == 1)
+                    gauss[k]++;
+        }
+        int max = 0;
+        for(int k = 0; k < 32; k++)
+            if(gauss[k] % 2 != 0)
+                max |= 1 << k;
+        final StringBuilder output = new StringBuilder();
+        output.append(max);
         writer.write(output.toString());
         writer.flush();
-    }
-
-    public static long f(long n) {
-        if(n == 0)
-            return 0;
-        long xBit = Long.highestOneBit(n), temp = xBit;
-        int index = -1;     // Info: Indexing from LSB starts with 0, hence we take -1 as empty case
-        while(xBit != 0) {
-            xBit >>= 1;
-            index++;
-        }
-        // Note: The number of 1 bits between 1 to 2^x is 2 * (2^(x-1)), recursive formula
-        long reduce = index * 1L << index-1;
-        // There are a few step bits that contribute for 2^x bit
-        return f(n - temp) + reduce + (n - temp + 1);
     }
 }
