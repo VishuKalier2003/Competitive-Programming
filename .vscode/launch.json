@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "WordCombinations",
+      "request": "launch",
+      "mainClass": "WordCombinations",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P3MaxXorSubset",
       "request": "launch",
       "mainClass": "P3MaxXorSubset",
