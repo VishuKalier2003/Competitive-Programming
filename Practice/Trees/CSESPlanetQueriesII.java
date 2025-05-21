@@ -46,6 +46,7 @@ public class CSESPlanetQueriesII {
         solve(n);
     }
 
+    @SuppressWarnings("unchecked")
     public static void solve(int n) {
         // build reverse graph
         rev = new ArrayList[n+1];

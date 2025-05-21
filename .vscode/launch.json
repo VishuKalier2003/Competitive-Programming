@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P4MinimalRotations",
+      "request": "launch",
+      "mainClass": "P4MinimalRotations",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P4FindingPeriods",
+      "request": "launch",
+      "mainClass": "P4FindingPeriods",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P3FindingBorders",
+      "request": "launch",
+      "mainClass": "P3FindingBorders",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P2PatternMatching",
       "request": "launch",
       "mainClass": "P2PatternMatching",
