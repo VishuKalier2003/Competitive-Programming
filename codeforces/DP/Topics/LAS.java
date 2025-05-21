@@ -3,14 +3,14 @@ import java.util.Scanner;
 
 public class LAS {      // IMP- Longest Alternating Subsequence
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        final int n = sc.nextInt();
-        final int nums[] = new int[n];
-        for(int i = 0; i < n; i++)
-            nums[i] = sc.nextInt();
-        System.out.println("----- Pure Recursion -----");
-        measurePerformance(() -> System.out.println("LCS Length (Recursion): "+Math.max(helper(0, n, nums, true), helper(0, n, nums, false))));
-        sc.close();
+        try (Scanner sc = new Scanner(System.in)) {
+            final int n = sc.nextInt();
+            final int nums[] = new int[n];
+            for(int i = 0; i < n; i++)
+                nums[i] = sc.nextInt();
+            System.out.println("----- Pure Recursion -----");
+            measurePerformance(() -> System.out.println("LCS Length (Recursion): "+Math.max(helper(0, n, nums, true), helper(0, n, nums, false))));
+        }
     }
 
     // Measure runtime and memory usage

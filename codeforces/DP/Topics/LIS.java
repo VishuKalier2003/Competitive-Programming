@@ -5,20 +5,20 @@ import java.util.Scanner;
 
 public class LIS {      // IMP- Longest Increasing Subsequence
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        final int n = sc.nextInt();
-        final int nums[] = new int[n];
-        for(int i = 0; i < n; i++)
-            nums[i] = sc.nextInt();
-        System.out.println("----- Pure Recursion -----");
-        measurePerformance(() -> System.out.println("LIS Length (Recursion): " + helper(0, n, -1, nums)));
-        System.out.println("\n----- Memoization -----");
-        // IMP- dp[i][j] stores the max LIS size of array till ith index and jth index element is the last chosen
-        final Integer memo[][] = new Integer[n+1][n+1];     // The Dp table is of size n+1 and n+1
-        measurePerformance(() -> System.out.println("LIS Length (Memoization): " + memonize(0, n, -1, nums, memo)));
-        System.out.println("\n----- Tabulation -----");
-        measurePerformance(() -> System.out.println("LIS Length (Tabulation): " + tabulate(n, nums)));
-        sc.close();
+        try (Scanner sc = new Scanner(System.in)) {
+            final int n = sc.nextInt();
+            final int nums[] = new int[n];
+            for(int i = 0; i < n; i++)
+                nums[i] = sc.nextInt();
+            System.out.println("----- Pure Recursion -----");
+            measurePerformance(() -> System.out.println("LIS Length (Recursion): " + helper(0, n, -1, nums)));
+            System.out.println("\n----- Memoization -----");
+            // IMP- dp[i][j] stores the max LIS size of array till ith index and jth index element is the last chosen
+            final Integer memo[][] = new Integer[n+1][n+1];     // The Dp table is of size n+1 and n+1
+            measurePerformance(() -> System.out.println("LIS Length (Memoization): " + memonize(0, n, -1, nums, memo)));
+            System.out.println("\n----- Tabulation -----");
+            measurePerformance(() -> System.out.println("LIS Length (Tabulation): " + tabulate(n, nums)));
+        }
     }
 
     // Measure runtime and memory usage

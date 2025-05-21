@@ -3,21 +3,21 @@ import java.util.Scanner;
 
 public class SubsetSum {        // Subset Sum exists or not
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        final int n = sc.nextInt();
-        int nums[] = new int[n];
-        for(int i = 0; i < n; i++)
-            nums[i] = sc.nextInt();
-        final int target = sc.nextInt();
-        System.out.println("----- Pure Recursion -----");
-        measurePerformance(() -> System.out.println("Subset Sum Length (Recursion): " + helper(0, n, nums, 0, target)));
-        System.out.println("\n----- Memoization -----");
-        // IMP- dp[i][j] stores the possibility whether any subset till ith array index can form a sum of jth index value
-        final Boolean memo[][] = new Boolean[n][target+1];     // The Dp table is of size n and target+1
-        measurePerformance(() -> System.out.println("Subset Sum Length (Memoization): " + memonize(0, n, nums, 0, target, memo)));
-        System.out.println("\n----- Tabulation -----");
-        measurePerformance(() -> System.out.println("Subset Sum Length (Tabulation): " + tabulate(n, nums, target)));
-        sc.close();
+        try (Scanner sc = new Scanner(System.in)) {
+            final int n = sc.nextInt();
+            int nums[] = new int[n];
+            for(int i = 0; i < n; i++)
+                nums[i] = sc.nextInt();
+            final int target = sc.nextInt();
+            System.out.println("----- Pure Recursion -----");
+            measurePerformance(() -> System.out.println("Subset Sum Length (Recursion): " + helper(0, n, nums, 0, target)));
+            System.out.println("\n----- Memoization -----");
+            // IMP- dp[i][j] stores the possibility whether any subset till ith array index can form a sum of jth index value
+            final Boolean memo[][] = new Boolean[n][target+1];     // The Dp table is of size n and target+1
+            measurePerformance(() -> System.out.println("Subset Sum Length (Memoization): " + memonize(0, n, nums, 0, target, memo)));
+            System.out.println("\n----- Tabulation -----");
+            measurePerformance(() -> System.out.println("Subset Sum Length (Tabulation): " + tabulate(n, nums, target)));
+        }
     }
 
     // Measure runtime and memory usage

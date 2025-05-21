@@ -5,23 +5,23 @@ import java.util.Scanner;
 
 public class ASS {      // IMP- Alternating Subsequence Sum
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        final int n = sc.nextInt();
-        final int nums[] = new int[n];
-        for(int i = 0; i < n; i++)
-            nums[i] = sc.nextInt();
-        System.out.println("----- Pure Recursion -----");
-        // First element we will always tend to take positive, hence started with false
-        measurePerformance(() -> System.out.println("ASS Length (Recursion): " + helper(0, n, nums, true)));
-        System.out.println("\n----- Memoization -----");
-        // IMP- dp[i][j] stores the max AAS when the array has reached i, and the last chosen element was either added (0) or subtracted (1)
-        final int memo[][] = new int[n][2];     // The Dp table is of size n and 2
-        for(int row[] : memo)
-            Arrays.fill(row, -1);
-        measurePerformance(() -> System.out.println("LCS Length (Memoization): " + memonize(0, n, nums, true, memo)));
-        System.out.println("\n----- Tabulation -----");
-        measurePerformance(() -> System.out.println("LCS Length (Tabulation): " + tabulate(n, nums)));
-        sc.close();
+        try (Scanner sc = new Scanner(System.in)) {
+            final int n = sc.nextInt();
+            final int nums[] = new int[n];
+            for(int i = 0; i < n; i++)
+                nums[i] = sc.nextInt();
+            System.out.println("----- Pure Recursion -----");
+            // First element we will always tend to take positive, hence started with false
+            measurePerformance(() -> System.out.println("ASS Length (Recursion): " + helper(0, n, nums, true)));
+            System.out.println("\n----- Memoization -----");
+            // IMP- dp[i][j] stores the max AAS when the array has reached i, and the last chosen element was either added (0) or subtracted (1)
+            final int memo[][] = new int[n][2];     // The Dp table is of size n and 2
+            for(int row[] : memo)
+                Arrays.fill(row, -1);
+            measurePerformance(() -> System.out.println("LCS Length (Memoization): " + memonize(0, n, nums, true, memo)));
+            System.out.println("\n----- Tabulation -----");
+            measurePerformance(() -> System.out.println("LCS Length (Tabulation): " + tabulate(n, nums)));
+        }
     }
 
     // Measure runtime and memory usage

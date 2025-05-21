@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "LPS",
+      "request": "launch",
+      "mainClass": "DP.Topics.LPS",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P4MinimalRotations",
       "request": "launch",
       "mainClass": "P4MinimalRotations",

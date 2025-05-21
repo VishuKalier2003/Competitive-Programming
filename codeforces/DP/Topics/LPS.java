@@ -5,20 +5,20 @@ import java.util.Scanner;
 
 public class LPS {      // IMP Longest Palindromic Subsequence - LCS with reverse of itself
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        final String s1 = sc.next(), s2 = new StringBuilder().append(s1).reverse().toString();
-        final int n = s1.length();
-        System.out.println("----- Pure Recursion -----");
-        measurePerformance(() -> System.out.println("LPS Length (Recursion): " + helper(0, 0, n, n, s1, s2)));
-        System.out.println("\n----- Memoization -----");
-        // IMP- dp[i][j] stores the max LCS size when we have check string s1 to index i and s2 to index j
-        final int memo[][] = new int[n+1][n+1];     // The Dp table is of size n+1 and n+1
-        for(int row[] : memo)
-            Arrays.fill(row, -1);
-        measurePerformance(() -> System.out.println("LPS Length (Memoization): " + memonize(0, 0, n, n, s1, s2, memo)));
-        System.out.println("\n----- Tabulation -----");
-        measurePerformance(() -> System.out.println("LPS Length (Tabulation): " + tabulate(n, n, s1, s2)));
-        sc.close();
+        try (Scanner sc = new Scanner(System.in)) {
+            final String s1 = sc.next(), s2 = new StringBuilder().append(s1).reverse().toString();
+            final int n = s1.length();
+            System.out.println("----- Pure Recursion -----");
+            measurePerformance(() -> System.out.println("LPS Length (Recursion): " + helper(0, 0, n, n, s1, s2)));
+            System.out.println("\n----- Memoization -----");
+            // IMP- dp[i][j] stores the max LCS size when we have check string s1 to index i and s2 to index j
+            final int memo[][] = new int[n+1][n+1];     // The Dp table is of size n+1 and n+1
+            for(int row[] : memo)
+                Arrays.fill(row, -1);
+            measurePerformance(() -> System.out.println("LPS Length (Memoization): " + memonize(0, 0, n, n, s1, s2, memo)));
+            System.out.println("\n----- Tabulation -----");
+            measurePerformance(() -> System.out.println("LPS Length (Tabulation): " + tabulate(n, n, s1, s2)));
+        }
     }
 
     // Measure runtime and memory usage
