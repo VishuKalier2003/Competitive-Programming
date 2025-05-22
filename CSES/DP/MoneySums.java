@@ -11,6 +11,7 @@ public class MoneySums {
 
         public FastReader() {this.buffer = new BufferedReader(new InputStreamReader(System.in));}
 
+        @SuppressWarnings("CallToPrintStackTrace")
         public String next() {
             while(tokenizer == null || !tokenizer.hasMoreTokens()) {
                 try {

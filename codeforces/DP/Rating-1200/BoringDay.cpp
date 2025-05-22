@@ -8,8 +8,8 @@ int helper(int i, int n, const vector<long long>& nums, long long sum, long l, l
            vector<unordered_map<long long, int>>& dp) {
     if (i == n)
         return 0;
-    if (dp[i].count(sum)) return dp[i][sum];
-
+    if (dp[i].count(sum)) 
+        return dp[i][sum];
     int noTake = helper(i + 1, n, nums, 0, l, r, dp);
     int take = 0;
     long long newSum = sum + nums[i];
@@ -27,7 +27,7 @@ int bestGameSet(int n, const vector<long long>& nums, long l, long r) {
     return helper(0, n, nums, 0, l, r, dp);
 }
 
-int main(){
+int main() {
     fast;
     int t;
     cin >> t;

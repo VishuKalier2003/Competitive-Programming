@@ -3,7 +3,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 public class P4MinimalRotations {
-    public static class FastReader {
+    public static class FastReader {        // Note: Fastest reading data
         private static final byte[] buffer = new byte[1 << 20];
         private int ptr = 0, len = 0;
 
@@ -54,7 +54,7 @@ public class P4MinimalRotations {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }, "border-finding", 1 << 26);
+        }, "minimal-string", 1 << 26);
         t2.start();
         try {
             t2.join();
@@ -68,39 +68,33 @@ public class P4MinimalRotations {
         solve(fast.next());
     }
 
-    public static final long BASE = 57, MOD = (long)1e9 + 7;
-
-    public static void solve(final String text) {
-        String nonCyclic = text.repeat(2);
-        int n = text.length();
+    public static void solve(final String s) {
+        int n = s.length();
+        String ss = s + s;
+        int[] f = new int[2 * n];
+        for (int i = 0; i < 2 * n; i++) f[i] = -1;
+        int k = 0; // least rotation of string found so far
+        for (int j = 1; j < 2 * n; ++j) {
+            int i = f[j - k - 1];
+            while (i != -1 && ss.charAt(j) != ss.charAt(k + i + 1)) {
+                if (ss.charAt(j) < ss.charAt(k + i + 1)) {
+                    k = j - i - 1;
+                }
+                i = f[i];
+            }
+            if (i == -1 && ss.charAt(j) != ss.charAt(k)) {
+                if (ss.charAt(j) < ss.charAt(k)) {
+                    k = j;
+                }
+                f[j - k] = -1;
+            } else {
+                f[j - k] = i + 1;
+            }
+        }
         final StringBuilder output = new StringBuilder();
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
-        int i = 0, j = 1, k = 0;
-        while(i < n && j < n && k < n) {
-            if(nonCyclic.charAt(i+k) == nonCyclic.charAt(j+k)) {
-                k++;
-                continue;
-            }
-            if(nonCyclic.charAt(i+k) > nonCyclic.charAt(j+k))
-                i = i+k+1;
-            else
-                j = j+k+1;
-            if(i == j)
-                j++;
-            k = 0;
-        }
-        output.append(nonCyclic.substring(i, j));
+        output.append(ss.substring(k, k+n));
         writer.write(output.toString());
         writer.flush();
-    }
-
-    public static long compute(final String s) {
-        long hash = 0l;
-        int n = s.length();
-        for(int i = 0; i < n; i++) {
-            int value = s.charAt(i)-'a'+1;
-            hash = (hash * BASE + value) % MOD;
-        }
-        return hash;
     }
 }

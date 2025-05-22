@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class EditDistance {
@@ -11,6 +10,7 @@ public class EditDistance {
 
         public FastReader() {this.buffer = new BufferedReader(new InputStreamReader(System.in));}
 
+        @SuppressWarnings("CallToPrintStackTrace")
         public String next() {
             while(tokenizer == null || !tokenizer.hasMoreTokens()) {
                 try {
@@ -55,7 +55,7 @@ public class EditDistance {
             return n-i;
         if(dp[i][j] != -1)
             return dp[i][j];
-        int cost = 0;
+        int cost;
         if(s1.charAt(i) == s2.charAt(j))
             cost = helper(i+1, j+1, n, m, s1, s2);
         else

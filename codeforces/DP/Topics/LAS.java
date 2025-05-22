@@ -38,4 +38,21 @@ public class LAS {      // IMP- Longest Alternating Subsequence
         else
             return helper(i+1, n, nums, positive);
     }
+
+    public static int memonize(int i, final int n, final int nums[], boolean p, int dp[][]) {
+        if(i == n)
+            return 0;
+        int index = p ? 0 : 1;
+        if(dp[i][index] != -1)
+            return dp[i][index];
+        int positive = 0, negative = 0, zero = 0;
+        if(p && nums[i] > 0)
+            positive = 1 + memonize(i+1, n, nums, !p, dp);
+        else if(!p && nums[i] < 0)
+            negative = 1 + memonize(i+1, n, nums, !p, dp);
+        else
+            zero = memonize(i+1, n, nums, p, dp);
+        dp[i][index] = Math.max(zero, Math.max(positive, negative));
+        return dp[i][index];
+    }
 }

@@ -43,7 +43,7 @@ public class CountingPairs {
             prefix[i] = prefix[i-1] + nums[i-1];
         int totalPairs = 0;
         for(int i = 1; i < n; i++) {
-            int count = 0;
+            int count;
             int upper = binarySearchUpperBound(i, n, prefix, prefix[i-1], y), lower = binarySearchLowerBound(i, n, prefix, prefix[i-1], x);
             count = Math.max(0, upper-lower);
             totalPairs += count;

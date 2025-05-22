@@ -12,6 +12,7 @@ public class Dinic {
         // Constructor defined for calling Buffer
         public FastReader() {this.buffer = new BufferedReader(new InputStreamReader(System.in));}
 
+        @SuppressWarnings("CallToPrintStackTrace")
         public String next() {  // Reads data differently when separated by space
             while(tokenizer == null || !tokenizer.hasMoreTokens()) {
                 try{tokenizer = new StringTokenizer(buffer.readLine());}
@@ -22,6 +23,7 @@ public class Dinic {
 
         public int nextInt() {return Integer.parseInt(next());}     // Convert string to int
     }
+    @SuppressWarnings("Convert2Diamond")
     public static void main(String[] args) {
         Map<Integer, List<int[]>> graph = new HashMap<>();
         int n;

@@ -12,6 +12,7 @@ public class Kahn {
         // Constructor defined for calling Buffer
         public FastReader() {this.buffer = new BufferedReader(new InputStreamReader(System.in));}
 
+        @SuppressWarnings("CallToPrintStackTrace")
         public String next() {  // Reads data differently when separated by space
             while(tokenizer == null || !tokenizer.hasMoreTokens()) {
                 try{tokenizer = new StringTokenizer(buffer.readLine());}
