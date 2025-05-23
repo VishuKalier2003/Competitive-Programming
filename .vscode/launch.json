@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P6LongestPalindrome",
+      "request": "launch",
+      "mainClass": "P6LongestPalindrome",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "LPS",
       "request": "launch",
       "mainClass": "DP.Topics.LPS",

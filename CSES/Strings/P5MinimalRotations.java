@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-public class P4MinimalRotations {
+public class P5MinimalRotations {
     public static class FastReader {        // Note: Fastest reading data
         private static final byte[] buffer = new byte[1 << 20];
         private int ptr = 0, len = 0;
