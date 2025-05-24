@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P14Twoers",
+      "request": "launch",
+      "mainClass": "P14Twoers",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P13Playlist",
       "request": "launch",
       "mainClass": "P13Playlist",
