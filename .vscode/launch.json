@@ -3,6 +3,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P13Playlist",
+      "request": "launch",
+      "mainClass": "P13Playlist",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P11CollectingNumbers",
+      "request": "launch",
+      "mainClass": "P11CollectingNumbers",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P10MissingCoinSUm",
+      "request": "launch",
+      "mainClass": "P10MissingCoinSUm",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P9StickLength",
+      "request": "launch",
+      "mainClass": "P9StickLength",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P8SubarraySum",
       "request": "launch",
       "mainClass": "P8SubarraySum",

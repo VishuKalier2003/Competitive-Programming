@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-public class P8SubarraySum {
+public class P11CollectingNumbers {
     public static class FastReader {
         private static final byte[] buffer = new byte[1 << 20];
         private int ptr = 0, len = 0;
@@ -41,7 +41,7 @@ public class P8SubarraySum {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }, "kadane", 1 << 26);
+        }, "collecting-numbers-I", 1 << 26);
         th1.start();
         try {
             th1.join();
@@ -53,23 +53,28 @@ public class P8SubarraySum {
     public static void callMain(String[] args) throws IOException {
         FastReader fast = new FastReader();
         final int n = fast.nextInt();
-        long nums[] = new long[n];
-        for(int i = 0; i < n; i++)
+        int nums[] = new int[n];
+        long sum = 0l;
+        for(int i = 0; i < n; i++) {
             nums[i] = fast.nextInt();
-        solve(n, nums);
+            sum += nums[i];
+        }
+        solve(n, nums, sum);
     }
 
-    public static void solve(final int n, final long nums[]) {
-        long maxSub = nums[0], sum = nums[0];
-        for(int i = 1; i < n; i++) {
-            // Info: Either start new from nums[i], or include previous nums[i] + sum
-            sum = Math.max(nums[i], sum + nums[i]);
-            maxSub = Math.max(maxSub, sum);     // Info: Take maximum of each subarray
-        }
+    // Hack: Run Detection Algorithm in a Permutation
+    public static void solve(final int n, final int nums[], long sum) {
+        int pos[] = new int[n+1];
+        for(int i = 0; i < n; i++)
+            pos[nums[i]] = i;
+        int count = 1;  // Info: Stores the number of times we need to traverse a permutation to read all elements in ancending order
+        for(int i = 2; i <= n; i++)
+            if(pos[i] < pos[i-1])       // For every bump, we increase the run by 1
+                count++;
         final StringBuilder output = new StringBuilder();
-        output.append(maxSub);
+        output.append(count);
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
-        writer.append(output.toString());
+        writer.write(output.toString());
         writer.flush();
     }
 }

@@ -1,8 +1,10 @@
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
-public class P8SubarraySum {
+public class P13Playlist {
     public static class FastReader {
         private static final byte[] buffer = new byte[1 << 20];
         private int ptr = 0, len = 0;
@@ -41,7 +43,7 @@ public class P8SubarraySum {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }, "kadane", 1 << 26);
+        }, "playlist", 1 << 26);
         th1.start();
         try {
             th1.join();
@@ -53,23 +55,32 @@ public class P8SubarraySum {
     public static void callMain(String[] args) throws IOException {
         FastReader fast = new FastReader();
         final int n = fast.nextInt();
-        long nums[] = new long[n];
+        int nums[] = new int[n];
         for(int i = 0; i < n; i++)
             nums[i] = fast.nextInt();
         solve(n, nums);
     }
 
-    public static void solve(final int n, final long nums[]) {
-        long maxSub = nums[0], sum = nums[0];
-        for(int i = 1; i < n; i++) {
-            // Info: Either start new from nums[i], or include previous nums[i] + sum
-            sum = Math.max(nums[i], sum + nums[i]);
-            maxSub = Math.max(maxSub, sum);     // Info: Take maximum of each subarray
+    public static void solve(final int n, final int nums[]) {
+        Map<Integer, Integer> lastMap = new HashMap<>();
+        int i = 0, j = 0, max = 0;
+        while(j < n) {
+            if(lastMap.containsKey(nums[j])) {
+                int reset = lastMap.get(nums[j])+1;
+                // Info: If number is repeated in the current window then only we check not on the basis of the existence of the key
+                if(reset >= i)
+                    i = reset;
+                lastMap.put(nums[j], j);        // Info: Update with the last occurence
+            }
+            else
+                lastMap.put(nums[j], j);
+            max = Math.max(max, j-i+1);     // Updating the max window size
+            j++;
         }
         final StringBuilder output = new StringBuilder();
-        output.append(maxSub);
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
-        writer.append(output.toString());
+        output.append(max);
+        writer.write(output.toString());
         writer.flush();
     }
 }

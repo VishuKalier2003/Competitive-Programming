@@ -1,8 +1,9 @@
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
-public class P8SubarraySum {
+public class P9StickLength {
     public static class FastReader {
         private static final byte[] buffer = new byte[1 << 20];
         private int ptr = 0, len = 0;
@@ -41,7 +42,7 @@ public class P8SubarraySum {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }, "kadane", 1 << 26);
+        }, "greedy-costing", 1 << 26);
         th1.start();
         try {
             th1.join();
@@ -53,23 +54,26 @@ public class P8SubarraySum {
     public static void callMain(String[] args) throws IOException {
         FastReader fast = new FastReader();
         final int n = fast.nextInt();
-        long nums[] = new long[n];
+        int nums[] = new int[n];
         for(int i = 0; i < n; i++)
             nums[i] = fast.nextInt();
         solve(n, nums);
     }
 
-    public static void solve(final int n, final long nums[]) {
-        long maxSub = nums[0], sum = nums[0];
-        for(int i = 1; i < n; i++) {
-            // Info: Either start new from nums[i], or include previous nums[i] + sum
-            sum = Math.max(nums[i], sum + nums[i]);
-            maxSub = Math.max(maxSub, sum);     // Info: Take maximum of each subarray
-        }
+    public static void solve(final int n, final int nums[]) {
+        Arrays.sort(nums);
+        int bestHeight;
+        if((n & 1) == 1)
+            bestHeight = nums[n/2];
+        else
+            bestHeight = (nums[n/2] + nums[(n/2)-1])/2;
+        long minCost = 0l;
+        for(int i = 0; i < n; i++)
+            minCost += Math.abs(nums[i] - bestHeight);
         final StringBuilder output = new StringBuilder();
-        output.append(maxSub);
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
-        writer.append(output.toString());
+        output.append(minCost);
+        writer.write(output.toString());
         writer.flush();
     }
 }
