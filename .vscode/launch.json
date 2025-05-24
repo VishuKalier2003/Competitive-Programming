@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P8SubarraySum",
+      "request": "launch",
+      "mainClass": "P8SubarraySum",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P7SumOfTwo",
+      "request": "launch",
+      "mainClass": "P7SumOfTwo",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P6MovieFestival",
+      "request": "launch",
+      "mainClass": "P6MovieFestival",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P5RestaurantCustomers",
       "request": "launch",
       "mainClass": "P5RestaurantCustomers",
