@@ -1,10 +1,9 @@
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-public class P14Twoers {
+public class P23FactoryMachines {
     public static class FastReader {
         private static final byte[] buffer = new byte[1 << 20];
         private int ptr = 0, len = 0;
@@ -43,7 +42,7 @@ public class P14Twoers {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }, "towers", 1 << 26);
+        }, "factory-machines", 1 << 26);
         th1.start();
         try {
             th1.join();
@@ -55,45 +54,61 @@ public class P14Twoers {
     public static void callMain(String[] args) throws IOException {
         FastReader fast = new FastReader();
         final int n = fast.nextInt();
+        final long x = fast.nextInt();
         int nums[] = new int[n];
         for(int i = 0; i < n; i++)
             nums[i] = fast.nextInt();
-        solve(n, nums);
+        solve(n, x, nums);
     }
 
-    // Hack: Patience Sorting, where we just not place values greedily, we check for any min or max constraint before placing these blocks
-    public static void solve(final int n, final int nums[]) {
-        // Note: Patience sorting either uses (greedy + binary search) or (sliding window + binary search)
-        List<Integer> bases = new ArrayList<>(); 
-        for(int block : nums) {
-            if(bases.isEmpty())     // In case of empty
-                bases.add(block);
-            else if(bases.get(bases.size()-1) <= block)     // When current block exceeds all sizes
-                bases.add(block);
-            else {
-                // Info: binary search the index of smallest sized block that is larger than current
-                int index = binarySearch(bases.size(), block, bases);
-                bases.set(index, block);
-            }
-        }
+    public static void solve(final int n, final long products, final int nums[]) {
         final StringBuilder output = new StringBuilder();
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
-        output.append(bases.size());
-        writer.write(output.toString());
-        writer.flush();
-    }
-
-    public static int binarySearch(int r, int target, List<Integer> bases) {
-        int left = 0, right = r-1, ans = r-1;
+        Arrays.sort(nums);
+        long lcm = 1L, unitsPerLcm = 0L;
+        for(int num : nums)
+            lcm = lcm(lcm, num);
+        long counts[] = new long[n];
+        for(int i = 0; i < n; i++) {
+            counts[i] = lcm / nums[i];
+            unitsPerLcm += counts[i];
+        }
+        if(products % unitsPerLcm == 0) {
+            output.append((products/unitsPerLcm)*lcm);
+            writer.write(output.toString());
+            writer.flush();
+            return;
+        }
+        long leftProducts = products % unitsPerLcm;
+        long left = nums[0], right = lcm, ans = lcm;
         while(left <= right) {
-            int mid = (left + right) >>> 1;
-            // Finding the last true case
-            if(bases.get(mid) > target) {       // Note: k Optimization technique
+            long mid = (left + right) >>> 1;
+            if(greedy(nums, n, mid, leftProducts)) {
                 ans = mid;
                 right = mid-1;
             } else
                 left = mid+1;
         }
-        return ans;
+        long totalTime = ((products/unitsPerLcm) * lcm) + ans;
+        output.append(totalTime);
+        writer.write(output.toString());
+        writer.flush();
+    }
+
+    public static boolean greedy(final int nums[], final long n, final long givenTime, long leftProducts) {
+        for(int num : nums) {
+            leftProducts -= (givenTime / num);
+            if(leftProducts <= 0)
+                return true;
+        }
+        return false;
+    }
+
+    public static long gcd(long a, long b) {
+        return b == 0L ? a : gcd(b, a % b);
+    }
+
+    public static long lcm(long a, long b) {
+        return (a * b) / gcd(a, b);
     }
 }

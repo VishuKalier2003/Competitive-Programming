@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P23FactoryMachines",
+      "request": "launch",
+      "mainClass": "P23FactoryMachines",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P15TrafficLights",
+      "request": "launch",
+      "mainClass": "P15TrafficLights",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P14Twoers",
       "request": "launch",
       "mainClass": "P14Twoers",
