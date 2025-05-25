@@ -65,50 +65,27 @@ public class P23FactoryMachines {
         final StringBuilder output = new StringBuilder();
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
         Arrays.sort(nums);
-        long lcm = 1L, unitsPerLcm = 0L;
-        for(int num : nums)
-            lcm = lcm(lcm, num);
-        long counts[] = new long[n];
-        for(int i = 0; i < n; i++) {
-            counts[i] = lcm / nums[i];
-            unitsPerLcm += counts[i];
-        }
-        if(products % unitsPerLcm == 0) {
-            output.append((products/unitsPerLcm)*lcm);
-            writer.write(output.toString());
-            writer.flush();
-            return;
-        }
-        long leftProducts = products % unitsPerLcm;
-        long left = nums[0], right = lcm, ans = lcm;
+        long left = nums[0], right = nums[n-1] * products, ans = right;
         while(left <= right) {
             long mid = (left + right) >>> 1;
-            if(greedy(nums, n, mid, leftProducts)) {
+            if(greedy(nums, n, mid, products)) {
                 ans = mid;
                 right = mid-1;
-            } else
+            }
+            else
                 left = mid+1;
         }
-        long totalTime = ((products/unitsPerLcm) * lcm) + ans;
-        output.append(totalTime);
+        output.append(ans);
         writer.write(output.toString());
         writer.flush();
     }
 
-    public static boolean greedy(final int nums[], final long n, final long givenTime, long leftProducts) {
+    public static boolean greedy(final int nums[], final long n, final long givenTime, long products) {
         for(int num : nums) {
-            leftProducts -= (givenTime / num);
-            if(leftProducts <= 0)
+            products -= (givenTime / num);
+            if(products <= 0)
                 return true;
         }
         return false;
-    }
-
-    public static long gcd(long a, long b) {
-        return b == 0L ? a : gcd(b, a % b);
-    }
-
-    public static long lcm(long a, long b) {
-        return (a * b) / gcd(a, b);
     }
 }
