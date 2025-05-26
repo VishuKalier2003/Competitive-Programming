@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "EhabandMEX",
+      "request": "launch",
+      "mainClass": "EhabandMEX",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Journey",
+      "request": "launch",
+      "mainClass": "Journey",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "MochaDIana",
       "request": "launch",
       "mainClass": "MochaDIana",
