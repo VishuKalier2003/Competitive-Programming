@@ -76,6 +76,7 @@ public class P14Twoers {
                 bases.set(index, block);
             }
         }
+        // StringBuilder defined
         final StringBuilder output = new StringBuilder();
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
         output.append(bases.size());
