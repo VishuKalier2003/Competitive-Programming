@@ -7,25 +7,35 @@ public class NotAssigning {
     static class FastReader {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
+
+        @SuppressWarnings("CallToPrintStackTrace")
         String next() {
             while (st == null || !st.hasMoreTokens()) {
-                try { st = new StringTokenizer(br.readLine()); }
-                catch (IOException e) { e.printStackTrace(); }
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             return st.nextToken();
         }
-        int nextInt() { return Integer.parseInt(next()); }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
     }
 
     // A simple pair to hold (neighbor, edgeIndex)
     static class Edge {
         int to, idx;
+
         Edge(int to, int idx) {
             this.to = to;
             this.idx = idx;
         }
     }
 
+    @SuppressWarnings("unused")
     public static void main(String[] args) {
         FastReader in = new FastReader();
         StringBuilder output = new StringBuilder();
@@ -35,13 +45,12 @@ public class NotAssigning {
             int n = in.nextInt();
             // 1-based vertices, edges 0…n-2
             List<List<Edge>> adj = new ArrayList<>(n + 1);
-            for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());
+            for (int i = 0; i <= n; i++)
+                adj.add(new ArrayList<>());
 
-            int[] uArr = new int[n - 1], vArr = new int[n - 1];
             for (int i = 0; i < n - 1; i++) {
                 int u = in.nextInt();
                 int v = in.nextInt();
-                uArr[i] = u; vArr[i] = v;
                 adj.get(u).add(new Edge(v, i));
                 adj.get(v).add(new Edge(u, i));
             }

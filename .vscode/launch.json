@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P17DIstinctValueSub",
+      "request": "launch",
+      "mainClass": "P17DIstinctValueSub",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "BrainNetwork",
+      "request": "launch",
+      "mainClass": "BrainNetwork",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P16DistinctValueSubarrays",
+      "request": "launch",
+      "mainClass": "P16DistinctValueSubarrays",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "EhabandMEX",
       "request": "launch",
       "mainClass": "EhabandMEX",
