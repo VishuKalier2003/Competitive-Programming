@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P20NestedRangeCheck",
+      "request": "launch",
+      "mainClass": "P20NestedRangeCheck",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P19JosephusProblemII",
       "request": "launch",
       "mainClass": "P19JosephusProblemII",
