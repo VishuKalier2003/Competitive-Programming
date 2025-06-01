@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P19JosephusProblemII",
+      "request": "launch",
+      "mainClass": "P19JosephusProblemII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P18JosephusProblem",
+      "request": "launch",
+      "mainClass": "P18JosephusProblem",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P17DIstinctValueSub",
       "request": "launch",
       "mainClass": "P17DIstinctValueSub",
