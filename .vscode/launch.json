@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "InfectedTree",
+      "request": "launch",
+      "mainClass": "InfectedTree",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "TreeCutting",
+      "request": "launch",
+      "mainClass": "TreeCutting",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "EdgyTrees",
+      "request": "launch",
+      "mainClass": "EdgyTrees",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "LaborOfHeracles",
       "request": "launch",
       "mainClass": "LaborOfHeracles",
