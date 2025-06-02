@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "LaborOfHeracles",
+      "request": "launch",
+      "mainClass": "LaborOfHeracles",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Humongous",
       "request": "launch",
       "mainClass": "Humongous",
