@@ -3,6 +3,41 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Humongous",
+      "request": "launch",
+      "mainClass": "Humongous",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "MishaForest",
+      "request": "launch",
+      "mainClass": "MishaForest",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P16TwoSetII",
+      "request": "launch",
+      "mainClass": "P16TwoSetII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P15RemovalGame",
+      "request": "launch",
+      "mainClass": "P15RemovalGame",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P13MinimalGridPath",
+      "request": "launch",
+      "mainClass": "P13MinimalGridPath",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P20NestedRangeCheck",
       "request": "launch",
       "mainClass": "P20NestedRangeCheck",

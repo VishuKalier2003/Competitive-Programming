@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 // Imp- Subset Sum algorithm - O(n^2)
-public class P12MoneySums {
+public class P14MoneySums {
     public static class FastReader {
         public BufferedReader buffer;
         public StringTokenizer tokenizer;
