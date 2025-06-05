@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P2WindowMin",
+      "request": "launch",
+      "mainClass": "P2WindowMin",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P1WindowSum",
+      "request": "launch",
+      "mainClass": "P1WindowSum",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "InfectedTree",
       "request": "launch",
       "mainClass": "InfectedTree",

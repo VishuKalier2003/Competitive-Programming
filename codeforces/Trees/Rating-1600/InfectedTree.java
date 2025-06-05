@@ -83,7 +83,7 @@ public class InfectedTree {
         }
     }
 
-    public static List<List<Integer>> tree;
+    protected static List<List<Integer>> tree;
 
     public static void callMain(String args[]) throws IOException {
         FastReader fast = new FastReader();
@@ -135,13 +135,14 @@ public class InfectedTree {
                 children.add(v);
         for (int child : children)
             dfsDp(child, root);
-        if (children.isEmpty())
+        if (children.isEmpty()) // no children
             dp[root] = 0;
-        else if (children.size() == 1) {
+        else if (children.size() == 1) { // only one children
             int c0 = children.get(0);
             dp[root] = size[c0] - 1;
-        } else {
-            int c0 = children.get(0), c1 = children.get(1);
+        } else { // Two children
+            int c0 = children.get(0);
+            int c1 = children.get(1);
             int option1 = dp[c0] + (size[c1] - 1);
             int option2 = dp[c1] + (size[c0] - 1);
             dp[root] = Math.max(option1, option2);

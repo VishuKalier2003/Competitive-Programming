@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -22,7 +21,7 @@ public class ForestQueries {
                 try {
                     tokenizer = new StringTokenizer(buffer.readLine());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
             }
             return tokenizer.nextToken();

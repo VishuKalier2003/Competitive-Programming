@@ -3,7 +3,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class HotelQueries {
@@ -15,6 +14,7 @@ public class HotelQueries {
             this.buffer = new BufferedReader(new InputStreamReader(System.in));
         }
 
+        @SuppressWarnings("PrintStackTrace")
         public String next() {
             while (tokenizer == null || !tokenizer.hasMoreTokens()) {
                 try {
