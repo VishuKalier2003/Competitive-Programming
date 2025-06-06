@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P4WindowOrII",
+      "request": "launch",
+      "mainClass": "P4WindowOrII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P4WindowOr",
+      "request": "launch",
+      "mainClass": "P4WindowOr",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P3WindowXor",
+      "request": "launch",
+      "mainClass": "P3WindowXor",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P2WindowMin",
       "request": "launch",
       "mainClass": "P2WindowMin",
