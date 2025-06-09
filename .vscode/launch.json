@@ -3,6 +3,132 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Pairs",
+      "request": "launch",
+      "mainClass": "Pairs",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "BuyingShovel",
+      "request": "launch",
+      "mainClass": "BuyingShovel",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProductOfThree",
+      "request": "launch",
+      "mainClass": "ProductOfThree",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProblemF",
+      "request": "launch",
+      "mainClass": "ProblemF",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CoolPartition",
+      "request": "launch",
+      "mainClass": "CoolPartition",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "LostSoul",
+      "request": "launch",
+      "mainClass": "LostSoul",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Shrink",
+      "request": "launch",
+      "mainClass": "Shrink",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Retaliation",
+      "request": "launch",
+      "mainClass": "Retaliation",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "FalseAlarm",
+      "request": "launch",
+      "mainClass": "FalseAlarm",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P7Monsters",
+      "request": "launch",
+      "mainClass": "P7Monsters",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P6RoundTrip",
+      "request": "launch",
+      "mainClass": "P6RoundTrip",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P5BuildingTeams",
+      "request": "launch",
+      "mainClass": "P5BuildingTeams",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P4MessageRoute",
+      "request": "launch",
+      "mainClass": "P4MessageRoute",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P3BuildingRoads",
+      "request": "launch",
+      "mainClass": "P3BuildingRoads",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P2Labyrinth",
+      "request": "launch",
+      "mainClass": "P2Labyrinth",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P1CountingRooms",
+      "request": "launch",
+      "mainClass": "P1CountingRooms",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P6WindowMode",
+      "request": "launch",
+      "mainClass": "P6WindowMode",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P5WindowDistinct",
+      "request": "launch",
+      "mainClass": "P5WindowDistinct",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P4WindowOrII",
       "request": "launch",
       "mainClass": "P4WindowOrII",

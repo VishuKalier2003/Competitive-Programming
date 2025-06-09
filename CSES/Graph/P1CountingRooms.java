@@ -1,9 +1,9 @@
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayDeque;
 
-public class P4WindowOr {
+public class P1CountingRooms {
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored in single System.in.read()
         private static final byte[] buffer = new byte[1 << 20];
@@ -66,11 +66,9 @@ public class P4WindowOr {
             int c = read();
             if(c < 0)
                 return null;
-            while(c != '\n' && c >= 0) {
+            while(c != '\n' && c >= 0)
                 if(c != '\r')
                     sb.append((char)c);
-                c = read();
-            }
             return sb.toString();
         }
     }
@@ -79,63 +77,49 @@ public class P4WindowOr {
         Thread t = new Thread(null, () -> {
             try {callMain(args);}
             catch(IOException e) {e.getLocalizedMessage();}
-        }, "window-or", 1 << 26);
+        }, "counting-rooms",
+        1 << 26);
         t.start();
         try {t.join();}
         catch(InterruptedException iE) {iE.getLocalizedMessage();}
     }
 
-    private static int f[];
-    public static long res;
+    public static int grid[][];
 
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
-        final int n = fr.readInt(), k = fr.readInt();
-        ArrayDeque<Long> nums = new ArrayDeque<>();
-        f = new int[35];
-        final int x = fr.readInt(), a = fr.readInt(), b = fr.readInt(), c = fr.readInt();
-        nums.add(x+0l);
-        res = 0l;
-        long or;
-        fUpdate(nums.peekFirst());
-        for(int i = 1; i < k; i++) {
-            nums.addLast(((nums.getLast()*a) + b) % c);
-            fUpdate(nums.getLast());
+        final int n = fr.readInt(), m = fr.readInt();
+        grid = new int[n][m];
+        for(int i = 0; i < n; i++) {
+            String s = fr.readString();
+            for(int j = 0; j < m; j++)
+                grid[i][j] = s.charAt(j) == '#' ? 0 : 1;
         }
-        or = res;
-        for(int i = k; i < n; i++) {
-            fNegate(nums.pollFirst());
-            nums.addLast(((nums.getLast()*a) + b) % c);
-            fUpdate(nums.getLast());
-            System.out.println(res);
-            or ^= res;
-        }
+        solve(n, m);
+    }
+
+    public static void solve(final int n, final int m) {
+        int count = 0;
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < m; j++)
+                if(grid[i][j] == 1) {
+                    count++;
+                    dfs(i, j, n, m);
+                }
         final StringBuilder out = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        out.append(or);
+        out.append(count);
         wr.write(out.toString());
         wr.flush();
     }
 
-    public static void fUpdate(long num) {
-        while(num != 0) {
-            // Gives the index of the LSB (since it counts the number of trailing zeros from LSB side)
-            int bit = Long.numberOfTrailingZeros(num);
-            f[bit]++;
-            if(f[bit] == 1L)
-                res |= (1L << bit);
-            // Subtracting 1 from num removes the LSB
-            num &= (num - 1L);
-        }
-    }
-
-    public static void fNegate(long num) {
-        while(num != 0) {
-            int bit = Long.numberOfTrailingZeros(num);
-            f[bit]--;
-            if(f[bit] == 0L)
-                res ^= (1L << bit);
-            num &= (num - 1L);
-        }
+    public static void dfs(int i, int j, final int n, final int m) {
+        if(i < 0 || j < 0 || i >= n || j >= m || grid[i][j] == 0)
+            return;
+        grid[i][j] = 0;
+        dfs(i+1, j, n, m);
+        dfs(i, j+1, n, m);
+        dfs(i, j-1, n, m);
+        dfs(i-1, j, n, m);
     }
 }

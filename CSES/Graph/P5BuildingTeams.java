@@ -2,8 +2,12 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
 
-public class P4WindowOr {
+public class P5BuildingTeams {
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored in single System.in.read()
         private static final byte[] buffer = new byte[1 << 20];
@@ -66,11 +70,9 @@ public class P4WindowOr {
             int c = read();
             if(c < 0)
                 return null;
-            while(c != '\n' && c >= 0) {
+            while(c != '\n' && c >= 0)
                 if(c != '\r')
                     sb.append((char)c);
-                c = read();
-            }
             return sb.toString();
         }
     }
@@ -79,63 +81,72 @@ public class P4WindowOr {
         Thread t = new Thread(null, () -> {
             try {callMain(args);}
             catch(IOException e) {e.getLocalizedMessage();}
-        }, "window-or", 1 << 26);
+        }, "building-teams",
+        1 << 26);
         t.start();
         try {t.join();}
         catch(InterruptedException iE) {iE.getLocalizedMessage();}
     }
 
-    private static int f[];
-    public static long res;
+    private static List<List<Integer>> g;
 
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
-        final int n = fr.readInt(), k = fr.readInt();
-        ArrayDeque<Long> nums = new ArrayDeque<>();
-        f = new int[35];
-        final int x = fr.readInt(), a = fr.readInt(), b = fr.readInt(), c = fr.readInt();
-        nums.add(x+0l);
-        res = 0l;
-        long or;
-        fUpdate(nums.peekFirst());
-        for(int i = 1; i < k; i++) {
-            nums.addLast(((nums.getLast()*a) + b) % c);
-            fUpdate(nums.getLast());
+        final int n = fr.readInt(), m = fr.readInt();
+        g = new ArrayList<>();
+        for(int i = 0; i <= n; i++)
+            g.add(new ArrayList<>());
+        for(int i = 0; i < m; i++) {
+            int x = fr.readInt(), y = fr.readInt();
+            g.get(x).add(y);
+            g.get(y).add(x);
         }
-        or = res;
-        for(int i = k; i < n; i++) {
-            fNegate(nums.pollFirst());
-            nums.addLast(((nums.getLast()*a) + b) % c);
-            fUpdate(nums.getLast());
-            System.out.println(res);
-            or ^= res;
-        }
+        solve(n, m);
+    }
+
+    public static boolean v[];
+    public static int color[];
+
+    public static void solve(final int n, final int m) {
+        v = new boolean[n+1];
+        color = new int[n+1];
+        Arrays.fill(color, 1);
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+        for(int i = 1; i <= n; i++)
+            if(!v[i])
+                bfs(i, q);
         final StringBuilder out = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        out.append(or);
+        for(int i = 1; i <= n; i++) {
+            int c = color[i];
+            for(int child : g.get(i))
+                if(c == color[child]) {
+                    System.out.println("IMPOSSIBLE");
+                    return;
+                }
+            out.append(c).append(" ");
+        }
         wr.write(out.toString());
         wr.flush();
     }
 
-    public static void fUpdate(long num) {
-        while(num != 0) {
-            // Gives the index of the LSB (since it counts the number of trailing zeros from LSB side)
-            int bit = Long.numberOfTrailingZeros(num);
-            f[bit]++;
-            if(f[bit] == 1L)
-                res |= (1L << bit);
-            // Subtracting 1 from num removes the LSB
-            num &= (num - 1L);
-        }
-    }
-
-    public static void fNegate(long num) {
-        while(num != 0) {
-            int bit = Long.numberOfTrailingZeros(num);
-            f[bit]--;
-            if(f[bit] == 0L)
-                res ^= (1L << bit);
-            num &= (num - 1L);
+    public static void bfs(int s, Deque<Integer> q) {
+        q.add(s);
+        v[s] = true;
+        int lvl = 0;
+        while(!q.isEmpty()) {
+            int size = q.size();
+            for(int i = 0; i < size; i++) {
+                int node = q.poll();
+                v[node] = true;
+                color[node] = lvl % 2 == 0 ? 1 : 2;
+                for(int child : g.get(node))
+                    if(!v[child]) {
+                        v[child] = true;
+                        q.add(child);
+                    }
+            }
+            lvl++;
         }
     }
 }
