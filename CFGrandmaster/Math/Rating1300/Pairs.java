@@ -98,17 +98,23 @@ public class Pairs {
     }
 
     public static long solve(final int n, final long l, final long r, int nums[]) {
+        // Info: Sort the array, as we can always keep i < j since if we get any time j <= i, reverse the pointers
         Arrays.sort(nums);
-        long countL = 0l, countR = 0l;
-        for(int i = 0; i < n-1; i++)
+        // countL stores the number of pairs, which have sum less than or equal to l-1
+        long countL = 0l;
+        // countR stores the number of pairs, which have sum less than or equal to r
+        long countR = 0l;
+        // Hack: This count is like a sum property and to get sums under a range we can do prefix sums (sum(r) - sum(l-1))
+        for(int i = 0; i < n-1; i++)        // binary search for each element with target l-1
             countL += binarySearch(i, n, nums, l-1);
-        for(int i = 0; i < n-1; i++)
+        for(int i = 0; i < n-1; i++)        // binary search for each element with target r
             countR += binarySearch(i, n, nums, r);
-        return countR-countL;
+        return countR-countL;       // prefix sum formula
     }
 
     public static int binarySearch(int left, int n, int nums[], long target) {
-        int right = n-1, ans = left, temp = left;
+        // Note: define ans appropriately, since if no value is found, the result should be 0 so we keep ans as left
+        int right = n-1, ans = left, temp = left;       // right as the last index
         left++;
         while(left <= right) {
             int mid = (left+right) >>> 1;
