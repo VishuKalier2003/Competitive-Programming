@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CommonDivisor",
+      "request": "launch",
+      "mainClass": "CommonDivisor",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Shuffle",
+      "request": "launch",
+      "mainClass": "Shuffle",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Anton",
+      "request": "launch",
+      "mainClass": "Anton",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Sum3",
       "request": "launch",
       "mainClass": "Sum3",
