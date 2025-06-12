@@ -1,10 +1,10 @@
-// https://codeforces.com/problemset/problem/1443/B
+// https://codeforces.com/problemset/problem/1174/C
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-public class SaveTheCity {
+public class EhabColoring {
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored in single System.in.read()
         private static final byte[] buffer = new byte[1 << 20];
@@ -81,7 +81,7 @@ public class SaveTheCity {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "colorful-table", 1 << 26);
+        }, "ehab-and-coloring-problem", 1 << 26);
         math1300.start();
         try {
             math1300.join();
@@ -92,44 +92,30 @@ public class SaveTheCity {
 
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
-        int t = fr.readInt();
         final StringBuilder output = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        while (t-- > 0) {
-            final int a = fr.readInt(), b = fr.readInt();
-            output.append(solve(a, b, fr.readString())).append("\n");
-        }
+        output.append(solve(fr.readInt()));
         wr.write(output.toString()); // printwriter to print output
         wr.flush();
     }
 
-    public static long solve(int a, int b, String s) {
-        int n = s.length();
-        int i = 0;
-        // 1) Skip any leading '0's — they cost nothing.
-        while (i < n && s.charAt(i) == '0')
-            i++;
-        // If the whole string is zero, no mines => no cost.
-        if (i == n)
-            return 0L;
-        // Activate the first segment of '1's.
-        long cost = a;
-        while (i < n) {
-            // Skip current segment of '1's.
-            while (i < n && s.charAt(i) == '1')
-                i++;
-            // Count the next run of '0's (the gap).
-            int startZero = i;
-            while (i < n && s.charAt(i) == '0')
-                i++;
-            int gapLength = i - startZero;
-            // If we reached the end, there's no further '1' to activate.
-            if (i >= n)
-                break;
-            cost += Math.min((long) gapLength * b, a);
+    // Use sieve of erasthosthenes to color the coprimes differently
+    public static StringBuilder solve(final int n) {
+        int sieve[] = new int[n+1];
+        int color = 1;
+        for(int i = 2; i <= n; i++) {
+            boolean f = false;
+            for(int j = i; j <= n; j += i)
+                if(sieve[j] == 0) {
+                    sieve[j] = color;
+                    f = true;
+                }
+            if(f)
+                color++;
         }
-
-        return cost;
+        final StringBuilder p = new StringBuilder();
+        for(int i = 2; i <= n; i++)
+            p.append(sieve[i]).append(" ");
+        return p;
     }
-
 }

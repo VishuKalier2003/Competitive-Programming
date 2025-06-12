@@ -1,10 +1,10 @@
-// https://codeforces.com/problemset/problem/1443/B
+// https://codeforces.com/problemset/problem/1178/C
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-public class SaveTheCity {
+public class Tiles {
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored in single System.in.read()
         private static final byte[] buffer = new byte[1 << 20];
@@ -81,7 +81,7 @@ public class SaveTheCity {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "colorful-table", 1 << 26);
+        }, "tiles", 1 << 26);
         math1300.start();
         try {
             math1300.join();
@@ -92,44 +92,24 @@ public class SaveTheCity {
 
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
-        int t = fr.readInt();
         final StringBuilder output = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        while (t-- > 0) {
-            final int a = fr.readInt(), b = fr.readInt();
-            output.append(solve(a, b, fr.readString())).append("\n");
-        }
+        output.append(solve(fr.readInt(), fr.readInt()));
         wr.write(output.toString()); // printwriter to print output
         wr.flush();
     }
 
-    public static long solve(int a, int b, String s) {
-        int n = s.length();
-        int i = 0;
-        // 1) Skip any leading '0's — they cost nothing.
-        while (i < n && s.charAt(i) == '0')
-            i++;
-        // If the whole string is zero, no mines => no cost.
-        if (i == n)
-            return 0L;
-        // Activate the first segment of '1's.
-        long cost = a;
-        while (i < n) {
-            // Skip current segment of '1's.
-            while (i < n && s.charAt(i) == '1')
-                i++;
-            // Count the next run of '0's (the gap).
-            int startZero = i;
-            while (i < n && s.charAt(i) == '0')
-                i++;
-            int gapLength = i - startZero;
-            // If we reached the end, there's no further '1' to activate.
-            if (i >= n)
-                break;
-            cost += Math.min((long) gapLength * b, a);
+    public static final int MOD = 998244353;
+
+    public static long solve(final int n, final int m) {
+        long res = 1L;
+        long b = n+m+0L, a = 2L;
+        while(b > 0) {
+            if((b & 1) == 1)
+                res = (res * a) % MOD;
+            a = (a * a) % MOD;
+            b >>= 1;
         }
-
-        return cost;
+        return res;
     }
-
 }

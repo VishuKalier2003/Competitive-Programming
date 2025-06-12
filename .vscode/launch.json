@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "EhabColoring",
+      "request": "launch",
+      "mainClass": "EhabColoring",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Tiles",
+      "request": "launch",
+      "mainClass": "Tiles",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "SaveTheCity",
+      "request": "launch",
+      "mainClass": "SaveTheCity",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Inflation",
       "request": "launch",
       "mainClass": "Inflation",
