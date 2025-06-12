@@ -3,6 +3,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Inflation",
+      "request": "launch",
+      "mainClass": "Inflation",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Winter",
+      "request": "launch",
+      "mainClass": "Winter",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "NumberSequence",
+      "request": "launch",
+      "mainClass": "NumberSequence",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "BothChildren",
+      "request": "launch",
+      "mainClass": "BothChildren",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "CommonDivisor",
       "request": "launch",
       "mainClass": "CommonDivisor",
