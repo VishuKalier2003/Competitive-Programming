@@ -3,6 +3,62 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Swords",
+      "request": "launch",
+      "mainClass": "Swords",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Confusion",
+      "request": "launch",
+      "mainClass": "Confusion",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "FixedOr",
+      "request": "launch",
+      "mainClass": "FixedOr",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Sofia",
+      "request": "launch",
+      "mainClass": "Sofia",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProbD",
+      "request": "launch",
+      "mainClass": "ProbD",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProbC",
+      "request": "launch",
+      "mainClass": "ProbC",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProbB",
+      "request": "launch",
+      "mainClass": "ProbB",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProbA",
+      "request": "launch",
+      "mainClass": "ProbA",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "EhabColoring",
       "request": "launch",
       "mainClass": "EhabColoring",
