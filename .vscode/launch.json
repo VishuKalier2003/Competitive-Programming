@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "RubrikColor",
+      "request": "launch",
+      "mainClass": "RubrikColor",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Swords",
       "request": "launch",
       "mainClass": "Swords",
