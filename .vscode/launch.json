@@ -3,6 +3,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Packets",
+      "request": "launch",
+      "mainClass": "Packets",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "RockScissor",
+      "request": "launch",
+      "mainClass": "RockScissor",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "EpicNovel",
+      "request": "launch",
+      "mainClass": "EpicNovel",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Blocks",
+      "request": "launch",
+      "mainClass": "Blocks",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "RubrikColor",
       "request": "launch",
       "mainClass": "RubrikColor",

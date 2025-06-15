@@ -1,5 +1,3 @@
-// https://codeforces.com/problemset/problem/1594/E1
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +5,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class RubrikColor {
+public class EpicNovel {
     public static class FastReader {
         public BufferedReader buffer;
         public StringTokenizer tokenizer;
@@ -43,7 +41,7 @@ public class RubrikColor {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Rubrik-Coloring", 1 << 26);
+        }, "Epic-novel", 1 << 26);
         constructive1300.start();
         try {
             constructive1300.join();
@@ -56,33 +54,25 @@ public class RubrikColor {
         FastReader fr = new FastReader();
         final StringBuilder output = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        output.append(solve(fr.nextLong()));
+        int t = fr.nextInt();
+        while(t-- > 0) {
+            final int n = fr.nextInt(), a = fr.nextInt(), va = fr.nextInt(), c = fr.nextInt(), vc = fr.nextInt(), b = fr.nextInt();
+            output.append(solve(n, a, va, c, vc, b)).append("\n");
+        }
         wr.write(output.toString());
         wr.flush();
     }
 
-    public static final long MOD = 1_000_000_007, PHI = MOD-1;
-
-    // Use fernet theorem corollary for power 
-    public static long solve(final long n) {
-        long ways = 6L;
-        for(long i = 1; i < n; i++) {
-            // Fernet Power theorem
-            long levelWays = exp(4, exp(2, i, PHI), MOD);
-            ways = (ways * levelWays) % MOD; 
+    public static int solve(final int n, int a, int va, int c, int vc, final int b) {
+        int nums[] = new int[101];
+        nums[a] = va; nums[c] = vc;
+        int idx = 101;
+        while(vc > va) {
+            nums[c] = vc--;
+            idx = c--;
         }
-        return ways;
-    }
-
-    // Modular exponetiation
-    public static long exp(long a, long b, final long M) {
-        long res = 1L;
-        while(b > 0L) {
-            if((b & 1) == 1)
-                res = (res * a) % M;
-            a = (a * a) % M;
-            b >>= 1;
-        }
-        return res;
+        while(a < idx)
+            nums[a++] = va;
+        return nums[b];
     }
 }

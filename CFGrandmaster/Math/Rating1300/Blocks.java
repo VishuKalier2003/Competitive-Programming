@@ -1,4 +1,4 @@
-// https://codeforces.com/problemset/problem/1594/E1
+// https://codeforces.com/problemset/problem/1271/B
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class RubrikColor {
+public class Blocks {
     public static class FastReader {
         public BufferedReader buffer;
         public StringTokenizer tokenizer;
@@ -43,7 +43,7 @@ public class RubrikColor {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Rubrik-Coloring", 1 << 26);
+        }, "Blocks", 1 << 26);
         constructive1300.start();
         try {
             constructive1300.join();
@@ -56,33 +56,34 @@ public class RubrikColor {
         FastReader fr = new FastReader();
         final StringBuilder output = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        output.append(solve(fr.nextLong()));
+        output.append(solve(fr.nextInt(), fr.next()));
         wr.write(output.toString());
         wr.flush();
     }
 
-    public static final long MOD = 1_000_000_007, PHI = MOD-1;
-
-    // Use fernet theorem corollary for power 
-    public static long solve(final long n) {
-        long ways = 6L;
-        for(long i = 1; i < n; i++) {
-            // Fernet Power theorem
-            long levelWays = exp(4, exp(2, i, PHI), MOD);
-            ways = (ways * levelWays) % MOD; 
+    public static StringBuilder solve(final int n, final String s) {
+        char bl[] = s.toCharArray();
+        char x = bl[0];     // take the first character as the character that we will fill (marked character)
+        int count = 0;
+        final StringBuilder out = new StringBuilder();
+        for(int i = 1; i < n-1; i++) {
+            if(bl[i] != x) {
+                // When the element is not same as the marked
+                bl[i] = x;
+                bl[i+1] = bl[i+1] == 'W' ? 'B' : 'W';       // update adjacent
+                out.append((i+1)).append(" ");
+                count++;
+            }
         }
-        return ways;
-    }
-
-    // Modular exponetiation
-    public static long exp(long a, long b, final long M) {
-        long res = 1L;
-        while(b > 0L) {
-            if((b & 1) == 1)
-                res = (res * a) % M;
-            a = (a * a) % M;
-            b >>= 1;
+        if(bl[n-1] == x)    // If last gets marked
+            return new StringBuilder().append(count).append("\n").append(out);
+        if((n-1) % 2 != 0)      // If odd characters are marked
+            return new StringBuilder().append("-1");
+        // Count characters at odd positions till 2nd last character
+        for(int j = 0; j < n-1; j += 2) {
+            count++;
+            out.append((j+1)).append(" ");
         }
-        return res;
+        return new StringBuilder().append(count).append("\n").append(out);
     }
 }

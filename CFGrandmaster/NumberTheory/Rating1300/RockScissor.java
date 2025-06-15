@@ -1,5 +1,3 @@
-// https://codeforces.com/problemset/problem/1594/E1
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +5,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class RubrikColor {
+public class RockScissor {
     public static class FastReader {
         public BufferedReader buffer;
         public StringTokenizer tokenizer;
@@ -43,7 +41,7 @@ public class RubrikColor {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Rubrik-Coloring", 1 << 26);
+        }, "Rock-Paper-Scissor", 1 << 26);
         constructive1300.start();
         try {
             constructive1300.join();
@@ -56,33 +54,60 @@ public class RubrikColor {
         FastReader fr = new FastReader();
         final StringBuilder output = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        output.append(solve(fr.nextLong()));
+        final int n = fr.nextInt();
+        String s1 = fr.next(), s2 = fr.next();
+        output.append(solve(n, s1, s2));
         wr.write(output.toString());
         wr.flush();
     }
 
-    public static final long MOD = 1_000_000_007, PHI = MOD-1;
+    public static String solve(final int n, final String s1, final String s2) {
+        int m = s1.length(), k = s2.length();
 
-    // Use fernet theorem corollary for power 
-    public static long solve(final long n) {
-        long ways = 6L;
-        for(long i = 1; i < n; i++) {
-            // Fernet Power theorem
-            long levelWays = exp(4, exp(2, i, PHI), MOD);
-            ways = (ways * levelWays) % MOD; 
+        int lcm = lcm(m, k);
+        int[] total = new int[2]; // total[0] for Nike, total[1] for Poly
+
+        for (int i = 0; i < lcm; i++) {
+            char c1 = s1.charAt(i % m), c2 = s2.charAt(i % k);
+            if (c1 == c2)
+                continue;
+            if (winsOver(c1, c2))
+                total[1]++;
+            else
+                total[0]++;
         }
-        return ways;
+        int cycles = n / lcm;
+        int remainder = n % lcm;
+
+        int[] remainderTotal = new int[2];
+        for (int i = 0; i < remainder; i++) {
+            char c1 = s1.charAt(i % m), c2 = s2.charAt(i % k);
+            if (c1 == c2)
+                continue;
+            if (winsOver(c1, c2))
+                remainderTotal[1]++;
+            else
+                remainderTotal[0]++;
+        }
+        int nike = total[0] * cycles + remainderTotal[0];
+        int poly = total[1] * cycles + remainderTotal[1];
+        return nike + " " + poly;
     }
 
-    // Modular exponetiation
-    public static long exp(long a, long b, final long M) {
-        long res = 1L;
-        while(b > 0L) {
-            if((b & 1) == 1)
-                res = (res * a) % M;
-            a = (a * a) % M;
-            b >>= 1;
-        }
-        return res;
+    private static boolean winsOver(char a, char b) {
+        return (a == 'R' && b == 'S') ||
+                (a == 'S' && b == 'P') ||
+                (a == 'P' && b == 'R');
     }
+
+    private static int gcd(int a, int b) {
+        if (b == 0)
+            return a;
+        return gcd(b, a % b);
+    }
+
+    private static int lcm(int a, int b) {
+        return a / gcd(a, b) * b;
+    }
+
 }
