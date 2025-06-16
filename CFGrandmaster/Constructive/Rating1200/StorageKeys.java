@@ -1,4 +1,4 @@
-// https://codeforces.com/problemset/problem/1988/C
+// https://codeforces.com/problemset/problem/2072/C
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class FixedOr {
+public class StorageKeys {
     public static class FastReader {
         public BufferedReader buffer;
         public StringTokenizer tokenizer;
@@ -43,7 +43,7 @@ public class FixedOr {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Increasing-sequence-with-fixed-OR", 1 << 26);
+        }, "Creating-Storage-Keys", 1 << 26);
         constructive1300.start();
         try {
             constructive1300.join();
@@ -54,32 +54,31 @@ public class FixedOr {
 
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
-        int t = fr.nextInt();
         final StringBuilder output = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        while(t-- > 0) {
-            output.append(solve(fr.nextLong())).append("\n");
-        }
+        int t = fr.nextInt();
+        while(t-- > 0)
+            output.append(solve(fr.nextInt(), fr.nextInt())).append("\n");
         wr.write(output.toString());
         wr.flush();
     }
 
-    public static StringBuilder solve(final long num) {
-        final StringBuilder s = new StringBuilder();
-        int count = 0;      // count the elements in sequence
-        // Finding the index of MSB
-        for(int i = 63-Long.numberOfLeadingZeros(num); i >= 0; i--) {
-            // We flip 1 set bit at a time from MSB to LSB to maintain OR property
-            if((num & (1L << i)) != 0 && num != 1L) {
-                long x = num ^ (1L << i);
-                if(x != 0L) {       // Make sure the number is not 0
-                    s.append(x).append(" ");
-                    count++;
-                }
-            }
+    public static StringBuilder solve(int n, int x) {
+        final StringBuilder out = new StringBuilder();
+        int i;
+        for(i = 0; i <= x && n > 1; i++, n--) {
+            // Checking if doing or does not set incorrect bit
+            if(((x ^ -1) & i) > 0)  // xor with -1 (all 1s) and then doing & with i tell if there is any incorrect bit set to 1
+                break;
+            out.append(i).append(" ");
         }
-        s.append(num);
-        count++;
-        return new StringBuilder().append(count).append("\n").append(s);
+        // While the MSB are same, we can maintain the MEX property
+        while(Integer.numberOfLeadingZeros(i) == Integer.numberOfLeadingZeros(x) && n-- > 0) {
+            out.append(i).append(" ");
+            i++;
+        }
+        while(n-- > 0)      // Fill all with same value of x as the last resort
+            out.append(x).append(" ");
+        return out;
     }
 }

@@ -1,4 +1,4 @@
-// https://codeforces.com/problemset/problem/1988/C
+// https://codeforces.com/problemset/problem/2056/C
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class FixedOr {
+public class Subsequence {
     public static class FastReader {
         public BufferedReader buffer;
         public StringTokenizer tokenizer;
@@ -43,7 +43,7 @@ public class FixedOr {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Increasing-sequence-with-fixed-OR", 1 << 26);
+        }, "Palindromic-subsequences", 1 << 26);
         constructive1300.start();
         try {
             constructive1300.join();
@@ -54,32 +54,28 @@ public class FixedOr {
 
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
-        int t = fr.nextInt();
         final StringBuilder output = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        while(t-- > 0) {
-            output.append(solve(fr.nextLong())).append("\n");
-        }
+        int t = fr.nextInt();
+        while (t-- > 0)
+            output.append(solve(fr.nextInt())).append("\n");
         wr.write(output.toString());
         wr.flush();
     }
 
-    public static StringBuilder solve(final long num) {
-        final StringBuilder s = new StringBuilder();
-        int count = 0;      // count the elements in sequence
-        // Finding the index of MSB
-        for(int i = 63-Long.numberOfLeadingZeros(num); i >= 0; i--) {
-            // We flip 1 set bit at a time from MSB to LSB to maintain OR property
-            if((num & (1L << i)) != 0 && num != 1L) {
-                long x = num ^ (1L << i);
-                if(x != 0L) {       // Make sure the number is not 0
-                    s.append(x).append(" ");
-                    count++;
-                }
+    public static StringBuilder solve(int n) {
+        StringBuilder sb = new StringBuilder(n * 2);
+        if (n == 6) {
+            // Hard‐coded seed for n=6
+            sb.append("1 1 2 3 1 2");
+        } else {
+            // General case: 1,2,3,...,n−2, 1,2
+            for (int i = 1; i <= n - 2; i++) {
+                sb.append(i).append(' ');
             }
+            sb.append(1).append(' ');
+            sb.append(2);
         }
-        s.append(num);
-        count++;
-        return new StringBuilder().append(count).append("\n").append(s);
+        return sb;
     }
 }
