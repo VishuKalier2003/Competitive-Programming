@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TurtlePairs",
+      "request": "launch",
+      "mainClass": "TurtlePairs",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Beautiful",
+      "request": "launch",
+      "mainClass": "Beautiful",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Subsequence",
       "request": "launch",
       "mainClass": "Subsequence",
