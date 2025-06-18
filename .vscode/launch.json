@@ -3,6 +3,41 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ProblemG",
+      "request": "launch",
+      "mainClass": "ProblemG",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProblemH",
+      "request": "launch",
+      "mainClass": "ProblemH",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProblemD",
+      "request": "launch",
+      "mainClass": "ProblemD",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ProblemA",
+      "request": "launch",
+      "mainClass": "ProblemA",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Olympiad",
+      "request": "launch",
+      "mainClass": "Olympiad",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "TurtlePairs",
       "request": "launch",
       "mainClass": "TurtlePairs",
