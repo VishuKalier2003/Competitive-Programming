@@ -103,13 +103,11 @@ public class ProblemF {
                     if (prev < i) {
                         gapSum += countSubarrays(nums, prev, i, s);
                     }
-
                     answer += (total - gapSum);
                 }
                 start = i + 1;
             }
         }
-
         return answer;
     }
 }

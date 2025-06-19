@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Fernet",
+      "request": "launch",
+      "mainClass": "Fernet",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "ProblemG",
       "request": "launch",
       "mainClass": "ProblemG",
