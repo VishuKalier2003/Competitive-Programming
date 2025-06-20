@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "EscapeStones",
+      "request": "launch",
+      "mainClass": "EscapeStones",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ArrayCraft",
+      "request": "launch",
+      "mainClass": "ArrayCraft",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Fernet",
       "request": "launch",
       "mainClass": "Fernet",
