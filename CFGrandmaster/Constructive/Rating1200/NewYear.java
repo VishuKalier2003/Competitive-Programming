@@ -1,5 +1,3 @@
-// https://codeforces.com/problemset/problem/264/A
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +5,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class EscapeStones {
+public class NewYear {
     public static class FastReader {
         public BufferedReader buffer;
         public StringTokenizer tokenizer;
@@ -43,7 +41,7 @@ public class EscapeStones {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Escape-Stones", 1 << 26);
+        }, "New-Year", 1 << 26);
         constructive1300.start();
         try {
             constructive1300.join();
@@ -56,52 +54,27 @@ public class EscapeStones {
         FastReader fr = new FastReader(); // reading input
         final StringBuilder output = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        output.append(solve(fr.next())).append("\n");
+        final int n = fr.nextInt();
+        int nums[] = new int[n];
+        for(int i = 0; i < n; i++)
+            nums[i] = fr.nextInt();
+        output.append(solve(n, nums)).append("\n");
         wr.write(output.toString());
         wr.flush();
     }
 
-    public static class Node { // A doubly linked list node class
-        protected Node next, prev;
-        protected final int value;
-
-        public Node(int n) {
-            this.value = n;
-            this.next = this.prev = null;
+    public static StringBuilder solve(final int n, final int nums[]) {
+        final StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < n-1; i++) {
+            if(nums[i] == 0)
+                sb.append("R");
+            else {
+                sb.append("PRL".repeat(nums[i]));
+                sb.append("R");
+            }
         }
-
-        // Inserting a third node, between two nodes
-        public static void insertBetween(Node n1, Node n2, Node x) {
-            n1.next = x;
-            n2.prev = x;
-            x.next = n2;
-            x.prev = n1;
-        }
-    }
-
-    public static StringBuilder solve(final String s) {
-        Node head = new Node(-1), tail = new Node(-1), temp = head;
-        head.next = tail;
-        tail.prev = head;
-        int n = s.length();
-        // Maintaing the two boundaries from whose middle we have to find
-        Node l = head, r = tail;
-        for (int i = 0; i < n; i++) {
-            char ch = s.charAt(i);
-            Node x = new Node(i + 1);
-            Node.insertBetween(l, r, x);        // Insert in between
-            if (ch == 'l')
-                r = x;
-            else
-                l = x;
-        }
-        // Stringbuilder defined for storing the stones value
-        final StringBuilder out = new StringBuilder();
-        while (temp.next != null) {
-            if (temp.value != -1)
-                out.append(temp.value).append("\n");
-            temp = temp.next;
-        }
-        return out;
+        if(nums[n-1] != 0)
+            sb.append("PLR".repeat(nums[n-1]));
+        return sb;
     }
 }

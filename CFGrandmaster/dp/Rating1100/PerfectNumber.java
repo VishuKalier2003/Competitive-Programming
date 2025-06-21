@@ -1,4 +1,4 @@
-// https://codeforces.com/problemset/problem/264/A
+// https://codeforces.com/problemset/problem/919/B
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class EscapeStones {
+public class PerfectNumber {
     public static class FastReader {
         public BufferedReader buffer;
         public StringTokenizer tokenizer;
@@ -43,7 +43,7 @@ public class EscapeStones {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Escape-Stones", 1 << 26);
+        }, "Perfect-Number", 1 << 26);
         constructive1300.start();
         try {
             constructive1300.join();
@@ -56,52 +56,31 @@ public class EscapeStones {
         FastReader fr = new FastReader(); // reading input
         final StringBuilder output = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
-        output.append(solve(fr.next())).append("\n");
+        output.append(solve(fr.nextInt()));
         wr.write(output.toString());
         wr.flush();
     }
 
-    public static class Node { // A doubly linked list node class
-        protected Node next, prev;
-        protected final int value;
-
-        public Node(int n) {
-            this.value = n;
-            this.next = this.prev = null;
+    public static long solve(int n) {
+        long num = 1L;
+        while(n > 0) {
+            if(digitSum(num) == 10) {
+                n--;
+                if(n == 0)
+                    return num;
+            }
+            num++;
         }
-
-        // Inserting a third node, between two nodes
-        public static void insertBetween(Node n1, Node n2, Node x) {
-            n1.next = x;
-            n2.prev = x;
-            x.next = n2;
-            x.prev = n1;
-        }
+        return num;
     }
 
-    public static StringBuilder solve(final String s) {
-        Node head = new Node(-1), tail = new Node(-1), temp = head;
-        head.next = tail;
-        tail.prev = head;
-        int n = s.length();
-        // Maintaing the two boundaries from whose middle we have to find
-        Node l = head, r = tail;
-        for (int i = 0; i < n; i++) {
-            char ch = s.charAt(i);
-            Node x = new Node(i + 1);
-            Node.insertBetween(l, r, x);        // Insert in between
-            if (ch == 'l')
-                r = x;
-            else
-                l = x;
+    public static int digitSum(long num) {
+        int s = 0;
+        while(num > 0) {
+            long d = num % 10;
+            s += (int)d;
+            num /= 10;
         }
-        // Stringbuilder defined for storing the stones value
-        final StringBuilder out = new StringBuilder();
-        while (temp.next != null) {
-            if (temp.value != -1)
-                out.append(temp.value).append("\n");
-            temp = temp.next;
-        }
-        return out;
+        return s;
     }
 }

@@ -3,6 +3,41 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Card",
+      "request": "launch",
+      "mainClass": "Card",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "PerfectNumber",
+      "request": "launch",
+      "mainClass": "PerfectNumber",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Negatives",
+      "request": "launch",
+      "mainClass": "Negatives",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Amity",
+      "request": "launch",
+      "mainClass": "Amity",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "NewYear",
+      "request": "launch",
+      "mainClass": "NewYear",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "EscapeStones",
       "request": "launch",
       "mainClass": "EscapeStones",
