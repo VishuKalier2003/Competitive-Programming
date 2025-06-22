@@ -101,7 +101,7 @@ public class BinaryLifting {
         int ancestor = node;
         for (int i = 0; i <= this.LOG; i++) {
             // Check if the i-th bit is set in k
-            if (((k >> i) & 1) != 0) {
+            if (((k >> i) & 1) == 1) {
                 // Jump 2^i steps up
                 ancestor = this.lift[i][ancestor];
                 if (ancestor == -1) break; // Early termination if ancestor doesn't exist

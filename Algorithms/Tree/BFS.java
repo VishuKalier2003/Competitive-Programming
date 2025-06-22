@@ -4,6 +4,7 @@ import java.util.*;
 
 // Imp - T.C. : O(n), S.C. : O(n)
 
+@SuppressWarnings("CallToPrintStackTrace")
 public class BFS {
     // Imp - Performs breadth first search on a graph or a tree to evaluate states quickly
     public static class FastReader {

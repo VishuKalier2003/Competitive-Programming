@@ -1,5 +1,5 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 // Imp - T.C. : O(n log n), S.C. : O(n)
 
@@ -12,6 +12,7 @@ public class Prim {
         // Constructor defined for calling Buffer
         public FastReader() {this.buffer = new BufferedReader(new InputStreamReader(System.in));}
 
+        @SuppressWarnings("CallToPrintStackTrace")
         public String next() {  // Reads data differently when separated by space
             while(tokenizer == null || !tokenizer.hasMoreTokens()) {
                 try{tokenizer = new StringTokenizer(buffer.readLine());}
@@ -46,8 +47,7 @@ public class Prim {
             spanningTree.put(i, new ArrayList<>());
         // Priority Queue defined for the Edge -> lambda function compression logic (comparing by weights)
         PriorityQueue<Edge> minHeap = new PriorityQueue<>((Edge e1, Edge e2) -> Integer.compare(e1.weight, e2.weight));
-        for(Edge edge : edges)
-            minHeap.add(edge);
+        minHeap.addAll(Arrays.asList(edges));
         Set<Integer> taken = new HashSet<>();   // Set of taken nodes
         taken.add(1);       // Start from arbitrary nodes
         while(!minHeap.isEmpty()) {
