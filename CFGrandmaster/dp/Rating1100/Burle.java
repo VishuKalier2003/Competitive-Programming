@@ -1,11 +1,14 @@
+// https://codeforces.com/problemset/problem/1958/A
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Yarik {
+public class Burle {
     public static class FastReader {
         public BufferedReader buffer;
         public StringTokenizer tokenizer;
@@ -41,7 +44,7 @@ public class Yarik {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Card-Construction", 1 << 26);
+        }, "1-3-5", 1 << 26);
         constructive1300.start();
         try {
             constructive1300.join();
@@ -55,18 +58,30 @@ public class Yarik {
         final StringBuilder output = new StringBuilder();
         final PrintWriter wr = new PrintWriter(new OutputStreamWriter(System.out));
         int t = fr.nextInt();
-        while(t-- > 0) {
-            final int n = fr.nextInt();
-            int nums[] = new int[n];
-            for(int i = 0; i < n; i++)
-                nums[i] = fr.nextInt();
-            output.append(solve(n, nums))
-        }
+        while (t-- > 0)
+            output.append(solve(fr.nextInt())).append("\n");
         wr.write(output.toString());
         wr.flush();
     }
 
-    public static long solve(final int n, final int nums[]) {
-        return n;
+    public static int solve(int n) {
+        dp = new int[n+1];
+        Arrays.fill(dp, INF);
+        return helper(n);
+    }
+
+    public static final int INF = 1000;
+    public static int dp[];
+
+    public static int helper(int num) {
+        if(num < 3 && num > -1)
+            return num;
+        if(num < 0)
+            return INF;
+        if(dp[num] != INF)
+            return dp[num];
+        int min = INF;
+        min = Math.min(min, Math.min(helper(num-3), helper(num-5)));
+        return dp[num] = min;
     }
 }

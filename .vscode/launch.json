@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Burle",
+      "request": "launch",
+      "mainClass": "Burle",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Fibonacci",
+      "request": "launch",
+      "mainClass": "Fibonacci",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Card",
       "request": "launch",
       "mainClass": "Card",

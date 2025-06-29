@@ -1,3 +1,4 @@
+package Math; 
 import java.util.Scanner;
 
 public class Fernet {
@@ -42,7 +43,7 @@ public class Fernet {
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Power (a, b) : " + powerflt(sc.nextInt(), sc.nextInt(), MOD));
             System.out.println("Inverse (a) : " + inverseflt(sc.nextInt(), MOD));
-            System.out.println("Primality Test : " +fermatPrimalityTest(sc.nextInt(), sc.nextInt()));
+            System.out.println("Primality Test : " + fermatPrimalityTest(sc.nextInt(), sc.nextInt()));
         } catch (Exception e) {
             e.getLocalizedMessage();
         }
