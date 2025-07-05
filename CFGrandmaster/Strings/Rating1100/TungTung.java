@@ -1,4 +1,4 @@
-package Strings;
+// https://codeforces.com/problemset/problem/2094/D
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class SubstringTwoPointer {
+public class TungTung {
     public static class FastReader {
         public BufferedReader buffer;
         public StringTokenizer tokenizer;
@@ -43,7 +43,7 @@ public class SubstringTwoPointer {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "substring-window-two-pointer", 1 << 26);
+        }, "tung-tung-sahar", 1 << 26);
         t.start();
         try {
             t.join();
@@ -54,47 +54,31 @@ public class SubstringTwoPointer {
 
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
-        final String s = fr.next(), t = fr.next();
         final PrintWriter pr = new PrintWriter(new OutputStreamWriter(System.out));
         final StringBuilder output = new StringBuilder();
-        output.append(solve(s, s.length(), t, t.length()));
+        int t = fr.nextInt();
+        while(t-- > 0) 
+            output.append(solve(fr.next(), fr.next())).append("\n");
         pr.write(output.toString());
         pr.flush();
     }
 
-    public static String solve(final String s, final int n, final String t, final int m) {
-        String sub = "";
-        if (m > n || m == 0)
-            return sub;
-        int l = 0, r = 0;
-        int minLen = n + 1;
-        int map[] = new int[26], mapWindow[] = new int[26];
-        for (int i = 0; i < m; i++) {
-            map[t.charAt(i) - 'a']++;
+    public static StringBuilder solve(final String s, final String p) {
+        int n = s.length(), m = p.length();
+        int i = 0, j = 0;
+        final StringBuilder sb = new StringBuilder();
+        while(i < n) {
+            char ch = s.charAt(i);
+            if(j < m-1 && p.charAt(j) == ch && p.charAt(j+1) == ch)
+                j += 2;
+            else if(j < m && p.charAt(j) == ch)
+                j++;
+            else
+                return sb.append("No");
+            i++;
         }
-        while (r < n) {     // Run till r reaches n
-            // Exapnd from right
-            mapWindow[s.charAt(r)-'a']++;
-            // While the window is valid and l never exceeds r, check for minimum length
-            while (l <= r && isSubstring(map, mapWindow)) {
-                if (minLen > r - l + 1) {       // check for min length
-                    minLen = r - l + 1;
-                    sub = s.substring(l, r + 1);
-                }
-                // shrink from left, if this causes condition to false, we move out of the loop
-                mapWindow[s.charAt(l)-'a']--;
-                l++;
-            }
-            r++;    // update r
-        }
-        return sub;
-    }
-
-    // Main condition check logic
-    public static boolean isSubstring(final int map[], final int mapWindow[]) {
-        for(int i = 0; i < 26; i++)
-            if(mapWindow[i] < map[i])
-                return false;
-        return true;
+        if(j >= m)
+            return sb.append("Yes");
+        return sb.append("No");
     }
 }

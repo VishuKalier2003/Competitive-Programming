@@ -3,6 +3,48 @@
   "configurations": [
     {
       "type": "java",
+      "name": "BurnAgain",
+      "request": "launch",
+      "mainClass": "BurnAgain",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "BlockedRoads",
+      "request": "launch",
+      "mainClass": "BlockedRoads",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P9ShortestPathII",
+      "request": "launch",
+      "mainClass": "P9ShortestPathII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P8ShortestPathI",
+      "request": "launch",
+      "mainClass": "P8ShortestPathI",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Testfile",
+      "request": "launch",
+      "mainClass": "Testfile",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "TungTung",
+      "request": "launch",
+      "mainClass": "TungTung",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Burle",
       "request": "launch",
       "mainClass": "Burle",
