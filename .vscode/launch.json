@@ -3,6 +3,41 @@
   "configurations": [
     {
       "type": "java",
+      "name": "DivineTree",
+      "request": "launch",
+      "mainClass": "DivineTree",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "StringBattle",
+      "request": "launch",
+      "mainClass": "StringBattle",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "MakeBeautiful",
+      "request": "launch",
+      "mainClass": "MakeBeautiful",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "RemoveEnds",
+      "request": "launch",
+      "mainClass": "RemoveEnds",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Dijkstra",
+      "request": "launch",
+      "mainClass": "Dijkstra",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "BurnAgain",
       "request": "launch",
       "mainClass": "BurnAgain",
