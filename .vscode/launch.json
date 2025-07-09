@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ColorfulField",
+      "request": "launch",
+      "mainClass": "ColorfulField",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "MEX_Count",
+      "request": "launch",
+      "mainClass": "MEX_Count",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "WebOfLies",
+      "request": "launch",
+      "mainClass": "WebOfLies",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "DivineTree",
       "request": "launch",
       "mainClass": "DivineTree",
