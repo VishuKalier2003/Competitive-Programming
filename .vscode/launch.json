@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "MaximDiscounts",
+      "request": "launch",
+      "mainClass": "MaximDiscounts",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Photographer",
+      "request": "launch",
+      "mainClass": "Photographer",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "ColorfulField",
       "request": "launch",
       "mainClass": "ColorfulField",
