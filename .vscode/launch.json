@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "DIY",
+      "request": "launch",
+      "mainClass": "DIY",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ChildToy",
+      "request": "launch",
+      "mainClass": "ChildToy",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "FoxBox",
       "request": "launch",
       "mainClass": "FoxBox",
