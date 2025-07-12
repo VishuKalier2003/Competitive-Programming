@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Factorization",
+      "request": "launch",
+      "mainClass": "Factorization",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "BricksBas",
+      "request": "launch",
+      "mainClass": "BricksBas",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "DIY",
       "request": "launch",
       "mainClass": "DIY",
