@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P10HighScore",
+      "request": "launch",
+      "mainClass": "P10HighScore",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Factorization",
       "request": "launch",
       "mainClass": "Factorization",

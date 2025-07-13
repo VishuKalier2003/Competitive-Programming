@@ -116,23 +116,25 @@ public class P8ShortestPathI {
 
     public static void solve(final int n, final int m) {
         PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out));
+        // Define the comparator, to compare by weights
         PriorityQueue<Node> maxHeap = new PriorityQueue<>((a, b) -> {
             if(a.weight == b.weight)
                 return Integer.compare(a.data, b.data);
             return Long.compare(a.weight, b.weight);
         });
-        long dist[] = new long[n+1];
-        Arrays.fill(dist, Long.MAX_VALUE);
-        maxHeap.add(new Node(1, 0));
-        dist[1] = 0L;
+        long dist[] = new long[n+1];        // distance array defined
+        Arrays.fill(dist, Long.MAX_VALUE);      // fill with MAX value
+        maxHeap.add(new Node(1, 0));        // add node to heap as start node s with distance 0
+        dist[1] = 0L;       // set the distance of the start node as 0
         while(!maxHeap.isEmpty()) {
             Node node = maxHeap.poll();
             if(dist[node.data] < node.weight)
                 continue;
             for(Node neighbor : g.get(node.data)) {
+                // If current node distance + edge weight of next node is lesser than distance of neigbhor, that means we can reach the neighbor through the current node more quickly (lesser resources)
                 if(dist[node.data] + neighbor.weight < dist[neighbor.data]) {
-                    dist[neighbor.data] = dist[node.data] + neighbor.weight;
-                    maxHeap.add(new Node(neighbor.data, dist[neighbor.data]));
+                    dist[neighbor.data] = dist[node.data] + neighbor.weight;        // update neighbor
+                    maxHeap.add(new Node(neighbor.data, dist[neighbor.data]));      // add the updated data into the heap
                 }
             }
         }
