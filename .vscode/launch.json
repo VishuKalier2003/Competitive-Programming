@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P12CycleFinding",
+      "request": "launch",
+      "mainClass": "P12CycleFinding",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P13FlightRoutes",
       "request": "launch",
       "mainClass": "P13FlightRoutes",
