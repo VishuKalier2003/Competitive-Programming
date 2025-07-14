@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P13FlightRoutes",
+      "request": "launch",
+      "mainClass": "P13FlightRoutes",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P11Flights",
+      "request": "launch",
+      "mainClass": "P11Flights",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P10HighScore",
       "request": "launch",
       "mainClass": "P10HighScore",

@@ -124,8 +124,7 @@ public class P10HighScore {
         for (int j = 0; j < m; j++) {
             int u = fr.readInt(), v = fr.readInt();
             long w = fr.readLong();
-            // Invert the weights for this question, since BF finds min but we want to
-            // acheive max
+            // Invert the weights for this question, since BF finds min but we want to acheive max
             g.add(new Edge(u, v, -w));
             revG.add(new Edge(v, u, -w));
         }
@@ -169,15 +168,13 @@ public class P10HighScore {
         for (int pass = 1; pass < n; pass++) {
             boolean flag = false; // Flag to store if edge can be relaxed in ith pass
             for (Edge edge : g) {
-                // If the edge can be relaxed i.e. the weight to reach that node can be reduced
-                // further
+                // If the edge can be relaxed i.e. the weight to reach that node can be reduced further
                 if (dist[edge.v1] != INF && dist[edge.v1] + edge.w < dist[edge.v2]) {
                     dist[edge.v2] = dist[edge.v1] + edge.w;
                     flag = true; // Mark as relaxation done
                 }
             }
-            // If edge cannot be relaxed in ith pass, then it cannot be relaxed in next
-            // passes, hence skip
+            // If edge cannot be relaxed in ith pass, then it cannot be relaxed in next passes, hence skip
             if (!flag)
                 break;
         }
@@ -191,13 +188,11 @@ public class P10HighScore {
             }
         }
         /**
-         * Step 3 : Backpropagate from negCycle nodes via reverse graphs to mark nodes
-         * that can reach the negCycle
+         * Step 3 : Backpropagate from negCycle nodes via reverse graphs to mark nodes that can reach the negCycle
          */
         backPropagate(n, negCycle);
         /**
-         * Step 4 : Perform reachability checks from graph 1 as source and reverse graph
-         * n as source
+         * Step 4 : Perform reachability checks from graph 1 as source and reverse graph  n as source
          */
         boolean forward[] = new boolean[n + 1], backward[] = new boolean[n + 1];
         // Perform dfs from source s in original graph g
@@ -235,8 +230,8 @@ public class P10HighScore {
     public static void dfs(int node, List<Edge> g, boolean vis[]) {
         vis[node] = true;
         for (Edge edge : g) {
-            if (edge.v1 == node && !vis[edge.v2]) {
-                dfs(edge.v2, g, vis);
+            if (edge.v2 == node && !vis[edge.v1]) {
+                dfs(edge.v1, g, vis);
             }
         }
     }
