@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "FadiLCM",
+      "request": "launch",
+      "mainClass": "FadiLCM",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "AddingPowers",
+      "request": "launch",
+      "mainClass": "AddingPowers",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P12CycleFinding",
       "request": "launch",
       "mainClass": "P12CycleFinding",
