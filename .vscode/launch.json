@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Bridge",
+      "request": "launch",
+      "mainClass": "Bridge",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "GCDSequence",
+      "request": "launch",
+      "mainClass": "GCDSequence",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Gellyfish",
+      "request": "launch",
+      "mainClass": "Gellyfish",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "FadiLCM",
       "request": "launch",
       "mainClass": "FadiLCM",
