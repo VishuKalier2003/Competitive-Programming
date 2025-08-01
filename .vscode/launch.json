@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P14RoundTripII",
+      "request": "launch",
+      "mainClass": "P14RoundTripII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Scedhule",
+      "request": "launch",
+      "mainClass": "Scedhule",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "IceFire",
+      "request": "launch",
+      "mainClass": "IceFire",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Bridge",
       "request": "launch",
       "mainClass": "Bridge",

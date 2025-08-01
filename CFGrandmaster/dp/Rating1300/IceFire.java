@@ -1,10 +1,8 @@
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.HashSet;
-import java.util.Set;
 
-public class LuckyTicket {
+public class IceFire {
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
         private static final byte[] buffer = new byte[1 << 20];
@@ -101,8 +99,7 @@ public class LuckyTicket {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Tom-and-the-Lucky-Ticket",
-                1 << 26);
+        }, "Ice-and-Fire", 1 << 26);
         t.start();
         try {
             t.join();
@@ -114,40 +111,25 @@ public class LuckyTicket {
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
-        final int n = fr.readInt();
-        Node nodes[] = new Node[n];
-        for(int i = 0; i < n; i++)
-            nodes[i] = new Node(fr.readString(), i);
-        fw.attachOutput(solve(n, nodes));
+        int t = fr.readInt();
+        while (t-- > 0) {
+            final int n = fr.readInt();
+            final String s = fr.readString();
+            fw.attachOutput(solve(n, s));
+        }
         fw.printOutput();
     }
 
-    public static class Node {
-        private final String s;
-        private final int n;
-        @SuppressWarnings({"FieldMayBeFinal", "unused"})
-        private int index;
-        private final int[] dp;
-        
-        public Node(String s, int idx) {
-            this.index = idx;
-            this.s = s;
-            this.n = s.length();
-            this.dp = new int[this.n+1];
-            for(int i = 0; i < n; i++)
-                dp[i+1] = dp[i] + this.s.charAt(i)-'0';
-        }
-    }
-
-    public static StringBuilder solve(final int n, Node nodes[]) {
-        Set<Node> even = new HashSet<>(), odd = new HashSet<>();
-        for(Node node : nodes) {
-            if(node.n % 2 == 0)
-                even.add(node);
+    public static StringBuilder solve(final int n, final String s) {
+        int ps[] = new int[2];
+        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            ps[s.charAt(i)-'0'] = i;
+            if(s.charAt(i) == '0')
+                sb.append(ps[1]+1).append(" ");
             else
-                odd.add(node);
+                sb.append(ps[0]+1).append(" ");
         }
-        return null;
+        return sb;
     }
 }
-
