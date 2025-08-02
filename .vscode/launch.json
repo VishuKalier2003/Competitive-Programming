@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P15CourseSchedule",
+      "request": "launch",
+      "mainClass": "P15CourseSchedule",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P14RoundTripII",
       "request": "launch",
       "mainClass": "P14RoundTripII",
