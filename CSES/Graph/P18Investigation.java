@@ -106,7 +106,7 @@ public class P18Investigation {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Game-Routes",
+        }, "Investigation",
                 1 << 26);
         t.start();
         try {

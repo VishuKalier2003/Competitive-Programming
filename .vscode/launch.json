@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P21PlanetCycles",
+      "request": "launch",
+      "mainClass": "P21PlanetCycles",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P18Investigation",
       "request": "launch",
       "mainClass": "P18Investigation",
