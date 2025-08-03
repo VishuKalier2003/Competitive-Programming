@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P23RoadConstruction",
+      "request": "launch",
+      "mainClass": "P23RoadConstruction",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P22RoadReparation",
+      "request": "launch",
+      "mainClass": "P22RoadReparation",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P21PlanetCycles",
       "request": "launch",
       "mainClass": "P21PlanetCycles",
