@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P25PlanetsAndKingdoms",
+      "request": "launch",
+      "mainClass": "P25PlanetsAndKingdoms",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P24FlightRoutesCheck",
       "request": "launch",
       "mainClass": "P24FlightRoutesCheck",
