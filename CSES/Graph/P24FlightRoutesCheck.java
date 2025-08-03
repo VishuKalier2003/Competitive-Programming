@@ -2,7 +2,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class P24FlightRoutesCheck {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
@@ -103,7 +105,7 @@ public class P24FlightRoutesCheck {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Road-Construction",
+        }, "Flight-Routes-Check",
                 1 << 26);
         t.start();
         try {
@@ -120,22 +122,71 @@ public class P24FlightRoutesCheck {
         g = new ArrayList<>();
         revG = new ArrayList<>();
         final int n = fr.nextInt(), m = fr.nextInt();
-        for(int i = 0; i <= n; i++) {
+        // Info: Creating original graph and reversed graph
+        for (int i = 0; i <= n; i++) {
             g.add(new ArrayList<>());
             revG.add(new ArrayList<>());
         }
-        for(int i = 0; i < m; i++) {
+        for (int i = 0; i < m; i++) {
             int u = fr.nextInt(), v = fr.nextInt();
             g.get(u).add(v);
-            g.get(v).add(u);
+            revG.get(v).add(u);
         }
         fw.attachOutput(solve(n, m));
         fw.printOutput();
     }
 
     private static List<List<Integer>> g, revG;
+    private static boolean vis[];       // visited array to track visited nodes
+    private static Stack<Integer> stack;
+    private static List<List<Integer>> SCC;     // List of SCC components
+    private static List<Integer> component;     // List to store a single component
 
     public static StringBuilder solve(final int n, final int m) {
-        return new StringBuilder();
+        vis = new boolean[n + 1];
+        SCC = new ArrayList<>();
+        component = new ArrayList<>();
+        stack = new Stack<>();
+        // Running dfs even when the graph might be disconnected (preferred way)
+        for (int i = 1; i <= n; i++) {
+            if (!vis[i])
+                helper(i, g);       // Info: First dfs to store the nodes in post order (original graph)
+        }
+        Arrays.fill(vis, false);    // visited array reset
+        while (!stack.isEmpty()) {      // Popping the stack empty
+            while (!stack.isEmpty() && vis[stack.peek()])       // removing elements that are already visited (already in SCC)
+                stack.pop();
+            if(stack.isEmpty())     // Micro-optimisation: ending stack early
+                break;
+            int node = stack.pop();
+            findSCC(node, revG);        // Info: Second dfs to find the SCC from current node in reverse graph
+            SCC.add(new ArrayList<>());
+            // Adding the new SCC component to the list
+            SCC.get(SCC.size() - 1).addAll(component);
+            component.clear();
+        }
+        if (SCC.size() == 1)        // If entire graph is a single SCC
+            return new StringBuilder().append("YES");
+        return new StringBuilder().append("NO\n").append(SCC.get(1).get(0)).append(" ").append(SCC.get(0).get(0));
+    }
+
+    // We add nodes in post order to ensure that the popped node is node whose entire SCC is reachable in reverse graph
+    public static void helper(int node, List<List<Integer>> graph) {
+        vis[node] = true;
+        for (int neighbor : graph.get(node)) {
+            if (!vis[neighbor])
+                helper(neighbor, graph);        // Traversing unvisited paths
+        }
+        stack.push(node);       // Adding nodes in the stack in post order fashion
+    }
+
+    public static void findSCC(int node, List<List<Integer>> graph) {
+        if (vis[node])      // Info: If visited node found, backtrack
+            return;
+        vis[node] = true;
+        component.add(node);        // Adding node to the SCC
+        for (int neighbor : graph.get(node))
+            if (!vis[neighbor])
+                findSCC(neighbor, graph);       // Traversing unvsited paths
     }
 }
