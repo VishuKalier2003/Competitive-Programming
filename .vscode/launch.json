@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P26GinatPizza",
+      "request": "launch",
+      "mainClass": "P26GinatPizza",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P25PlanetsAndKingdoms",
       "request": "launch",
       "mainClass": "P25PlanetsAndKingdoms",
