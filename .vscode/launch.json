@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P33DownloadSpeed",
+      "request": "launch",
+      "mainClass": "P33DownloadSpeed",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P32Solution",
       "request": "launch",
       "mainClass": "P32Solution",
