@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P31HamiltonianFlights",
+      "request": "launch",
+      "mainClass": "P31HamiltonianFlights",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P30TeleportersPath",
+      "request": "launch",
+      "mainClass": "P30TeleportersPath",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P29DeBrujinSequence",
       "request": "launch",
       "mainClass": "P29DeBrujinSequence",
