@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P32Solution",
+      "request": "launch",
+      "mainClass": "P32Solution",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P32KnightsTour",
+      "request": "launch",
+      "mainClass": "P32KnightsTour",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P31HamiltonianFlights",
       "request": "launch",
       "mainClass": "P31HamiltonianFlights",
