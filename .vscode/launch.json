@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P28MailDelivery",
+      "request": "launch",
+      "mainClass": "P28MailDelivery",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P27CoinCollector",
+      "request": "launch",
+      "mainClass": "P27CoinCollector",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P26GinatPizza",
       "request": "launch",
       "mainClass": "P26GinatPizza",
