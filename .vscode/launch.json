@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P29DeBrujinSequence",
+      "request": "launch",
+      "mainClass": "P29DeBrujinSequence",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P28MailDelivery",
       "request": "launch",
       "mainClass": "P28MailDelivery",
