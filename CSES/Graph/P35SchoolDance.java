@@ -202,7 +202,7 @@ public class P35SchoolDance {
             return true;
         for(int girl : g.get(boy)) {
             int nextBoy = girlMatching[girl];       // Accessing the next boy
-            // Micro-optimisation: We will recurse only when the next boy is deeper than the current boy in graph levels
+            // Micro-optimisation: We will recurse only when the next boy is just deeper by +1 than the current boy in graph levels
             if(dist[nextBoy] == dist[boy] + 1) {
                 if(dfs(nextBoy)) {      // Perform path flipping - flipping all matched edges with unmatched ones
                     // Note: Maintains a bijection, boy is matched to girl and girl is matched to boy (double booking)
