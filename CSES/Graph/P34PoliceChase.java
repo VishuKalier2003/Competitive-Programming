@@ -5,9 +5,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Queue;
 
-public class P33DownloadSpeed {
+public class P34PoliceChase {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
@@ -106,7 +105,7 @@ public class P33DownloadSpeed {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Download-speed-(Dinic-Flow)",
+        }, "Police-Chase",
                 1 << 26);
         t.start();
         try {
@@ -116,107 +115,156 @@ public class P33DownloadSpeed {
         }
     }
 
+    // Micro-optimisation: defining final variables stored in cache reducing time
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
         final int n = fr.nextInt(), m = fr.nextInt();
         g = new ArrayList<>();
+        edges = new ArrayList<>();
         for(int i = 0; i <= n; i++)
             g.add(new ArrayList<>());
-        level = new int[n+1];       // Level array to store the level of each node via bfs
-        edgeIndex = new int[n+1];
+        level = new int[n+1];           // Storing the level for each node
+        edgeIndex = new int[n+1];       
         for(int i = 0; i < m; i++) {
             int u = fr.nextInt(), v = fr.nextInt();
-            long c = fr.nexLong();
-            addEdge(u, v, c);
+            addEdge(u, v, 1);       // Adding edge from u -> v
+            addEdge(v, u, 1);       // Adding edge from v -> u
+            // Info: The original edges are stored in separate list so it can be used for finding the min-cut edges
+            edges.add(new int[]{u, v});
         }
         fw.attachOutput(solve(n));
         fw.printOutput();
     }
 
     private static List<List<Edge>> g;
-    // Micro-optimisation: edgeIndex is used to extract the edge that needs to be processed instead of scanning all edges of the current node
-    private static int level[], edgeIndex[];     // Info: edgeIndex store the index of the next neighbor of the ith node to explore
+    // Micro-optimisation: Storing the edge index of the next edge which needs to be processed (edges for a node are like 0th, 1st, 2nd...)
+    private static int level[], edgeIndex[];
+    private static List<int[]> edges;
 
-    // Note: the edge class to store nextNode, the index of the reverse edge, current flow and the maximum capacity
-    private static class Edge {
-        final int nextNode, revIndex;
-        long flow, capacity;
+    private static class Edge {     // static class for the edges
+        // nextnode, reverse Index for the back edge and capacity is the max possible flow through the pipe
+        private final int nextNode, revIndex, capacity;
+        private int flow;
 
-        public Edge(int to, int rev, long cap) {
-            this.nextNode = to; this.revIndex = rev;
-            this.capacity = cap; this.flow = 0;
+        public Edge(int next, int rev, int cap) {
+            this.nextNode = next; this.revIndex = rev; this.capacity = cap; this.flow = 0;
         }
 
-        public long residual() {return capacity-flow;}      // Evaluating residual flow possible
-        public void flow(long x) {this.flow = x;}
+        public int residual() {return capacity-flow;}       // residual (left-over) flow possible
 
-        public int nextNode() {return this.nextNode;}
-        public int revIndex() {return this.revIndex;}
-        public long flow() {return this.flow;}
-        public long capacity() {return this.capacity;}
+        public void flow(int flow) {this.flow = flow;}
+
+        public int flow() {return flow;}
+        public int nextNode() {return nextNode;}
+        public int revIndex() {return revIndex;}
+        public int capacity() {return capacity;}
     }
 
     // Info: addEdge function to add forward and reverse edge
-    private static void addEdge(final int u, final int v, final long c) {
+    public static void addEdge(int u, int v, int cost) {
         // We add the edge from u to v and the index of the edge will be size of current list with flow +ve c
-        g.get(u).add(new Edge(v, g.get(v).size(), c));
+        g.get(u).add(new Edge(v, g.get(v).size(), cost));
         // We add the reverse edge from v to u and the index of the edge will be the previous one but since an edge has been added so size()-1 with flow 0
-        g.get(v).add(new Edge(u, g.get(u).size()-1, 0L));
+        g.get(v).add(new Edge(u, g.get(u).size()-1, 0));
     }
 
     public static StringBuilder solve(final int n) {
-        long flow = 0L;
+        int maxFlow = dinic(n);     // Dinic flow algorithm called
+        markReachable(1);
+        final StringBuilder output = new StringBuilder();
+        output.append(maxFlow).append("\n");
+        for(int uv[] : edges) {
+            int u = uv[0], v = uv[1];
+            boolean cut = false;
+            if(reachable[u] && !reachable[v]) {
+                for(Edge e : g.get(u)) {
+                    if(e.nextNode == v && e.capacity == e.flow) {
+                        cut = true;
+                        break;
+                    }
+                }
+            } else if(reachable[v] && !reachable[u]) {
+                for(Edge e : g.get(v)) {
+                    if(e.nextNode == u && e.capacity == e.flow) {
+                        cut = true;
+                        break;
+                    }
+                }
+            }
+            if(cut)
+                output.append(u).append(" ").append(v).append("\n");
+        }
+        return output;
+    }
+
+    // Note: Setting the edge with capacity 1, the flow of the graph gives the number of min-cut edges
+    private static int dinic(final int n) {
+        int flow = 0;
+        reachable = new boolean[n+1];
         // Using bfs to level the nodes
-        while(bfs(1, n)) {
+        while(bfs(1, n)) {  //  Ends when no further augmented paths are possible
             Arrays.fill(edgeIndex, 0);
             long pushed;
-            while((pushed = dfs(1, n, Long.MAX_VALUE)) > 0) {
+            // Finding the flow through the augmented path
+            while((pushed = dfs(1, n, Integer.MAX_VALUE)) > 0) {
                 flow += pushed;
             }
         }
-        return new StringBuilder().append(flow);
+        return flow;        // Provides the number of min-cut edges
     }
 
-    public static boolean bfs(final int source, final int sink) {
-        Arrays.fill(level, -1);     // Fill with default -1 values
-        level[source] = 0;      // source level as 0
-        Queue<Integer> q = new ArrayDeque<>();
+    private static boolean reachable[];
+
+    private static boolean bfs(final int source, final int sink) {
+        Arrays.fill(level, -1);
+        level[source] = 0;
+        ArrayDeque<Integer> q = new ArrayDeque<>();
         q.add(source);
         while(!q.isEmpty()) {
             int node = q.poll();
             for(Edge e : g.get(node)) {
                 // Levels only the nodes that are not yet visited and have flow possible are not full yet
                 if(level[e.nextNode] == -1 && e.residual() > 0) {
-                    level[e.nextNode] = level[node] + 1;        // Increment level of next node by 1
+                    level[e.nextNode] = level[node] + 1;
                     q.add(e.nextNode);
                 }
             }
         }
-        // Info: If level of sink is updated, then an augmented path is found from source to sink
-        return level[sink] >= 0;        
+        // Info: If sink does not have flow possible, it does not gets labelled, specifying no new augmented paths possible
+        return level[sink] != -1;       
     }
 
     // Note: reverse edges are used to allow algorithm to take flow back, if better route is found and for Flow Conservation Principle (flow in = flow out)
-    public static long dfs(int source, int sink, long pushed) {
+    private static long dfs(int source, int sink, int pushed) {
         // Micro-optimisation: If sink is reached or a blocking is reached (no extra flow possible from current node)
-        if(source == sink || pushed == 0L)  
+        if(source == sink || pushed == 0)
             return pushed;
         // For every edge from the current node
-        for(; edgeIndex[source] < g.get(source).size(); edgeIndex[source]++) {  // Info: Incrementing to move to the next edge
+        for(;edgeIndex[source] < g.get(source).size(); edgeIndex[source]++) {       // Info: Incrementing to move to the next edge
             // Micro-optimisation: edgeIndex is used to directly fetch the edge that needs to be processed
-            Edge edge = g.get(source).get(edgeIndex[source]);
+            Edge e = g.get(source).get(edgeIndex[source]);
             // If the next node is deeper (higher level) and there is flow possible
-            if(level[edge.nextNode] == level[source] + 1 && edge.residual() > 0) {
+            if(level[e.nextNode] == level[source] + 1 && e.residual() > 0) {
                 // Info: Run dfs again, with maintaining the min flow through the augmented path
-                long transferredFlow = dfs(edge.nextNode, sink, Math.min(pushed, edge.residual()));
+                long transferredFlow = dfs(e.nextNode, sink, Math.min(e.residual(), pushed));
                 if(transferredFlow > 0) {       // If flow can be transferred
-                    edge.flow += transferredFlow;       // Update flow by incrementing it in forward edge
-                    g.get(edge.nextNode).get(edge.revIndex).flow -= transferredFlow;    // Update flow by decrementing in reverse edge
+                    e.flow += transferredFlow;          // Update flow by incrementing it in forward edge
+                    g.get(e.nextNode).get(e.revIndex).flow -= transferredFlow;      // Update flow by decrementing it in backward edge
                     return transferredFlow;
                 }
             }
         }
-        return 0L;      // When no flow pushed return 0
+        return 0;
+    }
+
+    // Info: Called after performing the Dinic flow algorithm
+    public static void markReachable(int node) {
+        reachable[node] = true;
+        for(Edge e : g.get(node)) {
+            // Marking all nodes reachable from source node with having some residual flow (set A)
+            if(!reachable[e.nextNode] && e.residual() > 0)
+                markReachable(e.nextNode);
+        }
     }
 }
