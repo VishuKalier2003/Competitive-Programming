@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P35SchoolDance",
+      "request": "launch",
+      "mainClass": "P35SchoolDance",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P34PoliceChase",
       "request": "launch",
       "mainClass": "P34PoliceChase",
