@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CyclicComponents",
+      "request": "launch",
+      "mainClass": "CyclicComponents",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P36DistinctRoutes",
       "request": "launch",
       "mainClass": "P36DistinctRoutes",
