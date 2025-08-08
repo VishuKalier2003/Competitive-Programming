@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ClosingFarm",
+      "request": "launch",
+      "mainClass": "ClosingFarm",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Mootube",
+      "request": "launch",
+      "mainClass": "Mootube",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "CyclicComponents",
       "request": "launch",
       "mainClass": "CyclicComponents",
