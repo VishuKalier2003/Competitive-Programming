@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "MakingGenome",
+      "request": "launch",
+      "mainClass": "MakingGenome",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "EKG",
+      "request": "launch",
+      "mainClass": "EKG",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "KCompleteWord",
+      "request": "launch",
+      "mainClass": "KCompleteWord",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "ClosingFarm",
       "request": "launch",
       "mainClass": "ClosingFarm",
