@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "LostAndSurvived",
+      "request": "launch",
+      "mainClass": "LostAndSurvived",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "FriendCircle",
       "request": "launch",
       "mainClass": "FriendCircle",
