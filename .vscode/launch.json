@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "FriendCircle",
+      "request": "launch",
+      "mainClass": "FriendCircle",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Foxlings",
+      "request": "launch",
+      "mainClass": "Foxlings",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "MakingGenome",
       "request": "launch",
       "mainClass": "MakingGenome",
