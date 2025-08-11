@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TwoSet",
+      "request": "launch",
+      "mainClass": "TwoSet",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Promotion",
       "request": "launch",
       "mainClass": "Promotion",
