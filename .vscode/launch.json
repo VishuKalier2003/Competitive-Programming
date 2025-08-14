@@ -3,6 +3,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CoverIt",
+      "request": "launch",
+      "mainClass": "CoverIt",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "RoundDance",
+      "request": "launch",
+      "mainClass": "RoundDance",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "SplitIntoTwo",
+      "request": "launch",
+      "mainClass": "SplitIntoTwo",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "NewRoadQueries",
+      "request": "launch",
+      "mainClass": "NewRoadQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "TwoSet",
       "request": "launch",
       "mainClass": "TwoSet",
