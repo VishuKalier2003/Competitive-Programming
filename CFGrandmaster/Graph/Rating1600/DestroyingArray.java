@@ -1,10 +1,8 @@
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
-public class UnionFindBipartite {
+public class DestroyingArray {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
@@ -103,7 +101,7 @@ public class UnionFindBipartite {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Union-Find-Bipartite",
+        }, "https://codeforces.com/problemset/problem/722/C",
                 1 << 26);
         t.start();
         try {
@@ -117,72 +115,88 @@ public class UnionFindBipartite {
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
-        final int n = fr.nextInt(), m = fr.nextInt();
-        g = new ArrayList<>();
-        for (int i = 0; i <= n; i++)
-            g.add(new ArrayList<>());
-        List<int[]> edges = new ArrayList<>();
-        for (int i = 0; i < m; i++)
-            edges.add(new int[] { fr.nextInt(), fr.nextInt() });
-        int color[] = new int[n+1];
+        final int n = fr.nextInt();
+        int cost[] = new int[n+1], perm[] = new int[n+1];
         for(int i = 1; i <= n; i++)
-            color[i] = fr.nextInt();
-        fw.attachOutput(solve(n, m, edges, color));
+            cost[i] = fr.nextInt();
+        for(int i = 1; i <= n; i++)
+            perm[i] = fr.nextInt();
+        fw.attachOutput(solve(n, cost, perm));
         fw.printOutput();
     }
 
-    private static List<List<Integer>> g;
-
-    public static StringBuilder solve(final int n, final int m, final List<int[]> edges, int color[]) {
-        UnionFind uf = new UnionFind(n, color);     // Union find operation
-        for(int e[] : edges) {
-            if(uf.union(e[0], e[1])) {
-                System.out.println("Weak edge or duplicate edge");
-            } else
-                System.out.println("Strong edge");
+    public static StringBuilder solve(final int n, final int cost[], final int perm[]) {
+        final StringBuilder output = new StringBuilder();
+        UnionFind uf = new UnionFind(n, cost);
+        boolean active[] = new boolean[n+1];
+        long ans[] = new long[n+1];
+        // Activation of nodes is done in reverse to prevent unnecessary rollbacks
+        for(int j = n; j > 1; j--) {
+            int node = perm[j];
+            active[node] = true;        // activate nodes
+            if(node < n && node > 1) {
+                // If in middle check both left and right
+                if(active[node-1])
+                    uf.union(node, node-1);
+                if(active[node+1])
+                    uf.union(node, node+1);
+            } else if(node == n && active[node-1])      // check only left
+                uf.union(node, node-1);
+            else if(node == 1 && active[node+1])        // check only right
+                uf.union(node, node+1);
+            ans[j] = uf.getMax(node);       // storing result in answer
         }
-        return new StringBuilder();
+        for(int j = 2; j <= n; j++)
+            output.append(ans[j]).append("\n");
+        return output.append("0");
     }
 
-    private static class UnionFind {
-        private final int[] parent, rank, parity;
-        private final int size;
+    public static class UnionFind {
+        private final int[] parent, rank;
+        private final long[] sum;       // Sum metadata to store the sum of component
+        private final int sz;
+        private long maxSum;        // max sum among all components
 
-        public UnionFind(int n, int color[]) {      // Parametrized constructor
-            this.size = n + 1;
-            this.parent = new int[size];
-            this.parity = new int[size];
-            this.rank = new int[size];
-            for (int i = 1; i <= n; i++) {
+        public UnionFind(int n, int cost[]) {
+            this.sz = n+1;
+            this.parent = new int[sz];
+            this.rank = new int[sz];
+            this.sum = new long[sz];
+            // initialize each component (single node) with its own sum
+            for(int i = 1; i < sz; i++) {
                 parent[i] = i;
+                sum[i] = cost[i];       
                 rank[i] = 1;
-                parity[i] = color[i];
             }
+            this.maxSum = 0;
         }
 
-        public int find(int x) {    // find with path compression
-            if (parent[x] != x)
+        public int find(int x) {        // path compression
+            if(parent[x] != x)
                 parent[x] = find(parent[x]);
             return parent[x];
         }
 
-        // Note: can use this logic to connect k color nodes, by checking parity of (1 << k) - 1, meaning k bits 1
-        public boolean union(int x, int y) {
+        // finding the maxSum as the max of single component and the maxSum parameter
+        public long getMax(int idx) {
+            maxSum = Math.max(maxSum, sum[idx]);
+            return maxSum;
+        } 
+
+        public void union(int x, int y) {
             int rootX = find(x), rootY = find(y);
-            // The parity ensures that the connected nodes are of different color
-            if (rootX != rootY && ((parity[rootX] ^ parity[rootY]) == 1)) {
-                // Union by rank technique
+            if(rootX != rootY) {        // Union by size technique
                 if(rank[rootX] < rank[rootY]) {
                     parent[rootX] = rootY;
-                } else if(rank[rootX] > rank[rootY]) {
-                    parent[rootY] = rootX;
+                    rank[rootY] += rank[rootX];     // union by component size (smaller merged into larger)
+                    sum[rootY] += sum[rootX];       // sum of the component values
                 } else {
-                    parent[rootX] = rootY;
-                    rank[rootY]++;
+                    parent[rootY] = rootX;
+                    rank[rootX] += rank[rootY];     // union by component size (smaller merged into larger)
+                    sum[rootX] += sum[rootY];       // sum of the component values
                 }
-                return true;    // When strong edge
+                maxSum = Math.max(maxSum, Math.max(sum[rootX], sum[rootY]));
             }
-            return false;   // When weak edge
         }
     }
 }

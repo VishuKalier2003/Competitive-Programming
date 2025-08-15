@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "XOUR",
+      "request": "launch",
+      "mainClass": "XOUR",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "DestroyingArray",
+      "request": "launch",
+      "mainClass": "DestroyingArray",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "CoverIt",
       "request": "launch",
       "mainClass": "CoverIt",

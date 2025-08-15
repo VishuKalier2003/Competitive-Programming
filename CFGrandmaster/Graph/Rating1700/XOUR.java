@@ -2,9 +2,13 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 
-public class UnionFindBipartite {
+public class XOUR {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
@@ -103,7 +107,7 @@ public class UnionFindBipartite {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Union-Find-Bipartite",
+        }, "https://codeforces.com/problemset/problem/1971/G",
                 1 << 26);
         t.start();
         try {
@@ -117,72 +121,47 @@ public class UnionFindBipartite {
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
-        final int n = fr.nextInt(), m = fr.nextInt();
-        g = new ArrayList<>();
-        for (int i = 0; i <= n; i++)
-            g.add(new ArrayList<>());
-        List<int[]> edges = new ArrayList<>();
-        for (int i = 0; i < m; i++)
-            edges.add(new int[] { fr.nextInt(), fr.nextInt() });
-        int color[] = new int[n+1];
-        for(int i = 1; i <= n; i++)
-            color[i] = fr.nextInt();
-        fw.attachOutput(solve(n, m, edges, color));
+        int t = fr.nextInt();
+        while(t-- > 0) {
+            final int n = fr.nextInt();
+            int nums[] = new int[n];
+            for(int i = 0; i < n; i++)
+                nums[i] = fr.nextInt();
+            fw.attachOutput(solve(n, nums));
+        }
         fw.printOutput();
     }
 
-    private static List<List<Integer>> g;
-
-    public static StringBuilder solve(final int n, final int m, final List<int[]> edges, int color[]) {
-        UnionFind uf = new UnionFind(n, color);     // Union find operation
-        for(int e[] : edges) {
-            if(uf.union(e[0], e[1])) {
-                System.out.println("Weak edge or duplicate edge");
-            } else
-                System.out.println("Strong edge");
+    public static StringBuilder solve(final int n, final int nums[]) {
+        Map<Integer, PriorityQueue<int[]>> sortedMap = new HashMap<>();
+        for(int i = 0; i < n; i++) {
+            int num = nums[i] & ~3;
+            if(!sortedMap.containsKey(num))
+                sortedMap.put(num, new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0])));
+            sortedMap.get(num).add(new int[]{nums[i], i});
         }
-        return new StringBuilder();
-    }
-
-    private static class UnionFind {
-        private final int[] parent, rank, parity;
-        private final int size;
-
-        public UnionFind(int n, int color[]) {      // Parametrized constructor
-            this.size = n + 1;
-            this.parent = new int[size];
-            this.parity = new int[size];
-            this.rank = new int[size];
-            for (int i = 1; i <= n; i++) {
-                parent[i] = i;
-                rank[i] = 1;
-                parity[i] = color[i];
+        final StringBuilder output = new StringBuilder();
+        int ans[] = new int[n];
+        for(PriorityQueue<int[]> heap : sortedMap.values()) {
+            // Note: Unique technique to sort by nums and swap in O(n log n)
+            List<Integer> indexes = new ArrayList<>(), numbers = new ArrayList<>();
+            // nums would arrive in sorted order because of the heap
+            while(!heap.isEmpty()) {
+                // Insert indexes and numbers in separate lists
+                int x[] = heap.poll();
+                indexes.add(x[1]);
+                numbers.add(x[0]);
             }
+            int sz = indexes.size();
+            // Sort indexes and that would lead to placing smallest element in specified indexes
+            Collections.sort(indexes);
+            for(int i = 0; i < sz; i++)
+                // map indexes (sorted) with the values into an array
+                ans[indexes.get(i)] = numbers.get(i);
         }
-
-        public int find(int x) {    // find with path compression
-            if (parent[x] != x)
-                parent[x] = find(parent[x]);
-            return parent[x];
-        }
-
-        // Note: can use this logic to connect k color nodes, by checking parity of (1 << k) - 1, meaning k bits 1
-        public boolean union(int x, int y) {
-            int rootX = find(x), rootY = find(y);
-            // The parity ensures that the connected nodes are of different color
-            if (rootX != rootY && ((parity[rootX] ^ parity[rootY]) == 1)) {
-                // Union by rank technique
-                if(rank[rootX] < rank[rootY]) {
-                    parent[rootX] = rootY;
-                } else if(rank[rootX] > rank[rootY]) {
-                    parent[rootY] = rootX;
-                } else {
-                    parent[rootX] = rootY;
-                    rank[rootY]++;
-                }
-                return true;    // When strong edge
-            }
-            return false;   // When weak edge
-        }
+        for(int i = 0; i < n; i++)
+            output.append(ans[i]).append(" ");
+        output.append("\n");
+        return output;
     }
 }
