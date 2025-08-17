@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "BorisHaircut",
+      "request": "launch",
+      "mainClass": "BorisHaircut",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "MadCity",
+      "request": "launch",
+      "mainClass": "MadCity",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CowSnacks",
+      "request": "launch",
+      "mainClass": "CowSnacks",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "XOUR",
       "request": "launch",
       "mainClass": "XOUR",
