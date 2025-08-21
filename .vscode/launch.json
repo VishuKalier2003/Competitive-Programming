@@ -3,6 +3,41 @@
   "configurations": [
     {
       "type": "java",
+      "name": "LoveRescue",
+      "request": "launch",
+      "mainClass": "LoveRescue",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "SocialNetwork",
+      "request": "launch",
+      "mainClass": "SocialNetwork",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "PathQueries",
+      "request": "launch",
+      "mainClass": "PathQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Penchick",
+      "request": "launch",
+      "mainClass": "Penchick",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "RatingSystem",
+      "request": "launch",
+      "mainClass": "RatingSystem",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "BorisHaircut",
       "request": "launch",
       "mainClass": "BorisHaircut",
