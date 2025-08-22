@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "AsyaKittens",
+      "request": "launch",
+      "mainClass": "AsyaKittens",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "LakesInBerland",
+      "request": "launch",
+      "mainClass": "LakesInBerland",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "LoveRescue",
       "request": "launch",
       "mainClass": "LoveRescue",
