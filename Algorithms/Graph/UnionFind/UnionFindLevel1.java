@@ -4,7 +4,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UnionFindBipartite {
+// Bipartite graph
+public class UnionFindLevel1 {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
@@ -124,8 +125,8 @@ public class UnionFindBipartite {
         List<int[]> edges = new ArrayList<>();
         for (int i = 0; i < m; i++)
             edges.add(new int[] { fr.nextInt(), fr.nextInt() });
-        int color[] = new int[n+1];
-        for(int i = 1; i <= n; i++)
+        int color[] = new int[n + 1];
+        for (int i = 1; i <= n; i++)
             color[i] = fr.nextInt();
         fw.attachOutput(solve(n, m, edges, color));
         fw.printOutput();
@@ -134,9 +135,9 @@ public class UnionFindBipartite {
     private static List<List<Integer>> g;
 
     public static StringBuilder solve(final int n, final int m, final List<int[]> edges, int color[]) {
-        UnionFind uf = new UnionFind(n, color);     // Union find operation
-        for(int e[] : edges) {
-            if(uf.union(e[0], e[1])) {
+        UnionFind uf = new UnionFind(n, color); // Union find operation
+        for (int e[] : edges) {
+            if (uf.union(e[0], e[1])) {
                 System.out.println("Weak edge or duplicate edge");
             } else
                 System.out.println("Strong edge");
@@ -148,7 +149,7 @@ public class UnionFindBipartite {
         private final int[] parent, rank, parity;
         private final int size;
 
-        public UnionFind(int n, int color[]) {      // Parametrized constructor
+        public UnionFind(int n, int color[]) { // Parametrized constructor
             this.size = n + 1;
             this.parent = new int[size];
             this.parity = new int[size];
@@ -160,29 +161,30 @@ public class UnionFindBipartite {
             }
         }
 
-        public int find(int x) {    // find with path compression
+        public int find(int x) { // find with path compression
             if (parent[x] != x)
                 parent[x] = find(parent[x]);
             return parent[x];
         }
 
-        // Note: can use this logic to connect k color nodes, by checking parity of (1 << k) - 1, meaning k bits 1
+        // Note: can use this logic to connect k color nodes, by checking parity of (1
+        // << k) - 1, meaning k bits 1
         public boolean union(int x, int y) {
             int rootX = find(x), rootY = find(y);
             // The parity ensures that the connected nodes are of different color
             if (rootX != rootY && ((parity[rootX] ^ parity[rootY]) == 1)) {
                 // Union by rank technique
-                if(rank[rootX] < rank[rootY]) {
+                if (rank[rootX] < rank[rootY]) {
                     parent[rootX] = rootY;
-                } else if(rank[rootX] > rank[rootY]) {
+                } else if (rank[rootX] > rank[rootY]) {
                     parent[rootY] = rootX;
                 } else {
                     parent[rootX] = rootY;
                     rank[rootY]++;
                 }
-                return true;    // When strong edge
+                return true; // When strong edge
             }
-            return false;   // When weak edge
+            return false; // When weak edge
         }
     }
 }

@@ -3,7 +3,7 @@ import java.util.*;
 
 // Imp - T.C. : O(n), S.C. : O(n)
 
-public class UnionFind {
+public class UnionFindLevel0 {
     // Imp - Creates the Disjoint Set Union (DSU) of the graph to find Connected
     // Components
     public static class FastReader { // Fast Reader class to read inputs quickly (4x faster than Scanner)

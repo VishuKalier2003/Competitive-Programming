@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Test$A",
+      "request": "launch",
+      "mainClass": "Test$A",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "UnionFindLevel2",
+      "request": "launch",
+      "mainClass": "UnionFindLevel2",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "MaximiseComponent",
+      "request": "launch",
+      "mainClass": "MaximiseComponent",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "AsyaKittens",
       "request": "launch",
       "mainClass": "AsyaKittens",
