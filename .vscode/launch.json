@@ -3,6 +3,97 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ValeraQueries",
+      "request": "launch",
+      "mainClass": "ValeraQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Test",
+      "request": "launch",
+      "mainClass": "Test",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "BerserkMonster",
+      "request": "launch",
+      "mainClass": "BerserkMonster",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "QueriesPermutation",
+      "request": "launch",
+      "mainClass": "QueriesPermutation",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CountSmaller",
+      "request": "launch",
+      "mainClass": "CountSmaller",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "SolveMaze",
+      "request": "launch",
+      "mainClass": "SolveMaze",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "NewsDistribution",
+      "request": "launch",
+      "mainClass": "NewsDistribution",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ReplaceNumbers",
+      "request": "launch",
+      "mainClass": "ReplaceNumbers",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "RoadsInBerland",
+      "request": "launch",
+      "mainClass": "RoadsInBerland",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "TestClass",
+      "request": "launch",
+      "mainClass": "TestClass",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P11VisibleBuilding",
+      "request": "launch",
+      "mainClass": "P11VisibleBuilding",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P10PizzeriaQueries",
+      "request": "launch",
+      "mainClass": "P10PizzeriaQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P9ListRemovals",
+      "request": "launch",
+      "mainClass": "P9ListRemovals",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Test$A",
       "request": "launch",
       "mainClass": "Test$A",

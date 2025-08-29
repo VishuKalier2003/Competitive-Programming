@@ -121,8 +121,6 @@ public class UnionFindLevel2 {
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
-        final String s = fr.nextLine();
-        System.out.println(s);
         final int n = fr.nextInt(), m = fr.nextInt();
         List<int[]> edges = new ArrayList<>();
         for(int i = 0; i < m; i++)
