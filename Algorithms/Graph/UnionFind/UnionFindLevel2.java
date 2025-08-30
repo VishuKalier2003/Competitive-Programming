@@ -129,6 +129,7 @@ public class UnionFindLevel2 {
         fw.printOutput();
     }
 
+    // Note: Segment Tree Variant + Rollback Union Find
     public static StringBuilder solve(final int n, final int m, final List<int[]> edges) {
         Map<String, Integer> edgeMap = new HashMap<>();
         // Info: edgeList stores all the unique type 1 queries

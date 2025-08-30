@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Checkposts",
+      "request": "launch",
+      "mainClass": "Checkposts",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "ValidBFS",
+      "request": "launch",
+      "mainClass": "ValidBFS",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Murder",
+      "request": "launch",
+      "mainClass": "Murder",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "TupliNum",
       "request": "launch",
       "mainClass": "TupliNum",
