@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 // Fenwick Tree (Binary Indexed Tree) implementation in Java
 public class FenwickTree {
-    private int[] tree;
-    private int size;
+    private final int[] tree;
+    private final int size;
 
     // Constructor to initialize the tree with a given size
     public FenwickTree(int n) {

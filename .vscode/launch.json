@@ -3,6 +3,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TupliNum",
+      "request": "launch",
+      "mainClass": "TupliNum",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "BeeHive",
+      "request": "launch",
+      "mainClass": "BeeHive",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Garland",
+      "request": "launch",
+      "mainClass": "Garland",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P19ForestQueriesII",
+      "request": "launch",
+      "mainClass": "P19ForestQueriesII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "ValeraQueries",
       "request": "launch",
       "mainClass": "ValeraQueries",
