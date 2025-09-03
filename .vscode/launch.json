@@ -3,6 +3,62 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P3AreaOfPolygon",
+      "request": "launch",
+      "mainClass": "P3AreaOfPolygon",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P2LineSegment",
+      "request": "launch",
+      "mainClass": "P2LineSegment",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P1PointLocationTest",
+      "request": "launch",
+      "mainClass": "P1PointLocationTest",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P1MeetInTheMiddle",
+      "request": "launch",
+      "mainClass": "P1MeetInTheMiddle",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "NatsyaPotions",
+      "request": "launch",
+      "mainClass": "NatsyaPotions",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "SecretPasswords",
+      "request": "launch",
+      "mainClass": "SecretPasswords",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "A",
+      "request": "launch",
+      "mainClass": "A",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "B",
+      "request": "launch",
+      "mainClass": "B",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "Checkposts",
       "request": "launch",
       "mainClass": "Checkposts",
