@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P5LatticePoints",
+      "request": "launch",
+      "mainClass": "P5LatticePoints",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P4PointInPolygon",
+      "request": "launch",
+      "mainClass": "P4PointInPolygon",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P3AreaOfPolygon",
       "request": "launch",
       "mainClass": "P3AreaOfPolygon",

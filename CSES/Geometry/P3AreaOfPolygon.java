@@ -43,7 +43,7 @@ public class P3AreaOfPolygon {
     public static void main(String[] args) {
         Thread t = new Thread(null, () -> {
             try { callMain(args); } catch (IOException e) { e.getLocalizedMessage(); }
-        }, "Area-Of-Polygon", 1 << 26);
+        }, "Area-Of-Polygon-(https://cses.fi/problemset/task/2191)", 1 << 26);
         t.start();
         try { t.join(); } catch (InterruptedException ignored) {}
     }
