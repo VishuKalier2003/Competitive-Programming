@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P7ConvexHull",
+      "request": "launch",
+      "mainClass": "P7ConvexHull",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P6EuclideanDistance",
+      "request": "launch",
+      "mainClass": "P6EuclideanDistance",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P5LatticePoints",
       "request": "launch",
       "mainClass": "P5LatticePoints",
