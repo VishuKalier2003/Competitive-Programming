@@ -3,6 +3,41 @@
   "configurations": [
     {
       "type": "java",
+      "name": "WeirdSum",
+      "request": "launch",
+      "mainClass": "WeirdSum",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "Watchmen",
+      "request": "launch",
+      "mainClass": "Watchmen",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "NPHard",
+      "request": "launch",
+      "mainClass": "NPHard",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "AmrPins",
+      "request": "launch",
+      "mainClass": "AmrPins",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "CapitalTreeland",
+      "request": "launch",
+      "mainClass": "CapitalTreeland",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "LinkCutCentroids",
       "request": "launch",
       "mainClass": "LinkCutCentroids",
