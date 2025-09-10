@@ -3,6 +3,41 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P2StringMatching",
+      "request": "launch",
+      "mainClass": "P2StringMatching",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P4CourseSchedule",
+      "request": "launch",
+      "mainClass": "P4CourseSchedule",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P2HammingDistance",
+      "request": "launch",
+      "mainClass": "P2HammingDistance",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P1NearestShop",
+      "request": "launch",
+      "mainClass": "P1NearestShop",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "IgorMuseum",
+      "request": "launch",
+      "mainClass": "IgorMuseum",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "WeirdSum",
       "request": "launch",
       "mainClass": "WeirdSum",
