@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P4Periods",
+      "request": "launch",
+      "mainClass": "P4Periods",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P3Borders",
+      "request": "launch",
+      "mainClass": "P3Borders",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P2StringMatching",
       "request": "launch",
       "mainClass": "P2StringMatching",
