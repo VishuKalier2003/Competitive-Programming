@@ -1,10 +1,8 @@
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
-public class P4Periods {
+public class P5MinimalString {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
@@ -105,7 +103,7 @@ public class P4Periods {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Periods-(https://cses.fi/problemset/task/1733/)", 1 << 26);
+        }, "Minimal-String-(https://cses.fi/problemset/task/1110/)", 1 << 26);
         t.start();
         try {
             t.join();
@@ -118,45 +116,44 @@ public class P4Periods {
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
-        final String s = fr.next();
-        solve(s, s.length());
+        solve(fr.next());
         fw.attachOutput(output);
         fw.printOutput();
     }
 
     private static final StringBuilder output = new StringBuilder();
 
-    public static void solve(final String s, final int n) {
-        int lps[] = lps(s, n);
-        List<Integer> border = new ArrayList<>();
-        int k = lps[n-1];       // The prefix suffix stored at n-1 index
-        while(k > 0) {
-            border.add(k);      // adding that as the border
-            k = lps[k-1];       // moving to the smaller border as the valid prefix suffix
-        }
-        // Note: If b is border (prefix-suffix), then keeping and duplication string s-b will contain the substring s always
-        for(int b : border)
-            output.append(n-b).append(" ");     // periods are n-b
-        output.append(n);
+    public static void solve(String s) {
+        int n = s.length();
+        s += s;
+        int lastIndex = duval(s);
+        output.append(s.substring(lastIndex, lastIndex + n));
     }
 
-    private static int[] lps(final String s, final int n) {
-        final int lps[] = new int[n];
-        int i = 1, j = 0;
-        while(i < n) {
-            if(s.charAt(i) == s.charAt(j)) {
-                j++;
-                lps[i] = j;
-                i++;
-            } else {
-                if(j != 0)
-                    j = lps[j-1];
-                else {
-                    lps[i] = 0;
-                    i++;
-                }
+    private static int duval(String s) {
+        int n = s.length(), lastIndex = 0;
+        int realN = n / 2;
+        int i = 0;
+        while (i < n) {
+            int j = i, k = i + 1;
+            // Only extend till the substring i..k is lexicographically smallest
+            while (k < n && s.charAt(j) <= s.charAt(k)) {
+                // Info: If a strictly smaller character found, then i..k is still good, reset j
+                // back to i
+                if (s.charAt(j) < s.charAt(k))
+                    j = i;
+                else // Info: This checks periodic structure, if equal move j forward
+                    j++; // Otherwise push j forward
+                k++; // Push k forward
+            }
+            // Note: Each lyndon factor has length k-j, can be repeating factors
+            while (i <= j) {
+                // For cyclic we work on only the last value of i (start) that is lesser than n
+                if (i < realN)
+                    lastIndex = i;
+                i += k - j; // update i to skip past the current lyndon factor
             }
         }
-        return lps;
+        return lastIndex;
     }
 }

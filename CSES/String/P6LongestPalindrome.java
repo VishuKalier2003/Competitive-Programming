@@ -1,10 +1,9 @@
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-public class P4Periods {
+public class P6LongestPalindrome {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
@@ -105,7 +104,7 @@ public class P4Periods {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Periods-(https://cses.fi/problemset/task/1733/)", 1 << 26);
+        }, "Longest-Palindrome-(https://cses.fi/problemset/task/1110/)", 1 << 26);
         t.start();
         try {
             t.join();
@@ -118,45 +117,50 @@ public class P4Periods {
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
-        final String s = fr.next();
-        solve(s, s.length());
+        solve(fr.next());
         fw.attachOutput(output);
         fw.printOutput();
     }
 
     private static final StringBuilder output = new StringBuilder();
 
-    public static void solve(final String s, final int n) {
-        int lps[] = lps(s, n);
-        List<Integer> border = new ArrayList<>();
-        int k = lps[n-1];       // The prefix suffix stored at n-1 index
-        while(k > 0) {
-            border.add(k);      // adding that as the border
-            k = lps[k-1];       // moving to the smaller border as the valid prefix suffix
-        }
-        // Note: If b is border (prefix-suffix), then keeping and duplication string s-b will contain the substring s always
-        for(int b : border)
-            output.append(n-b).append(" ");     // periods are n-b
-        output.append(n);
-    }
-
-    private static int[] lps(final String s, final int n) {
-        final int lps[] = new int[n];
-        int i = 1, j = 0;
-        while(i < n) {
-            if(s.charAt(i) == s.charAt(j)) {
-                j++;
-                lps[i] = j;
-                i++;
-            } else {
-                if(j != 0)
-                    j = lps[j-1];
-                else {
-                    lps[i] = 0;
-                    i++;
-                }
+    public static void solve(final String s) {
+        int p[] = manacher(s, s.length());
+        System.out.println(Arrays.toString(p));
+        int max = 0, center = 0;
+        for(int i = 0; i < p.length; i++) {
+            if(p[i] > max) {
+                max = p[i];
+                center = i;
             }
         }
-        return lps;
+        int start = (center - max + 1) / 2;
+        int len = max - 1;
+        output.append(s.substring(start, start+len));
+    }
+
+    public static int[] manacher(String s, int len) {
+        final int p[] = new int[2 * len + 1];       // p array
+        char seq[] = new char[2 * len + 1];
+        Arrays.fill(seq, '#');
+        for (int i = 1, j = 0; j < len; i += 2, j++)
+            seq[i] = s.charAt(j);
+        int n = p.length;
+        int center = 0;     // index of rightmost palindrome center found so far
+        int right = 0;      // right boundary (exclusive)
+        for (int i = 0; i < n; i++) {
+            int mirror = 2 * center - i;        // Info: mirror pointer (symmetric position of i around center)
+            if (i < right)  // If within bounding box, radius clipping
+                p[i] = Math.min(right - i, p[mirror]);
+            // expand around i until bounds
+            while (i+1+p[i] < n && i-1-p[i] >= 0 && seq[i+1+p[i]] == seq[i-1-p[i]])
+                p[i]++;
+            // If bounding box is crossed
+            if (i + p[i] > right) {     // Info: update bounding box range
+                center = i;
+                right = i + p[i];
+            }
+        }
+        return p;
     }
 }
