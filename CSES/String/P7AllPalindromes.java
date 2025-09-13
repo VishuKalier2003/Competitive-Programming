@@ -104,7 +104,7 @@ public class P7AllPalindromes {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "All-Palindromes-(https://cses.fi/problemset/task/1110/)", 1 << 26);
+        }, "All-Palindromes-(https://cses.fi/problemset/task/3138)", 1 << 26);
         t.start();
         try {
             t.join();
@@ -157,10 +157,12 @@ public class P7AllPalindromes {
         int right = 0;      // right boundary (exclusive)
         for (int i = 0; i < n; i++) {
             int mirror = 2 * center - i;        // Info: mirror pointer (symmetric position of i around center)
-            if (i < right)  // If within bounding box, radius clipping
-                p[i] = Math.min(right - i, p[mirror]);
+            if (i < right) { // p[mirror] states the radius of symmetric mirror centered at mirror
+                int boundary = right - i;   // The max palindrome that we can take without hittng the boundary
+                p[i] = Math.min(boundary, p[mirror]);
+            }
             // expand around i until bounds
-            while (i+1+p[i] < n && i-1-p[i] >= 0 && seq[i+1+p[i]] == seq[i-1-p[i]])
+            while (i+p[i]+1 < n && i-p[i]-1 >= 0 && seq[i+p[i]+1] == seq[i-p[i]-1])
                 p[i]++;
             // If bounding box is crossed
             if (i + p[i] > right) {     // Info: update bounding box range
