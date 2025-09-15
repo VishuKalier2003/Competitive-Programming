@@ -2,7 +2,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-public class P16SubarraySumII {
+// Note: Skeleton Fenwick Tree
+public class SegmentTreeLevel0 {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
@@ -103,7 +104,7 @@ public class P16SubarraySumII {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Subarray-Sum-Queries-II-(https://cses.fi/problemset/task/3226)", 1 << 26);
+        }, "Skeleton-Segment-Tree", 1 << 26);
         t.start();
         try {
             t.join();
@@ -116,91 +117,86 @@ public class P16SubarraySumII {
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
-        final int n = fr.nextInt(), m = fr.nextInt();
-        long nums[] = new long[n];
-        for (int i = 0; i < n; i++)
+        final int n = fr.nextInt(), q = fr.nextInt();
+        long nums[] = new long[n + 1];
+        // segment tree so we keep array as 1 based indexing
+        for (int i = 1; i <= n; i++)
             nums[i] = fr.nextLong();
-        int queries[][] = new int[m][2];
-        for (int i = 0; i < m; i++) {
+        int queries[][] = new int[q][3];
+        // The queries are 1 based and inclusive [l, r]
+        for (int i = 0; i < q; i++) {
             queries[i][0] = fr.nextInt();
             queries[i][1] = fr.nextInt();
+            queries[i][2] = fr.nextInt();
         }
-        solve(n, nums, m, queries);
+        solve(n, nums, q, queries);
         fw.attachOutput(output);
         fw.printOutput();
     }
 
     private static final StringBuilder output = new StringBuilder();
 
-    public static void solve(final int n, final long nums[], final int q, final int[][] queries) {
+    public static void solve(final int n, final long nums[], final int q, final int queries[][]) {
         SegmentTree sgTree = new SegmentTree(nums);
-        for(int qry[] : queries)
-            // Info: Since segment tree is open-interval and hence right range is exclusive (+1 to range)
-            output.append(sgTree.maxSubarrayQuery(qry[0], qry[1]+1)).append("\n");
+        for(int qry[] : queries) {
+            if(qry[0] == 1)
+                sgTree.update(qry[1], qry[2]);
+            else
+                output.append(sgTree.rangeSum(qry[1], qry[2]+1)).append(" ");
+        }
     }
 
     public static class SegmentTree {
-        private final long[] sum, prefix, suffix, maxSum;
+        private final long sum[];
         private final int n;
 
         public SegmentTree(long nums[]) {
-            this.n = nums.length;
+            this.n = nums.length-1;
             this.sum = new long[n << 2];
-            this.prefix = new long[n << 2];
-            this.suffix = new long[n << 2];
-            this.maxSum = new long[n << 2];
-            build(1, 1, n+1, nums);     // build call
+            build(1, 1, n+1, nums);
         }
 
-        private void build(int root, int l, int r, final long nums[]) {
-            if(r-l == 1) {      // leaf node case
-                sum[root] = nums[l-1];
-                prefix[root] = suffix[root] = maxSum[root] = Math.max(0l, nums[l-1]);
+        private void build(int root, int l, int r, long nums[]) {
+            if(r-l == 1) {
+                sum[root] = nums[l];
                 return;
             }
             int mid = (l+r) >>> 1;
             build(root << 1, l, mid, nums);
             build(root << 1 | 1, mid, r, nums);
-            // Post order building
             sum[root] = sum[root << 1] + sum[root << 1 | 1];
-            prefix[root] = Math.max(prefix[root << 1], prefix[root << 1 | 1] + sum[root << 1]);
-            suffix[root] = Math.max(suffix[root << 1 | 1], sum[root << 1 | 1] + suffix[root << 1]);
-            maxSum[root] = Math.max(Math.max(maxSum[root << 1], maxSum[root << 1 | 1]), suffix[root << 1] + prefix[root << 1 | 1]);
         }
 
-        public long maxSubarrayQuery(int ql, int qr) {
-            return maxSubarray(1, 1, n+1, ql, qr).maxSum;
+        public void update(int idx, long value) {
+            queryUpdate(1, 1, n+1, idx, value);
         }
 
-        // MaxSubarray logic, the result is passed as Node state
-        public Node maxSubarray(int root, int l, int r, int ql, int qr) {
-            if(ql >= r || qr <= l)
-                return new Node();
-            if(ql <= l && qr >= r)
-                return new Node(sum[root], prefix[root], suffix[root], maxSum[root]);
+        public void queryUpdate(int root, int l, int r, int qIdx, long value) {
+            if(r-l == 1) {
+                sum[root] += value;
+                return;
+            }
             int mid = (l+r) >>> 1;
-            Node left = maxSubarray(root << 1, l, mid, ql, qr), right = maxSubarray(root << 1 | 1, mid, r, ql, qr);
-            long s = left.sum + right.sum;
-            long pre = Math.max(left.prefix, left.sum + right.prefix);
-            long suf = Math.max(right.suffix, right.sum + left.suffix);
-            long ms = Math.max(Math.max(left.maxSum, right.maxSum), left.suffix + right.prefix);
-            return new Node(s, pre, suf, ms);
-        }
-    }
-
-    public static class Node {
-        private final long sum, prefix, suffix, maxSum;
-
-        public Node() {     // Note: base case matters, keep it thorough
-            this.sum = 0L;
-            this.prefix = this.suffix = this.maxSum = 0L;
+            if(qIdx < mid)
+                queryUpdate(root << 1, l, mid, qIdx, value);
+            else
+                queryUpdate(root << 1 | 1, mid, r, qIdx, value);
+            sum[root] = sum[root << 1] + sum[root << 1 | 1];
         }
 
-        public Node(long s, long pre, long suf, long ms) {
-            this.sum = s;
-            this.prefix = pre;
-            this.suffix = suf;
-            this.maxSum = ms;
+        public long rangeSum(int l, int r) {
+            return queryRangeSum(1, 1, n+1, l, r);
+        }
+
+        public long queryRangeSum(int root, int l, int r, int ql, int qr) {
+            if(ql >= r || qr <= l)
+                return 0L;
+            if(ql <= l && qr >= r)
+                return sum[root];
+            int mid = (l+r) >>> 1;
+            long left = queryRangeSum(root << 1, l, mid, ql, qr);
+            long right = queryRangeSum(root << 1 | 1, mid, r, ql, qr);
+            return left + right;
         }
     }
 }

@@ -3,6 +3,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P3DynamicRangeSumQueries",
+      "request": "launch",
+      "mainClass": "P3DynamicRangeSumQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "FenwickTreeLevel0",
+      "request": "launch",
+      "mainClass": "FenwickTreeLevel0",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P18DistinctValueQueriesII",
+      "request": "launch",
+      "mainClass": "P18DistinctValueQueriesII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P17DistinctValueQueries",
+      "request": "launch",
+      "mainClass": "P17DistinctValueQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P16SubarraySumII",
       "request": "launch",
       "mainClass": "P16SubarraySumII",

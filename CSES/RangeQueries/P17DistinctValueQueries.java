@@ -1,8 +1,11 @@
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-public class OrderStatistics {
+public class P17DistinctValueQueries {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
@@ -103,7 +106,7 @@ public class OrderStatistics {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Order-Statistics-https://leetcode.com/problems/queries-on-a-permutation-with-key/", 1 << 26);
+        }, "Distinct-Values-Queries-(https://cses.fi/problemset/task/1734)", 1 << 26);
         t.start();
         try {
             t.join();
@@ -116,67 +119,69 @@ public class OrderStatistics {
     public static void callMain(String args[]) throws IOException {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
-        final int n = fr.nextInt();
+        final int n = fr.nextInt(), m = fr.nextInt();
         int nums[] = new int[n];
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
             nums[i] = fr.nextInt();
-        fw.attachOutput(solve(n, n, nums));
+        int queries[][] = new int[m][3];
+        for (int i = 0; i < m; i++) {
+            queries[i][0] = fr.nextInt();
+            queries[i][1] = fr.nextInt();
+            queries[i][2] = i;
+        }
+        solve(n, nums, m, queries);
+        fw.attachOutput(output);
         fw.printOutput();
     }
 
-    public static StringBuilder solve(final int n, final int q, final int nums[]) {
-        // Note: Fenwick tree of size nums length + queries length (Order statistics format)
-        int N = q + n;
-        /**
-         * Info: Order statistics technique
-        The tree will be of size N, query updates the prefix so when we push or reorder, we will do -1 for prefix range(1, old)
-        and +1 for prefix range (1, new) and push the query pointer to left at each query
-        */
-        Fenwick fenwick = new Fenwick(N);
-        int pos[] = new int[n+1];   // The pos array will store the pos of values hence has to be of size n
-        for(int i = 1; i <= n; i++) {       // Info: the indexing has to be kept 1 based indexing
-            pos[i] = q + i;     // updating the index for start
-            fenwick.pointUpdate(pos[i], +1);
+    private static final StringBuilder output = new StringBuilder();
+
+    public static void solve(final int n, final int nums[], final int q, final int queries[][]) {
+        Arrays.sort(queries, (a,b) -> Integer.compare(a[1], b[1]));
+        Fenwick fenwick = new Fenwick(n);
+        Map<Integer, Integer> lastMap = new HashMap<>();
+        int res[] = new int[q];
+        for(int i = 1, j = 0; i <= n; i++) {
+            int num = nums[i-1];
+            if(lastMap.containsKey(num))
+                fenwick.queryUpdate(lastMap.get(num), -1);
+            fenwick.queryUpdate(i, +1);
+            lastMap.put(num, i);
+            while(j < q && queries[j][1] <= i) {
+                int l = queries[j][0], r = queries[j][1], idx = queries[j][2];
+                res[idx] = fenwick.queryRange(l, r);
+                j++;
+            }
         }
-        int queryFront = q;     // Info: the query variable which will move left after each query
-        final int ans[] = new int[q];
-        for(int i = 0; i < q; i++) {
-            int query = nums[i];
-            // store the answer since I want to check the indices before (excluding current element)
-            ans[i] = fenwick.pointQuery(pos[query])-1;
-            fenwick.pointUpdate(pos[query], -1);        // decrementing the prefix range [1, old]
-            pos[query] = queryFront--;
-            fenwick.pointUpdate(pos[query], +1);        // incrementing the prefix range [1, new]
-        }
-        final StringBuilder output = new StringBuilder();
-        for(int a : ans)
-            output.append(a).append(" ");
-        return output;
+        for(int r : res)
+            output.append(r).append("\n");
     }
 
+    // Note: Fenwick Tree, always needs to be initialized in solve() with starting values
     public static class Fenwick {
-        private final int bit[];
+        private final int tree[];       // begins with default 0 values
         private final int n;
 
         public Fenwick(int size) {
-            this.n = size;
-            this.bit = new int[n+1];
+            // Info: Never set n to size+1, can give index error when query is passed to the last element
+            this.n = size;      // n always equals to the size
+            this.tree = new int[n+1];       // tree size is always n+1
         }
 
-        public void pointUpdate(int index, int delta) {     // point updates
-            while(index <= n) {
-                bit[index] += delta;
-                index += (index & -index);
-            }
+        public void queryUpdate(int index, int value) {
+            for(int i = index; i <= n; i += i & -i)
+                tree[i] += value;
         }
 
-        public int pointQuery(int index) {      // point queries
-            int sum = 0;
-            while(index > 0) {
-                sum += bit[index];
-                index -= (index & -index);
-            }
-            return sum;
+        public int queryPoint(int index) {
+            int count = 0;
+            for(int i = index; i > 0; i -= i & -i)
+                count += tree[i];
+            return count;
+        }
+
+        public int queryRange(int l, int r) {
+            return queryPoint(r) - queryPoint(l-1);
         }
     }
 }
