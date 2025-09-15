@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P4DynamicRangeMinQueries",
+      "request": "launch",
+      "mainClass": "P4DynamicRangeMinQueries",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P3DynamicRangeSumQueries",
       "request": "launch",
       "mainClass": "P3DynamicRangeSumQueries",

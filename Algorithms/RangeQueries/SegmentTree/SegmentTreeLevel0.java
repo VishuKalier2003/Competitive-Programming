@@ -142,52 +142,106 @@ public class SegmentTreeLevel0 {
             if(qry[0] == 1)
                 sgTree.update(qry[1], qry[2]);
             else
+                // The segment tree is open-interval [l,r) hence right range is increased by 1, since queries are inclusive [l,r]
                 output.append(sgTree.rangeSum(qry[1], qry[2]+1)).append(" ");
         }
     }
 
+    // Segment Tree data structure of 1 based indexing and open-interval [l, r)
     public static class SegmentTree {
-        private final long sum[];
+        // The control always starts at root which is index 1
+        private final long sum[];       // sum array for storing sum of respective segments
         private final int n;
 
         public SegmentTree(long nums[]) {
+            // length of the n marked as length-1, since array is 1 indexed
             this.n = nums.length-1;
             this.sum = new long[n << 2];
-            build(1, 1, n+1, nums);
+            // build function called with entire range [1, n+1), the range of input array
+            build(1, 1, n+1, nums);     // root starts at 1 and hence segment tree is also 1 based indexing
         }
 
+        /**
+         * <p><b>Time Complexity</b> - O(n log n)</p>
+         * @param root the node indexed 1 as the root node, marking the entire array as the range
+         * @param l the left end of the range
+         * @param r the right end of the range
+         * @param nums the array storing the values to be passed down to the leaf
+         * <p>the build function builds the segment tree by breaking the range [l, r) into [l, mid) as left range and [mid, r) as right range and then performing the computation in post order fashion since the computation needs to be done from leaf to root</p>
+         * @return no return type
+         */
         private void build(int root, int l, int r, long nums[]) {
-            if(r-l == 1) {
-                sum[root] = nums[l];
+            if(r-l == 1) {      // leaf node base case
+                sum[root] = nums[l];        // 1 based indexing
                 return;
             }
             int mid = (l+r) >>> 1;
+            // left segment recursion
             build(root << 1, l, mid, nums);
+            // right segment recursion
             build(root << 1 | 1, mid, r, nums);
+            // post order summation since the sum is passed from leaves to root
             sum[root] = sum[root << 1] + sum[root << 1 | 1];
         }
 
+        /**
+         * <p><b>Time Complexity </b> - O(log n)</p>
+         * @param idx index where the value is to be updated
+         * @param value the updated value
+         * helper function for the solve() method, where it takes only the necessary input and all the required constant parameters are passed by itself to the actual update function of the segment tree
+         * @return no return type
+         */
         public void update(int idx, long value) {
+            // passed with root, left range and exclusive right range
             queryUpdate(1, 1, n+1, idx, value);
         }
 
+        /**
+         * <p><b>Time Complexity</b> - O(log n)</p>
+         * @param root the node indexed 1 as the root node, marking the entire array as the range
+         * @param l the left end of the range
+         * @param r the right end of the range
+         * @param qIdx index where the value needs to be updated
+         * @param value the updated value 
+         * <p>finds the leaf node via qIdx recursively that needs to be updated, then adds the new value, and finally performs the computation via post order since the computation needs to be done from leaf to root</p>
+         * @return no return type
+         */
         public void queryUpdate(int root, int l, int r, int qIdx, long value) {
-            if(r-l == 1) {
+            if(r-l == 1) {      // leaf node base case
                 sum[root] += value;
                 return;
             }
             int mid = (l+r) >>> 1;
+            // The qIdx if less than mid, lies in left range [l, mid)
             if(qIdx < mid)
                 queryUpdate(root << 1, l, mid, qIdx, value);
-            else
+            else        // Otherwise in right half [mid, r)
                 queryUpdate(root << 1 | 1, mid, r, qIdx, value);
+            // post order summation since the sum is passed from leaves to root
             sum[root] = sum[root << 1] + sum[root << 1 | 1];
         }
 
+        /**
+         * <p><b>Time Complexity </b> - O(log n)</p>
+         * @param l the left boundary of the range
+         * @param r the right boundary of the range
+         * helper function for the solve() method, where it takes only the necessary input and all the required constant parameters are passed by itself to the actual sum function of the segment tree
+         * @return no return type
+         */
         public long rangeSum(int l, int r) {
             return queryRangeSum(1, 1, n+1, l, r);
         }
 
+        /**
+         * <p><b>Time Complexity</b> - O(log n)</p>
+         * @param root the node indexed 1 as the root node, marking the entire array as the range
+         * @param l the left end of the range
+         * @param r the right end of the range
+         * @param ql the constant left boundary of the query
+         * @param qr the constant right boundary of the query 
+         * <p>checks conditions of no overlap and full overlap as the base cases, then recursively reduces the range until the base case is reached, performing computation in post order from leaf to root</p>
+         * @return the sum of range [l,r)
+         */
         public long queryRangeSum(int root, int l, int r, int ql, int qr) {
             if(ql >= r || qr <= l)
                 return 0L;
