@@ -1,8 +1,10 @@
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class P11VisibleBuilding {
+public class P12PizzeriaQueries {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
@@ -103,7 +105,7 @@ public class P11VisibleBuilding {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "https://cses.fi/problemset/task/3304", 1 << 26);
+        }, "Pizzeria-Queries-(https://cses.fi/problemset/task/2206)", 1 << 26);
         t.start();
         try {
             t.join();
@@ -117,83 +119,97 @@ public class P11VisibleBuilding {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
         final int n = fr.nextInt(), q = fr.nextInt();
-        int nums[] = new int[n];
+        long nums[] = new long[n];
         for (int i = 0; i < n; i++)
             nums[i] = fr.nextInt();
-        int queries[][] = new int[q][2];
-        for (int j = 0; j < q; j++) {
-            queries[j][0] = fr.nextInt();
-            queries[j][1] = fr.nextInt();
+        List<int[]> queries = new ArrayList<>();
+        for (int i = 0; i < q; i++) {
+            int type = fr.nextInt();
+            if (type == 1)
+                queries.add(new int[] { type, fr.nextInt(), fr.nextInt() });
+            else
+                queries.add(new int[] { type, fr.nextInt() });
         }
         fw.attachOutput(solve(n, q, nums, queries));
         fw.printOutput();
     }
 
-    public static StringBuilder solve(final int n, final int q, final int nums[], final int queries[][]) {
-        SegmentTree segTree = new SegmentTree(nums);
+    public static StringBuilder solve(final int n, final int q, final long nums[], final List<int[]> queries) {
+        long[] pA = new long[n], pB = new long[n];
+        // Note: Linearization trick to break modulus
+        for (int i = 0; i < n; i++) {
+            pA[i] = nums[i] - i;
+            pB[i] = nums[i] + i;
+        }
+        // Creating two segment trees one for p[i] - i, and other for p[i] + i
+        SegmentTree segTreeI = new SegmentTree(pA), segTreeII = new SegmentTree(pB);
         final StringBuilder output = new StringBuilder();
-        for (int query[] : queries) {
-            final int l = query[0]-1, r = query[1]-1;
-            int count = 0, currMax = Integer.MIN_VALUE;
-            int pos = l;
-            while(pos <= r) {
-                int idx = segTree.nextGreater(1, 0, n, pos, r+1, currMax);
-                if(idx == -1)
-                    break;
-                count++;
-                currMax = nums[idx];
-                pos = idx+1;
+        for (int[] query : queries) {
+            if (query[0] == 1) {
+                int k = query[1], x = query[2];
+                k--; // Our segment tree is 0 based so reduce k by 1
+                // Info: Analogous updates (value +- index) technique
+                segTreeI.pointUpdate(1, 0, n, k, x - k + 0l);
+                segTreeII.pointUpdate(1, 0, n, k, x + k + 0l);
+            } else {
+                int x = query[1];
+                x--;
+                // Range queries and we add and subtract the b value (here x)
+                long left = segTreeI.rangeQuery(1, 0, n, 0, x + 1) + x;
+                long right = segTreeII.rangeQuery(1, 0, n, x, n) - x;
+                long min = Math.min(left, right);
+                output.append(min).append("\n");
             }
-            output.append(count).append("\n");
         }
         return output;
     }
 
+    // Note: The segment tree is hybrid (iterative + recursive) build, open interval
+    // and 1-based indexing
     public static class SegmentTree {
-        private final int tree[];
+        private final long[] tree;
         private final int size;
 
-        public SegmentTree(int nums[]) {
+        public SegmentTree(long nums[]) {
             this.size = nums.length;
-            this.tree = new int[this.size << 2];
-            build(1, 0, size, nums);
+            this.tree = new long[this.size << 2]; // size 4 x n
+            build(1, 0, size, nums); // recursive building
         }
 
-        public final void build(int node, int l, int r, int nums[]) {
+        public final void build(int node, int l, int r, long nums[]) {
             if (r - l == 1) {
-                tree[node] = nums[l];
+                tree[node] = nums[l]; // fill the lead nodes
                 return;
             }
             int mid = (l + r) >>> 1;
             build(node << 1, l, mid, nums);
             build(node << 1 | 1, mid, r, nums);
-            tree[node] = Math.max(tree[node << 1], tree[node << 1 | 1]);
+            // post orderly generate the min tree
+            tree[node] = Math.min(tree[node << 1], tree[node << 1 | 1]);
         }
 
-        public int rangeQuery(int node, int l, int r, int ql, int qr) {
-            if (ql >= r || qr <= l)
-                return Integer.MIN_VALUE;
-            if (ql <= l && qr >= r)
+        public void pointUpdate(int node, int l, int r, int qIndex, long value) {
+            if (r - l == 1) { // When leaf node reached, update the value
+                tree[node] = value;
+                return;
+            }
+            int mid = (l + r) >>> 1;
+            if (qIndex < mid) // If query is smaller than mid, move left, else move right
+                pointUpdate(node << 1, l, mid, qIndex, value);
+            else
+                pointUpdate(node << 1 | 1, mid, r, qIndex, value);
+            // When going back, update the minimums
+            tree[node] = Math.min(tree[node << 1], tree[node << 1 | 1]);
+        }
+
+        public long rangeQuery(int node, int l, int r, int ql, int qr) {
+            if (l >= qr || r <= ql) // no overlap
+                return Long.MAX_VALUE;
+            if (ql <= l && r <= qr) // complete overlap
                 return tree[node];
             int mid = (l + r) >>> 1;
-            return Math.max(rangeQuery(node << 1, l, mid, ql, qr), rangeQuery(node << 1 | 1, mid, r, ql, qr));
-        }
-
-        // Info: neat technique to return the index of next greater element
-        public int nextGreater(int node, int l, int r, int ql, int qr, int value) {
-            if(ql >= r || qr <= l)
-                return -1;
-            if(ql <= l && qr >= r) {
-                if(tree[node] <= value)
-                    return -1;
-                if(r-l == 1)
-                    return l;
-            }
-            int mid = (l+r) >>> 1;
-            int left = nextGreater(node << 1, l, mid, ql, qr, value);
-            if(left != -1)
-                return left;
-            return nextGreater(node << 1 | 1, mid, r, ql, qr, value);
+            // partial overlap
+            return Math.min(rangeQuery(node << 1, l, mid, ql, qr), rangeQuery(node << 1 | 1, mid, r, ql, qr));
         }
     }
 }

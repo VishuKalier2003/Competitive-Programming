@@ -3,6 +3,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "P16SubarraySumII",
+      "request": "launch",
+      "mainClass": "P16SubarraySumII",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P15SSubarraySum",
+      "request": "launch",
+      "mainClass": "P15SSubarraySum",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P10OptimisedFindingPatterns",
+      "request": "launch",
+      "mainClass": "P10OptimisedFindingPatterns",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "P10FindingPatterns",
+      "request": "launch",
+      "mainClass": "P10FindingPatterns",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P5MinimalString",
       "request": "launch",
       "mainClass": "P5MinimalString",

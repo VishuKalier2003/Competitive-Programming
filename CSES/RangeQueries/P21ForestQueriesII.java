@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class P10PizzeriaQueries {
+public class P21ForestQueriesII {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
         // Creates a 1MB buffer such that 1MB of data is stored
@@ -105,7 +105,7 @@ public class P10PizzeriaQueries {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "https://cses.fi/problemset/task/2206", 1 << 26);
+        }, "https://cses.fi/problemset/task/1739/", 1 << 26);
         t.start();
         try {
             t.join();
@@ -119,96 +119,72 @@ public class P10PizzeriaQueries {
         FastReader fr = new FastReader();
         FastWriter fw = new FastWriter();
         final int n = fr.nextInt(), q = fr.nextInt();
-        long nums[] = new long[n];
-        for (int i = 0; i < n; i++)
-            nums[i] = fr.nextInt();
+        FenwickTree fenwick = new FenwickTree(n, n);
+        int[][] grid = new int[n + 1][n + 1];
+        for (int i = 1; i <= n; i++) {
+            String s = fr.next();
+            for (int j = 1; j <= n; j++) {
+                grid[i][j] = s.charAt(j - 1) == '*' ? 1 : 0;
+                if (grid[i][j] == 1)
+                    fenwick.pointUpdate(i, j, 1);
+            }
+        }
         List<int[]> queries = new ArrayList<>();
         for (int i = 0; i < q; i++) {
-            int type = fr.nextInt();
+            final int type = fr.nextInt();
             if (type == 1)
                 queries.add(new int[] { type, fr.nextInt(), fr.nextInt() });
             else
-                queries.add(new int[] { type, fr.nextInt() });
+                queries.add(new int[] { type, fr.nextInt(), fr.nextInt(), fr.nextInt(), fr.nextInt() });
         }
-        fw.attachOutput(solve(n, q, nums, queries));
+        fw.attachOutput(solve(grid, fenwick, queries));
         fw.printOutput();
     }
 
-    public static StringBuilder solve(final int n, final int q, final long nums[], final List<int[]> queries) {
-        long[] pA = new long[n], pB = new long[n];
-        // Note: Linearization trick to break modulus
-        for (int i = 0; i < n; i++) {
-            pA[i] = nums[i] - i;
-            pB[i] = nums[i] + i;
-        }
-        // Creating two segment trees one for p[i] - i, and other for p[i] + i
-        SegmentTree segTreeI = new SegmentTree(pA), segTreeII = new SegmentTree(pB);
+    private static StringBuilder solve(final int[][] grid, final FenwickTree fenwick, final List<int[]> queries) {
         final StringBuilder output = new StringBuilder();
-        for (int[] query : queries) {
-            if (query[0] == 1) {
-                int k = query[1], x = query[2];
-                k--;    // Our segment tree is 0 based so reduce k by 1
-                // Info: Analogous updates (value +- index) technique
-                segTreeI.pointUpdate(1, 0, n, k, x-k+0l);
-                segTreeII.pointUpdate(1, 0, n, k, x+k+0l);
-            } else {
-                int x = query[1];
-                x--;
-                // Range queries and we add and subtract the b value (here x)
-                long left = segTreeI.rangeQuery(1, 0, n, 0, x+1) + x;
-                long right = segTreeII.rangeQuery(1, 0, n, x, n) - x;
-                long min = Math.min(left, right);
-                output.append(min).append("\n");
-            }
+        for (int q[] : queries) {
+            if (q[0] == 1) {
+                final int x = q[1], y = q[2];
+                if (grid[x][y] == 1) {
+                    fenwick.pointUpdate(x, y, -1);
+                    grid[x][y] = 0;
+                } else {
+                    fenwick.pointUpdate(x, y, 1);
+                    grid[x][y] = 1;
+                }
+            } else
+                output.append(fenwick.coordinateQuery(q[1], q[2], q[3], q[4])).append("\n");
         }
         return output;
     }
 
-    // Note: The segment tree is hybrid (iterative + recursive) build, open interval and 0-based indexing
-    public static class SegmentTree {
-        private final long[] tree;
-        private final int size;
+    private static class FenwickTree {
+        private final int tree[][];
+        private final int n, m;
 
-        public SegmentTree(long nums[]) {
-            this.size = nums.length;
-            this.tree = new long[this.size << 2];       // size 4 x n
-            build(1, 0, size, nums);        // recursive building
+        public FenwickTree(int a, int b) {
+            this.n = a;
+            this.m = b;
+            this.tree = new int[n + 1][m + 1];
         }
 
-        public final void build(int node, int l, int r, long nums[]) {
-            if(r-l == 1) {
-                tree[node] = nums[l];       // fill the lead nodes
-                return;
-            }
-            int mid = (l+r) >>> 1;
-            build(node << 1, l, mid, nums);
-            build(node << 1 | 1, mid, r, nums);
-            // post orderly generate the min tree
-            tree[node] = Math.min(tree[node << 1], tree[node << 1 | 1]);
+        public void pointUpdate(int x, int y, int delta) {
+            for (int i = x; i <= n; i += i & -i)
+                for (int j = y; j <= n; j += j & -j)
+                    tree[i][j] += delta;
         }
 
-        public void pointUpdate(int node, int l, int r, int qIndex, long value) {
-            if (r - l == 1) {       // When leaf node reached, update the value
-                tree[node] = value;
-                return;
-            }
-            int mid = (l + r) >>> 1;
-            if (qIndex < mid)   // If query is smaller than mid, move left, else move right
-                pointUpdate(node << 1, l, mid, qIndex, value);
-            else 
-                pointUpdate(node << 1 | 1, mid, r, qIndex, value);
-            // When going back, update the minimums
-            tree[node] = Math.min(tree[node << 1], tree[node << 1 | 1]);
+        public int pointQuery(int x, int y) {
+            int sum = 0;
+            for (int i = x; i > 0; i -= i & -i)
+                for (int j = y; j > 0; j -= j & -j)
+                    sum += tree[i][j];
+            return sum;
         }
 
-        public long rangeQuery(int node, int l, int r, int ql, int qr) {
-            if (l >= qr || r <= ql)     // no overlap
-                return Long.MAX_VALUE;
-            if (ql <= l && r <= qr)     // complete overlap
-                return tree[node];
-            int mid = (l + r) >>> 1;
-            // partial overlap
-            return Math.min(rangeQuery(node << 1, l, mid, ql, qr), rangeQuery(node << 1 | 1, mid, r, ql, qr));
+        public int coordinateQuery(int x1, int y1, int x2, int y2) {
+            return pointQuery(x2, y2) - pointQuery(x2, y1 - 1) - pointQuery(x1 - 1, y2) + pointQuery(x1 - 1, y1 - 1);
         }
     }
 }
