@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-// Note: Skeleton Fenwick Tree
+// Note: Skeleton Segment Tree
 public class SegmentTreeLevel0 {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
@@ -243,9 +243,9 @@ public class SegmentTreeLevel0 {
          * @return the sum of range [l,r)
          */
         public long queryRangeSum(int root, int l, int r, int ql, int qr) {
-            if(ql >= r || qr <= l)
+            if(ql >= r || qr <= l)      // no overlap
                 return 0L;
-            if(ql <= l && qr >= r)
+            if(ql <= l && qr >= r)      // partial overlap
                 return sum[root];
             int mid = (l+r) >>> 1;
             long left = queryRangeSum(root << 1, l, mid, ql, qr);

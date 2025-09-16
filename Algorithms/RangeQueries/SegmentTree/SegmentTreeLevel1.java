@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-// Note: Skeleton Fenwick Tree
+// Note: Segment Tree with Lazy Propagation
 public class SegmentTreeLevel1 {
     // Micro-optimisation: FastReader defined for fast input reading via byte buffer
     public static class FastReader {
@@ -106,7 +106,7 @@ public class SegmentTreeLevel1 {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Skeleton-Segment-Tree", 1 << 26);
+        }, "Lazy-Segment-Tree", 1 << 26);
         t.start();
         try {
             t.join();
@@ -156,8 +156,12 @@ public class SegmentTreeLevel1 {
         }
     }
 
+    // Segment Tree data structure of 1 based indexing and open-interval [l, r)
     public static class SegmentTree {
-        private final long[] sum, lazy;
+        // The control always starts at root which is index 1
+        private final long[] sum;     // sum array and lazy array to store the updates that need to be pushed downwards
+        // lazy ensures that the propagation only happens when actually needed not necessarily filling all the nodes with updates making the segment tree slower
+        private final long[] lazy;  // lazy is propagated only when the sum queries are called
         private final int n;
 
         public SegmentTree(long nums[]) {
@@ -165,80 +169,160 @@ public class SegmentTreeLevel1 {
             this.n = nums.length-1;
             this.sum = new long[n << 2];
             this.lazy = new long[n << 2];
-            build(1, 1, n+1, nums);
+            // build function called with entire range [1, n+1), the range of input array
+            build(1, 1, n+1, nums);     // root starts at 1 and hence segment tree is also 1 based indexing
         }
 
+        /**
+         * <p><b>Time Complexity</b> - O(n log n)</p>
+         * @param root the node indexed 1 as the root node, marking the entire array as the range
+         * @param l the left end of the range
+         * @param r the right end of the range
+         * @param nums the array storing the values to be passed down to the leaf
+         * <p>the build function builds the segment tree by breaking the range [l, r) into [l, mid) as left range and [mid, r) as right range and then performing the computation in post order fashion since the computation needs to be done from leaf to root</p>
+         * @return no return type
+         */
         private void build(int root, int l, int r, long nums[]) {
-            if(r-l == 1) {
-                sum[root] = nums[l];
+            if(r-l == 1) {      // leaf node base case
+                sum[root] = nums[l];        // 1 based indexing
                 return;
             }
             int mid = (l+r) >>> 1;
+            // left segment recursion
             build(root << 1, l, mid, nums);
+            // right segment recursion
             build(root << 1 | 1, mid, r, nums);
+            // post order summation since the sum is passed from leaves to root
             sum[root] = sum[root << 1] + sum[root << 1 | 1];
         }
 
+        /**
+         * <p><b>Time Complexity </b> - O(log n)</p>
+         * @param idx index where the value is to be updated
+         * @param value the updated value
+         * helper function for the solve() method, where it takes only the necessary input and all the required constant parameters are passed by itself to the actual update function of the segment tree
+         * @return no return type
+         */
         public void update(int idx, long value) {
+            // passed with root, left range and exclusive right range
             queryUpdate(1, 1, n+1, idx, value);
         }
 
+        /**
+         * <p><b>Time Complexity</b> - O(log n)</p>
+         * @param root the node indexed 1 as the root node, marking the entire array as the range
+         * @param l the left end of the range
+         * @param r the right end of the range
+         * @param qIdx index where the value needs to be updated
+         * @param value the updated value 
+         * <p>finds the leaf node via qIdx recursively that needs to be updated, then adds the new value, and finally performs the computation via post order since the computation needs to be done from leaf to root</p>
+         * @return no return type
+         */
         public void queryUpdate(int root, int l, int r, int qIdx, long value) {
-            if(r-l == 1) {
+            if(r-l == 1) {      // leaf node base case
                 sum[root] += value;
                 return;
             }
             int mid = (l+r) >>> 1;
+            // The qIdx if less than mid, lies in left range [l, mid)
             if(qIdx < mid)
                 queryUpdate(root << 1, l, mid, qIdx, value);
             else
                 queryUpdate(root << 1 | 1, mid, r, qIdx, value);
+            // post order summation since the sum is passed from leaves to root
             sum[root] = sum[root << 1] + sum[root << 1 | 1];
         }
 
+        /**
+         * <p><b> Time Complexity </b> - O(log n)<p>
+         * @param l the left boundary of the range
+         * @param r the right boundary of the range
+         * @param value the update value
+         */
         public void rangeUpdate(int l, int r, long value) {
+            // root as 1, and left and right range of root as [1, n+1)
             queryRangeUpdate(1, 1, n+1, l, r, value);
         }
 
         public void queryRangeUpdate(int root, int l, int r, int ql, int qr, long value) {
-            if(ql >= r || qr <= l)
+            if(ql >= r || qr <= l)      // no overlap
                 return;
-            if(ql <= l && qr >= r) {
-                apply(root, l, r, value);
+            if(ql <= l && qr >= r) {    // partial overlap
+                apply(root, l, r, value);       // update the sum and the lazy
                 return;
             }
             int mid = (l+r) >>> 1;
+            // left subtree recursion
             queryRangeUpdate(root << 1, l, mid, ql, qr, value);
+            // right subtree recursion
             queryRangeUpdate(root << 1 | 1, mid, r, ql, qr, value);
         }
 
+        /**
+         * <p><b>Time Complexity </b> - O(log n)</p>
+         * @param l the left boundary of the range
+         * @param r the right boundary of the range
+         * helper function for the solve() method, where it takes only the necessary input and all the required constant parameters are passed by itself to the actual sum function of the segment tree
+         * @return no return type
+         */
         public long rangeSum(int l, int r) {
             return queryRangeSum(1, 1, n+1, l, r);
         }
 
+        /**
+         * <p><b>Time Complexity</b> - O(log n)</p>
+         * @param root the node indexed 1 as the root node, marking the entire array as the range
+         * @param l the left end of the range
+         * @param r the right end of the range
+         * @param ql the constant left boundary of the query
+         * @param qr the constant right boundary of the query 
+         * <p>checks conditions of no overlap and full overlap as the base cases, then recursively reduces the range until the base case is reached, performing computation in post order from leaf to root</p>
+         * @return the sum of range [l,r)
+         */
         public long queryRangeSum(int root, int l, int r, int ql, int qr) {
-            if(ql >= r || qr <= l)
+            if(ql >= r || qr <= l)      // no overlap
                 return 0L;
-            propagate(root, l, r);
+            // for every node we pass the lazy to its children, since the current node needs to be computed with the lazy attribute
+            propagate(root, l, r);  // lazy will become 0 for this node and the attribute will be passed to its children
             if(ql <= l && qr >= r) 
                 return sum[root];
             int mid = (l+r) >>> 1;
+            // left subtree
             long left = queryRangeSum(root << 1, l, mid, ql, qr);
+            // right subtree
             long right = queryRangeSum(root << 1 | 1, mid, r, ql, qr);
-            return left + right;
+            return left + right;    // post order summation
         }
 
+        /**
+         * <p><b> Time Complexity - </b> O(1) </p>
+         * @param root  the current node
+         * @param l the left range of current node
+         * @param r the right range of the current node
+         */
         private void propagate(int root, int l, int r) {
+            // If lazy needs to be propagated to its children
             if(lazy[root] != 0) {
                 int mid = (l+r) >>> 1;
+                // propagate to left child
                 apply(root << 1, l, mid, lazy[root]);
+                // propagate to right child
                 apply(root << 1 | 1, mid, r, lazy[root]);
-                lazy[root] = 0;
+                lazy[root] = 0;     // mark the lazy as propagated by setting it to 0
             }
         }
 
+        /**
+         * <p><b> Time Complexity - </b> O(1) </p>
+         * @param root  the current segment tree node
+         * @param l the left range of the current node
+         * @param r the right range of the current node
+         * @param value the value to be incremented through this range
+         */
         private void apply(int root, int l, int r, long value) {
+            // sum stores the cumulative sum of its range, since the range is [l,r) the sum is cumulatively increased by value and added
             sum[root] += (r-l) * value;
+            // update the lazy attribute
             lazy[root] += value;
         }
     }
