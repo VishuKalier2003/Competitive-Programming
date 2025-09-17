@@ -106,7 +106,7 @@ public class SegmentTreeLevel2 {
             } catch (IOException e) {
                 e.getLocalizedMessage();
             }
-        }, "Lazy-Segment-Tree", 1 << 26);
+        }, "Segment-Tree-(Merge-sort)", 1 << 26);
         t.start();
         try {
             t.join();
