@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "AntColony",
+      "request": "launch",
+      "mainClass": "AntColony",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "GSS3",
+      "request": "launch",
+      "mainClass": "GSS3",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
+      "name": "KQuery",
+      "request": "launch",
+      "mainClass": "KQuery",
+      "projectName": "CompetitveProgramming_948e06a8"
+    },
+    {
+      "type": "java",
       "name": "P4DynamicRangeMinQueries",
       "request": "launch",
       "mainClass": "P4DynamicRangeMinQueries",
